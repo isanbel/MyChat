@@ -36,11 +36,11 @@ class ChatTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        
+        navigationController?.navigationBar.backgroundColor = .white
+        navigationController?.navigationBar.isTranslucent = false
+        
+        // TODO: add plus button
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
