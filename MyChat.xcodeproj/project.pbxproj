@@ -15,6 +15,7 @@
 		C2B11B062044F73E00726A86 /* ChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B11B052044F73E00726A86 /* ChatTableViewCell.swift */; };
 		C2B11B0A2045005400726A86 /* ChatTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B11B092045005400726A86 /* ChatTableViewController.swift */; };
 		C2B11B0C20451A1200726A86 /* ChatOutline.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B11B0B20451A1200726A86 /* ChatOutline.swift */; };
+		C2B11B0E20453BB300726A86 /* ChatPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B11B0D20453BB300726A86 /* ChatPageViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		C2B11B052044F73E00726A86 /* ChatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTableViewCell.swift; sourceTree = "<group>"; };
 		C2B11B092045005400726A86 /* ChatTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTableViewController.swift; sourceTree = "<group>"; };
 		C2B11B0B20451A1200726A86 /* ChatOutline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatOutline.swift; sourceTree = "<group>"; };
+		C2B11B0D20453BB300726A86 /* ChatPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatPageViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +110,7 @@
 			isa = PBXGroup;
 			children = (
 				C2B11B092045005400726A86 /* ChatTableViewController.swift */,
+				C2B11B0D20453BB300726A86 /* ChatPageViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -194,6 +197,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C2B11B062044F73E00726A86 /* ChatTableViewCell.swift in Sources */,
+				C2B11B0E20453BB300726A86 /* ChatPageViewController.swift in Sources */,
 				C26444682024B0DE004E86C5 /* AppDelegate.swift in Sources */,
 				C2B11B042044F4EA00726A86 /* User.swift in Sources */,
 				C2B11B0A2045005400726A86 /* ChatTableViewController.swift in Sources */,

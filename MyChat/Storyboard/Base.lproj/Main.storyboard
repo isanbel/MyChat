@@ -86,7 +86,7 @@
                                     <outlet property="dateLabel" destination="BeU-zU-BuR" id="Ead-mk-jmk"/>
                                     <outlet property="nameLabel" destination="oE7-J7-jW4" id="1nG-dP-A5p"/>
                                     <outlet property="thumbnailImageView" destination="n8m-1m-i16" id="WI1-gD-b0S"/>
-                                    <segue destination="N4k-Tg-JOS" kind="show" id="dg8-bk-EQE"/>
+                                    <segue destination="N4k-Tg-JOS" kind="show" identifier="showChatPage" id="dg8-bk-EQE"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -119,10 +119,10 @@
             </objects>
             <point key="canvasLocation" x="32" y="31.484257871064472"/>
         </scene>
-        <!--View Controller-->
+        <!--Chat Page View Controller-->
         <scene sceneID="FvU-gq-ojI">
             <objects>
-                <viewController id="N4k-Tg-JOS" sceneMemberID="viewController">
+                <viewController id="N4k-Tg-JOS" customClass="ChatPageViewController" customModule="MyChat" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="LWX-1F-3DN">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -140,6 +140,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="sFd-xb-i36"/>
                     </view>
+                    <connections>
+                        <outlet property="friendAvatarView" destination="uCO-AD-4dr" id="y7Y-qX-xiC"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M4V-KS-tte" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
