@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="wU4-wb-0CM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="0hN-hT-dKh">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Chat Table View Controller-->
+        <!--MyChat-->
         <scene sceneID="cUc-Ml-k6n">
             <objects>
                 <tableViewController id="wU4-wb-0CM" customClass="ChatTableViewController" customModule="MyChat" customModuleProvider="target" sceneMemberID="viewController">
@@ -85,6 +86,7 @@
                                     <outlet property="dateLabel" destination="BeU-zU-BuR" id="Ead-mk-jmk"/>
                                     <outlet property="nameLabel" destination="oE7-J7-jW4" id="1nG-dP-A5p"/>
                                     <outlet property="thumbnailImageView" destination="n8m-1m-i16" id="WI1-gD-b0S"/>
+                                    <segue destination="N4k-Tg-JOS" kind="show" id="dg8-bk-EQE"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -93,10 +95,55 @@
                             <outlet property="delegate" destination="wU4-wb-0CM" id="Osr-Lc-hz7"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="MyChat" id="89P-At-BaS" userLabel="MyChat"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LcN-2u-JqY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="32.799999999999997" y="31.934032983508249"/>
+            <point key="canvasLocation" x="758" y="-10"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="rm8-3x-FHP">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="0hN-hT-dKh" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="lbb-Ep-DDC">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="wU4-wb-0CM" kind="relationship" relationship="rootViewController" id="1BN-KK-pTu"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fRE-8S-d9h" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="32" y="31.484257871064472"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="FvU-gq-ojI">
+            <objects>
+                <viewController id="N4k-Tg-JOS" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="LWX-1F-3DN">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uCO-AD-4dr">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="uCO-AD-4dr" firstAttribute="leading" secondItem="sFd-xb-i36" secondAttribute="leading" id="2Yn-Lv-6I5"/>
+                            <constraint firstItem="uCO-AD-4dr" firstAttribute="bottom" secondItem="sFd-xb-i36" secondAttribute="bottom" id="9nu-r1-urB"/>
+                            <constraint firstItem="uCO-AD-4dr" firstAttribute="trailing" secondItem="sFd-xb-i36" secondAttribute="trailing" id="cLW-1Q-PrJ"/>
+                            <constraint firstItem="uCO-AD-4dr" firstAttribute="top" secondItem="LWX-1F-3DN" secondAttribute="top" id="cMS-dv-LxS"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="sFd-xb-i36"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="M4V-KS-tte" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1508" y="157.87106446776613"/>
         </scene>
     </scenes>
 </document>
