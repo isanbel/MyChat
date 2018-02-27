@@ -9,7 +9,17 @@
 import UIKit
 
 class ChatTableViewCell: UITableViewCell {
-
+    
+    @IBOutlet var nameLabel: UILabel!
+    @IBOutlet var chatsliceLabel: UILabel!
+    @IBOutlet var dateLabel: UILabel!
+    @IBOutlet var thumbnailImageView: UIImageView! {
+        didSet {
+            thumbnailImageView.layer.cornerRadius = 5
+            thumbnailImageView.clipsToBounds = true
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
