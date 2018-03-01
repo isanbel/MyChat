@@ -8,28 +8,28 @@
 
 import Foundation
 
-enum Role {
-    case Sender
-    case Receiver
+enum MsgType {
+    case Sent
+    case Received
 }
 
 class ChatMessage {
-    var role: Role
+    var msgType: MsgType
     var contentText: String?
     // TODO: voice, video content
     var date: Date
     // one message can be a date indicator above another message too.
     var isDateIndicator: Bool
 
-    init(role: Role, contentText: String?) {
-        self.role = role
+    init(msgType: MsgType, contentText: String?) {
+        self.msgType = msgType
         self.contentText = contentText
         self.date = Date()
         self.isDateIndicator = false
     }
 
     convenience init() {
-        self.init(role: Role.Sender, contentText: nil)
+        self.init(msgType: MsgType.Sent, contentText: nil)
     }
     
     func beDateIndicatorAbove(aChatMessage: ChatMessage) {

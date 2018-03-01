@@ -16,12 +16,12 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
     var me = ChatOutline()
     
     var chatMessages: [ChatMessage] = [
-        ChatMessage(role: Role.Sender, contentText: "你好呀"),
-        ChatMessage(role: Role.Receiver, contentText: "我要做一只特立独行的猪"),
-        ChatMessage(role: Role.Sender, contentText: "每个男人活着\n应该吃苦 应该寂寞\n应该被放逐"),
-        ChatMessage(role: Role.Sender, contentText: "hi, 好呀"),
-        ChatMessage(role: Role.Sender, contentText: "hi, 好呀"),
-        ChatMessage(role: Role.Sender, contentText: "hi, 好呀")
+        ChatMessage(msgType: MsgType.Sent, contentText: "你好呀"),
+        ChatMessage(msgType: MsgType.Received, contentText: "我要做一只特立独行的猪"),
+        ChatMessage(msgType: MsgType.Sent, contentText: "每个男人活着\n应该吃苦 应该寂寞\n应该被放逐"),
+        ChatMessage(msgType: MsgType.Sent, contentText: "hi, 好呀"),
+        ChatMessage(msgType: MsgType.Sent, contentText: "hi, 好呀"),
+        ChatMessage(msgType: MsgType.Sent, contentText: "hi, 好呀")
     ]
 
     override func viewDidLoad() {
