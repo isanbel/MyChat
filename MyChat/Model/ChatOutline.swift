@@ -9,22 +9,31 @@
 import Foundation
 
 class ChatOutline {
+    var friendId: String
     var avatar: String
     var name: String
     var chatSlice: String
     var date: Date
-    
-    // TODO: stickOnTop
-    // var stickOnTop: Bool
+    var stickOnTop: Bool
 
-    init( name: String, avatar: String, chatSlice: String, date: Date) {
+    init(friendId: String, name: String, avatar: String, chatSlice: String, date: Date) {
+        self.friendId = friendId
         self.name = name
         self.avatar = avatar
         self.chatSlice = chatSlice
         self.date = date
+        self.stickOnTop = false
     }
 
     convenience init() {
-        self.init(name: "", avatar: "", chatSlice: "", date: Date())
+        self.init(friendId: "", name: "", avatar: "", chatSlice: "", date: Date())
+    }
+
+    func stick() {
+        self.stickOnTop = true
+    }
+    
+    func unstick() {
+        self.stickOnTop = false
     }
 }
