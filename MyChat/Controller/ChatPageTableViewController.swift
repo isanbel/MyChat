@@ -13,19 +13,28 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
     @IBOutlet weak var tableView: UITableView!
     
     var friend = ChatOutline()
-    var me = ChatOutline()
+    var me = User()
     
-    var chatMessages: [ChatMessage] = [
-        ChatMessage(msgType: MsgType.Sent, contentText: "你好呀"),
-        ChatMessage(msgType: MsgType.Received, contentText: "我要做一只特立独行的猪"),
-        ChatMessage(msgType: MsgType.Sent, contentText: "每个男人活着\n应该吃苦 应该寂寞\n应该被放逐"),
-        ChatMessage(msgType: MsgType.Sent, contentText: "hi, 好呀"),
-        ChatMessage(msgType: MsgType.Sent, contentText: "hi, 好呀"),
-        ChatMessage(msgType: MsgType.Sent, contentText: "hi, 好呀")
-    ]
+    var chatMessages: [ChatMessage] = []
+    
+    func getData() {
+        // clearData()
+        chatMessages = [
+            ChatMessage(msgType: MsgType.Sent, contentText: "你好呀"),
+            ChatMessage(msgType: MsgType.Received, contentText: "我要做一只特立独行的猪"),
+            ChatMessage(msgType: MsgType.Sent, contentText: "每个男人活着\n应该吃苦 应该寂寞\n应该被放逐"),
+            ChatMessage(msgType: MsgType.Sent, contentText: "hi, 好呀"),
+            ChatMessage(msgType: MsgType.Sent, contentText: "hi, 好呀"),
+            ChatMessage(msgType: MsgType.Sent, contentText: "hi, 好呀")
+        ]
+        
+        me = User(userId: "123", name: "palominoespresso", gender: "male", birthday: Date(), avatar: "palominoespresso", email: "12@asd.com", password: "luanMa")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        getData()
         
         // Configure the table view
         tableView.delegate = self
@@ -50,11 +59,12 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cellIdentifier = "ChatPageReceiveTableViewCell"
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! ChatPageReceiveTableViewCell
-
-        cell.contentLabel.text = chatMessages[indexPath.row].contentText
-        cell.avatarImageView.image = UIImage(named: friend.avatar)
+        let cellIdentifier = "ChatMessageCell"
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! ChatMessageCell
+        
+        cell.friend = friend
+        cell.me = me
+        cell.message = chatMessages[indexPath.row]
 
         return cell
     }
