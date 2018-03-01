@@ -12,12 +12,12 @@ class ChatOutline {
     var avatar: String
     var name: String
     var chatSlice: String
-    var date: String
+    var date: Date
     
     // TODO: stickOnTop
     // var stickOnTop: Bool
 
-    init( name: String, avatar: String, chatSlice: String, date: String) {
+    init( name: String, avatar: String, chatSlice: String, date: Date) {
         self.name = name
         self.avatar = avatar
         self.chatSlice = chatSlice
@@ -25,6 +25,6 @@ class ChatOutline {
     }
 
     convenience init() {
-        self.init(name: "", avatar: "", chatSlice: "", date: "")
+        self.init(name: "", avatar: "", chatSlice: "", date: Date())
     }
 }
