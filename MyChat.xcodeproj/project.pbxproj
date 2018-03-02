@@ -13,6 +13,7 @@
 		C264446D2024B0DE004E86C5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C264446B2024B0DE004E86C5 /* Main.storyboard */; };
 		C26444722024B0DE004E86C5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C26444702024B0DE004E86C5 /* LaunchScreen.storyboard */; };
 		C284E023204887DB009FC6CA /* ChatMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C284E022204887DB009FC6CA /* ChatMessageCell.swift */; };
+		C284E02520492953009FC6CA /* ChatDateIndicatorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C284E02420492953009FC6CA /* ChatDateIndicatorCell.swift */; };
 		C2B11B042044F4EA00726A86 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B11B032044F4EA00726A86 /* User.swift */; };
 		C2B11B062044F73E00726A86 /* ChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B11B052044F73E00726A86 /* ChatTableViewCell.swift */; };
 		C2B11B0A2045005400726A86 /* ChatTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B11B092045005400726A86 /* ChatTableViewController.swift */; };
@@ -30,6 +31,7 @@
 		C26444712024B0DE004E86C5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C26444732024B0DE004E86C5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C284E022204887DB009FC6CA /* ChatMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageCell.swift; sourceTree = "<group>"; };
+		C284E02420492953009FC6CA /* ChatDateIndicatorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatDateIndicatorCell.swift; sourceTree = "<group>"; };
 		C2B11B032044F4EA00726A86 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C2B11B052044F73E00726A86 /* ChatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTableViewCell.swift; sourceTree = "<group>"; };
 		C2B11B092045005400726A86 /* ChatTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTableViewController.swift; sourceTree = "<group>"; };
@@ -54,6 +56,7 @@
 			children = (
 				C247D341204799F600456567 /* ChatPageReceiveTableViewCell.swift */,
 				C284E022204887DB009FC6CA /* ChatMessageCell.swift */,
+				C284E02420492953009FC6CA /* ChatDateIndicatorCell.swift */,
 			);
 			path = ChatPage;
 			sourceTree = "<group>";
@@ -218,6 +221,7 @@
 				C2B11B0E20453BB300726A86 /* ChatPageTableViewController.swift in Sources */,
 				C26444682024B0DE004E86C5 /* AppDelegate.swift in Sources */,
 				C2B11B042044F4EA00726A86 /* User.swift in Sources */,
+				C284E02520492953009FC6CA /* ChatDateIndicatorCell.swift in Sources */,
 				C2B11B0A2045005400726A86 /* ChatTableViewController.swift in Sources */,
 				C284E023204887DB009FC6CA /* ChatMessageCell.swift in Sources */,
 				C247D342204799F600456567 /* ChatPageReceiveTableViewCell.swift in Sources */,

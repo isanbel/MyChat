@@ -20,12 +20,14 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
     func getData() {
         // clearData()
         chatMessages = [
-            ChatMessage(msgType: MsgType.Sent, contentText: "你好呀"),
-            ChatMessage(msgType: MsgType.Received, contentText: "我要做一只特立独行的猪"),
-            ChatMessage(msgType: MsgType.Sent, contentText: "每个男人活着\n应该吃苦 应该寂寞\n应该被放逐"),
-            ChatMessage(msgType: MsgType.Sent, contentText: "hi, 好呀"),
-            ChatMessage(msgType: MsgType.Sent, contentText: "hi, 好呀"),
-            ChatMessage(msgType: MsgType.Sent, contentText: "hi, 好呀")
+            ChatMessage(msgType: MsgType.Received, contentText: "你好呀"),
+            ChatMessage(isDateIndicator: true),
+            ChatMessage(msgType: MsgType.Sent, contentText: "今天遇见了老朋友，一时间竟叫不出名字"),
+            ChatMessage(msgType: MsgType.Sent, contentText: "Mary，你还记得那年的女孩吗？"),
+            ChatMessage(msgType: MsgType.Received, contentText: "好呀"),
+            ChatMessage(isDateIndicator: true),
+            ChatMessage(msgType: MsgType.Sent, contentText: "今天傍晚，雷雨中传来一阵丁香花的香味"),
+            ChatMessage(msgType: MsgType.Received, contentText: "我想起了故乡的山楂花树篱")
         ]
         
         me = User(userId: "123", name: "palominoespresso", gender: "male", birthday: Date(), avatar: "palominoespresso", email: "12@asd.com", password: "luanMa")
@@ -59,14 +61,22 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cellIdentifier = "ChatMessageCell"
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! ChatMessageCell
-        
-        cell.friend = friend
-        cell.me = me
-        cell.message = chatMessages[indexPath.row]
+        if chatMessages[indexPath.row].isDateIndicator == false {
+            let cellIdentifier = "ChatMessageCell"
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! ChatMessageCell
+            
+            cell.friend = friend
+            cell.me = me
+            cell.message = chatMessages[indexPath.row]
+            return cell
+        } else {
+            let cellIdentifier = "ChatDateIndicatorCell"
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! ChatDateIndicatorCell
 
-        return cell
+            cell.dateLabel.text = chatMessages[indexPath.row].date.description
+            
+            return cell
+        }
     }
     
     // MARK: - UITableViewDelegate Protocol

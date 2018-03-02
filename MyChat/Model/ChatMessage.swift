@@ -27,14 +27,15 @@ class ChatMessage {
         self.date = Date()
         self.isDateIndicator = false
     }
+    
+    init(isDateIndicator: Bool) {
+        self.msgType = MsgType.Sent
+        self.contentText = ""
+        self.date = Date()
+        self.isDateIndicator = isDateIndicator
+    }
 
     convenience init() {
         self.init(msgType: MsgType.Sent, contentText: nil)
-    }
-    
-    func beDateIndicatorAbove(aChatMessage: ChatMessage) {
-        // be 10 ms earlier than aChatMessage date
-        self.date = Date(timeInterval: -0.010, since: aChatMessage.date)
-        self.isDateIndicator = true
     }
 }

@@ -69,19 +69,19 @@ class ChatMessageCell: UITableViewCell {
             
             
             if message?.msgType == MsgType.Sent {
-                header_constraint_H_Format =  "[header(50)]-5-|"
-                header_constraint_V_Format =  "V:|-5-[header(50)]"
-                bubble_constraint_H_Format  =  "|-(>=5)-[bubble]-10-[header]"
+                header_constraint_H_Format =  "[header(40)]-5-|"
+                header_constraint_V_Format =  "V:|-5-[header(40)]"
+                bubble_constraint_H_Format  =  "|-(>=5)-[bubble]-5-[header]"
                 bubble_constraint_V_Format  =  "V:|-5-[bubble(>=50)]-5-|"
-                content_constraint_H_Format  =  "|-(>=5)-[content]-25-|"
-                content_constraint_V_Format  =  "V:|[content]-5-|"
+                content_constraint_H_Format  =  "|-(>=10)-[content]-15-|"
+                content_constraint_V_Format  =  "V:|-12-[content]-12-|"
             } else {
-                header_constraint_H_Format =  "|-5-[header(50)]"
-                header_constraint_V_Format =  "V:|-5-[header(50)]"
-                bubble_constraint_H_Format  =  "[header]-10-[bubble]-(>=5)-|"
+                header_constraint_H_Format =  "|-5-[header(40)]"
+                header_constraint_V_Format =  "V:|-5-[header(40)]"
+                bubble_constraint_H_Format  =  "[header]-5-[bubble]-(>=5)-|"
                 bubble_constraint_V_Format  =  "V:|-5-[bubble(>=50)]-5-|"
-                content_constraint_H_Format  =  "|-25-[content]-(>=5)-|"
-                content_constraint_V_Format  =  "V:|[content]-5-|"
+                content_constraint_H_Format  =  "|-15-[content]-(>=10)-|"
+                content_constraint_V_Format  =  "V:|-12-[content]-12-|"
             }
             
             
@@ -100,6 +100,12 @@ class ChatMessageCell: UITableViewCell {
             self.contentView.addConstraints(bubble_constraint_V as! [NSLayoutConstraint])
             self.bubbleImgView.addConstraints(content_constraint_H as! [NSLayoutConstraint])
             self.bubbleImgView.addConstraints(content_constraint_V as! [NSLayoutConstraint])
+            
+//            self.contentLbl.backgroundColor = .orange
+            self.contentLbl.font = UIFont.systemFont(ofSize: 14)
+            
+            // TODO: set no select style
+            self.backgroundColor = UIColor(red: 248/255, green: 248/255, blue: 248/255, alpha: 1)
         }
     }
     
