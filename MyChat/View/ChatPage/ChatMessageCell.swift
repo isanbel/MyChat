@@ -102,6 +102,7 @@ class ChatMessageCell: UITableViewCell {
             self.bubbleImgView.addConstraints(content_constraint_V as! [NSLayoutConstraint])
             
 //            self.contentLbl.backgroundColor = .orange
+            // TODO: remove the top and bottom padding of the label
             self.contentLbl.font = UIFont.systemFont(ofSize: 14)
             
             // TODO: set no select style
