@@ -69,19 +69,19 @@ class ChatMessageCell: UITableViewCell {
             
             
             if message?.msgType == MsgType.Sent {
-                header_constraint_H_Format =  "[header(40)]-5-|"
+                header_constraint_H_Format =  "[header(40)]-7-|"
                 header_constraint_V_Format =  "V:|-5-[header(40)]"
-                bubble_constraint_H_Format  =  "|-(>=5)-[bubble]-5-[header]"
-                bubble_constraint_V_Format  =  "V:|-5-[bubble(>=50)]-5-|"
+                bubble_constraint_H_Format  =  "|-(>=57)-[bubble]-5-[header]"
+                bubble_constraint_V_Format  =  "V:|-5-[bubble(>=43)]-5-|"
                 content_constraint_H_Format  =  "|-(>=10)-[content]-15-|"
-                content_constraint_V_Format  =  "V:|-12-[content]-12-|"
+                content_constraint_V_Format  =  "V:|-10-[content]-12-|"
             } else {
-                header_constraint_H_Format =  "|-5-[header(40)]"
+                header_constraint_H_Format =  "|-7-[header(40)]"
                 header_constraint_V_Format =  "V:|-5-[header(40)]"
-                bubble_constraint_H_Format  =  "[header]-5-[bubble]-(>=5)-|"
-                bubble_constraint_V_Format  =  "V:|-5-[bubble(>=50)]-5-|"
+                bubble_constraint_H_Format  =  "[header]-5-[bubble]-(>=57)-|"
+                bubble_constraint_V_Format  =  "V:|-5-[bubble(>=43)]-5-|"
                 content_constraint_H_Format  =  "|-15-[content]-(>=10)-|"
-                content_constraint_V_Format  =  "V:|-12-[content]-12-|"
+                content_constraint_V_Format  =  "V:|-10-[content]-12-|"
             }
             
             
@@ -101,11 +101,10 @@ class ChatMessageCell: UITableViewCell {
             self.bubbleImgView.addConstraints(content_constraint_H as! [NSLayoutConstraint])
             self.bubbleImgView.addConstraints(content_constraint_V as! [NSLayoutConstraint])
             
-//            self.contentLbl.backgroundColor = .orange
-            // TODO: remove the top and bottom padding of the label
-            self.contentLbl.font = UIFont.systemFont(ofSize: 14)
+            self.contentLbl.font = UIFont.systemFont(ofSize: 16)
             
             // TODO: set no select style
+            self.selectionStyle = .none
             self.backgroundColor = UIColor(red: 248/255, green: 248/255, blue: 248/255, alpha: 1)
         }
     }

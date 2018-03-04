@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		C247D3402047956000456567 /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C247D33F2047956000456567 /* ChatMessage.swift */; };
 		C247D342204799F600456567 /* ChatPageReceiveTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C247D341204799F600456567 /* ChatPageReceiveTableViewCell.swift */; };
+		C24EBD27204B9F8500C49569 /* Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24EBD26204B9F8500C49569 /* Tools.swift */; };
 		C26444682024B0DE004E86C5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26444672024B0DE004E86C5 /* AppDelegate.swift */; };
 		C264446D2024B0DE004E86C5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C264446B2024B0DE004E86C5 /* Main.storyboard */; };
 		C26444722024B0DE004E86C5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C26444702024B0DE004E86C5 /* LaunchScreen.storyboard */; };
@@ -25,6 +26,7 @@
 /* Begin PBXFileReference section */
 		C247D33F2047956000456567 /* ChatMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
 		C247D341204799F600456567 /* ChatPageReceiveTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatPageReceiveTableViewCell.swift; sourceTree = "<group>"; };
+		C24EBD26204B9F8500C49569 /* Tools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tools.swift; sourceTree = "<group>"; };
 		C26444642024B0DE004E86C5 /* MyChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C26444672024B0DE004E86C5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C264446C2024B0DE004E86C5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -94,6 +96,7 @@
 		C2B11AFD2044F38000726A86 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C24EBD26204B9F8500C49569 /* Tools.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -223,6 +226,7 @@
 				C2B11B042044F4EA00726A86 /* User.swift in Sources */,
 				C284E02520492953009FC6CA /* ChatDateIndicatorCell.swift in Sources */,
 				C2B11B0A2045005400726A86 /* ChatTableViewController.swift in Sources */,
+				C24EBD27204B9F8500C49569 /* Tools.swift in Sources */,
 				C284E023204887DB009FC6CA /* ChatMessageCell.swift in Sources */,
 				C247D342204799F600456567 /* ChatPageReceiveTableViewCell.swift in Sources */,
 				C2B11B0C20451A1200726A86 /* ChatOutline.swift in Sources */,

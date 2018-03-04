@@ -69,7 +69,7 @@ class ChatTableViewController: UITableViewController {
         cell.nameLabel.text = chatOutlines[indexPath.row].name
         cell.chatsliceLabel.text = chatOutlines[indexPath.row].chatSlice
         // TODO: be the date parser, to the relative date to current date
-        cell.dateLabel.text = chatOutlines[indexPath.row].date.description
+        cell.dateLabel.text = chatOutlines[indexPath.row].date.relativeTime
         cell.thumbnailImageView.image = UIImage(named: chatOutlines[indexPath.row].avatar)
 
         return cell

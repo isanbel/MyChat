@@ -22,7 +22,7 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
         chatMessages = [
             ChatMessage(msgType: MsgType.Received, contentText: "你好呀"),
             ChatMessage(isDateIndicator: true),
-            ChatMessage(msgType: MsgType.Sent, contentText: "今天遇见了老朋友，一时间竟叫不出名字"),
+            ChatMessage(msgType: MsgType.Sent, contentText: "今天遇见了那年的老朋友，一时间竟叫不出名字"),
             ChatMessage(msgType: MsgType.Sent, contentText: "Mary，你还记得那年的女孩吗？"),
             ChatMessage(msgType: MsgType.Received, contentText: "好呀"),
             ChatMessage(isDateIndicator: true),
@@ -73,7 +73,7 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
             let cellIdentifier = "ChatDateIndicatorCell"
             let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! ChatDateIndicatorCell
 
-            cell.dateLabel.text = chatMessages[indexPath.row].date.description
+            cell.dateLabel.text = chatMessages[indexPath.row].date.relativeTime
             
             return cell
         }
