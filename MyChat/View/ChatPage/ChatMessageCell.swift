@@ -49,6 +49,9 @@ class ChatMessageCell: UITableViewCell {
             self.bubbleImgView.image = message?.msgType != MsgType.Sent ? UIImage(named: "bubble_received_normal") : UIImage(named: "bubble_sent_normal")
             self.contentLbl.text = message?.contentText
             
+            // resizable image
+            self.bubbleImgView.image? = (self.bubbleImgView.image?.resizableImage(withCapInsets: UIEdgeInsetsMake(30, 40, 30, 40)))!
+            
             //布局位置
             //1.去掉系统添加默认的autolayout，防止冲突,并设置label的对齐
             self.headerImgView.translatesAutoresizingMaskIntoConstraints = false
