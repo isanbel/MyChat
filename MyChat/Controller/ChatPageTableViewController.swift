@@ -48,6 +48,7 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Info", style: .done, target: self, action: #selector(addTapped))
 
         getData()
+        scrollToBottom()
         
         // Configure the table view
         tableView.delegate = self
@@ -152,6 +153,13 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
     @objc func handleTouches(sender:UITapGestureRecognizer){
         if sender.location(in: self.view).y < self.view.bounds.height - 250{
             textFeild.resignFirstResponder()
+        }
+    }
+    
+    func scrollToBottom(){
+        DispatchQueue.main.async {
+            let indexPath = IndexPath(row: self.chatMessages.count-1, section: 0)
+            self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
         }
     }
     
