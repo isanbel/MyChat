@@ -155,7 +155,8 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        self.view.endEditing(true)
+        // End Editing
+        // self.view.endEditing(true)
         // textField.resignFirstResponder()
         
         // append message
