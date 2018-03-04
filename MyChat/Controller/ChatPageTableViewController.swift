@@ -11,6 +11,8 @@ import UIKit
 class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var keyBaordView: UIView!
+    @IBOutlet weak var textFeild: UITextField!
     
     var friend = ChatOutline()
     var me = User()
@@ -20,6 +22,13 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
     func getData() {
         // clearData()
         chatMessages = [
+            ChatMessage(isDateIndicator: true),
+            ChatMessage(msgType: MsgType.Sent, contentText: "今天遇见了那年的老朋友，一时间竟叫不出名字"),
+            ChatMessage(msgType: MsgType.Sent, contentText: "Mary，你还记得那年的女孩吗？"),
+            ChatMessage(msgType: MsgType.Received, contentText: "好呀"),
+            ChatMessage(isDateIndicator: true),
+            ChatMessage(msgType: MsgType.Sent, contentText: "今天傍晚，雷雨中传来一阵丁香花的香味"),
+            ChatMessage(msgType: MsgType.Received, contentText: "我想起了故乡的山楂花树篱"),
             ChatMessage(msgType: MsgType.Received, contentText: "你好呀"),
             ChatMessage(isDateIndicator: true),
             ChatMessage(msgType: MsgType.Sent, contentText: "今天遇见了那年的老朋友，一时间竟叫不出名字"),
@@ -44,6 +53,20 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
+
+        // the keyboard view
+        textFeild.delegate = self as? UITextFieldDelegate
+        textFeild.placeholder = "输入消息内容"
+        textFeild.returnKeyType = UIReturnKeyType.send
+        textFeild.enablesReturnKeyAutomatically  = true
+        
+         NotificationCenter.default.addObserver(self, selector: #selector(self.keyBoardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+         NotificationCenter.default.addObserver(self, selector: #selector(self.keyBoardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.handleTouches))
+        tapGestureRecognizer.cancelsTouchesInView = false
+        self.view.addGestureRecognizer(tapGestureRecognizer)
+
     }
     
     @objc func addTapped() {
@@ -82,6 +105,53 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
             cell.dateLabel.text = chatMessages[indexPath.row].date.relativeTime
             
             return cell
+        }
+    }
+    
+    
+    @objc func keyBoardWillShow(note:NSNotification) {
+        print("keyBoardWillShow")
+        
+        let userInfo  = note.userInfo! as NSDictionary
+        let keyBoardBounds = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        let duration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
+        let deltaY = keyBoardBounds.size.height
+        
+        let animations:(() -> Void) = {
+            self.keyBaordView.transform = CGAffineTransform(translationX: 0,y: -deltaY)
+            self.tableView.transform = CGAffineTransform(translationX: 0,y: -deltaY)
+        }
+        
+        if duration > 0 {
+            let options = UIViewAnimationOptions(rawValue: UInt((userInfo[UIKeyboardAnimationCurveUserInfoKey] as! NSNumber).intValue << 16))
+            
+            UIView.animate(withDuration: duration, delay: 0, options:options, animations: animations, completion: nil)
+        } else {
+            animations()
+        }
+    }
+    
+    @objc func keyBoardWillHide(note:NSNotification) {
+        let userInfo  = note.userInfo! as NSDictionary
+        let duration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
+        
+        let animations:(() -> Void) = {
+            self.keyBaordView.transform = CGAffineTransform(translationX: 0,y: 0)
+            self.tableView.transform = CGAffineTransform(translationX: 0,y: 0)
+        }
+        
+        if duration > 0 {
+            let options = UIViewAnimationOptions(rawValue: UInt((userInfo[UIKeyboardAnimationCurveUserInfoKey] as! NSNumber).intValue << 16))
+            
+            UIView.animate(withDuration: duration, delay: 0, options:options, animations: animations, completion: nil)
+        }else{
+            animations()
+        }
+    }
+    
+    @objc func handleTouches(sender:UITapGestureRecognizer){
+        if sender.location(in: self.view).y < self.view.bounds.height - 250{
+            textFeild.resignFirstResponder()
         }
     }
     

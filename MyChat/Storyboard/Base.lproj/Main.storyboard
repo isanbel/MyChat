@@ -128,8 +128,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Of7-Y5-z5j">
-                                <rect key="frame" x="0.0" y="64" width="375" height="543"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Of7-Y5-z5j">
+                                <rect key="frame" x="0.0" y="64" width="375" height="560"/>
                                 <color key="backgroundColor" red="0.96852236989999996" green="0.96868795159999999" blue="0.96851199870000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="435" id="SkD-Rc-Hcq"/>
@@ -209,19 +209,45 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TEx-sf-ELg">
+                                <rect key="frame" x="0.0" y="624" width="375" height="43"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gYi-gQ-V8t">
+                                        <rect key="frame" x="8" y="6" width="32" height="32"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Button" image="chat-input-voice"/>
+                                    </button>
+                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Hello" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wpy-rr-Y7I">
+                                        <rect key="frame" x="48" y="6" width="249" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.97010605569948183" green="0.97010605569948183" blue="0.97010605569948183" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Of7-Y5-z5j" firstAttribute="trailing" secondItem="sFd-xb-i36" secondAttribute="trailing" id="6xx-Jh-AFr"/>
-                            <constraint firstItem="sFd-xb-i36" firstAttribute="bottom" secondItem="Of7-Y5-z5j" secondAttribute="bottom" constant="60" id="b7C-0H-uhT"/>
+                            <constraint firstItem="TEx-sf-ELg" firstAttribute="top" secondItem="Of7-Y5-z5j" secondAttribute="bottom" id="KFR-VG-lgG"/>
+                            <constraint firstItem="sFd-xb-i36" firstAttribute="bottom" secondItem="Of7-Y5-z5j" secondAttribute="bottom" constant="43" id="b7C-0H-uhT"/>
+                            <constraint firstItem="TEx-sf-ELg" firstAttribute="leading" secondItem="LWX-1F-3DN" secondAttribute="leading" id="fhY-NJ-zAy"/>
                             <constraint firstItem="Of7-Y5-z5j" firstAttribute="leading" secondItem="sFd-xb-i36" secondAttribute="leading" id="ihr-yj-XDi"/>
                             <constraint firstItem="Of7-Y5-z5j" firstAttribute="top" secondItem="sFd-xb-i36" secondAttribute="top" id="k0z-ab-ztC"/>
+                            <constraint firstAttribute="bottom" secondItem="TEx-sf-ELg" secondAttribute="bottom" id="t84-5N-Xis"/>
+                            <constraint firstAttribute="trailing" secondItem="TEx-sf-ELg" secondAttribute="trailing" id="tWn-QG-uZW"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="sFd-xb-i36"/>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
+                    <toolbarItems/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="keyBaordView" destination="TEx-sf-ELg" id="jBT-qu-qP6"/>
                         <outlet property="tableView" destination="Of7-Y5-z5j" id="GcP-ju-oYt"/>
+                        <outlet property="textFeild" destination="wpy-rr-Y7I" id="WD8-wg-3Dh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M4V-KS-tte" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -388,4 +414,7 @@
             <point key="canvasLocation" x="369" y="2166"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="chat-input-voice" width="64" height="64"/>
+    </resources>
 </document>
