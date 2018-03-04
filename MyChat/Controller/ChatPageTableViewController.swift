@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var keyBaordView: UIView!
@@ -48,7 +48,7 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Info", style: .done, target: self, action: #selector(addTapped))
 
         getData()
-        scrollToBottom()
+        scrollToBottom(animated: false)
         
         // Configure the table view
         tableView.delegate = self
@@ -56,8 +56,7 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
         tableView.separatorStyle = .none
 
         // the keyboard view
-        textFeild.delegate = self as? UITextFieldDelegate
-        textFeild.placeholder = "输入消息内容"
+        textFeild.delegate = self as UITextFieldDelegate
         textFeild.returnKeyType = UIReturnKeyType.send
         textFeild.enablesReturnKeyAutomatically  = true
         
@@ -111,7 +110,6 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
     
     
     @objc func keyBoardWillShow(note:NSNotification) {
-        print("keyBoardWillShow")
         
         let userInfo  = note.userInfo! as NSDictionary
         let keyBoardBounds = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
@@ -156,10 +154,26 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
         }
     }
     
-    func scrollToBottom(){
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        // textField.resignFirstResponder()
+        
+        // append message
+        chatMessages.append(ChatMessage(msgType: MsgType.Sent, contentText: textFeild.text!))
+        tableView.beginUpdates()
+        tableView.insertRows(at: [IndexPath(row: chatMessages.count-1, section: 0)], with: .automatic)
+        tableView.endUpdates()
+        scrollToBottom(animated: true)
+        
+        textFeild.text = ""
+        
+        return false
+    }
+    
+    func scrollToBottom(animated: Bool){
         DispatchQueue.main.async {
             let indexPath = IndexPath(row: self.chatMessages.count-1, section: 0)
-            self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
+            self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: animated)
         }
     }
     
