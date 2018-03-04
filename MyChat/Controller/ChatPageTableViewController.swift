@@ -35,7 +35,9 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.title = friend.name
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Info", style: .done, target: self, action: #selector(addTapped))
+
         getData()
         
         // Configure the table view
@@ -43,7 +45,11 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
         tableView.dataSource = self
         tableView.separatorStyle = .none
     }
-
+    
+    @objc func addTapped() {
+        print("haha")
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
