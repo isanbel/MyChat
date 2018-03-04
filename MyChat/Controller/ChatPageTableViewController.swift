@@ -70,7 +70,7 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
     }
     
     @objc func addTapped() {
-        print("haha")
+        self.performSegue(withIdentifier: "showFriendProfile", sender: self)
     }
     
     override func didReceiveMemoryWarning() {
