@@ -17,8 +17,6 @@ class ChatTableViewController: UITableViewController, NSFetchedResultsController
     override func viewDidLoad() {
         super.viewDidLoad()
         getData()
-        
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "+", style: .done, target: self, action: #selector(addTapped))
 
         navigationController?.navigationBar.backgroundColor = .white
         navigationController?.navigationBar.isTranslucent = false
@@ -88,16 +86,16 @@ class ChatTableViewController: UITableViewController, NSFetchedResultsController
     func getData() {
         
         // Save data
-        if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
-            let lastMessage = LastMessageMO(context: appDelegate.persistentContainer.viewContext)
-            lastMessage.stickOnTop = false
-            lastMessage.friendId = "123"
-            lastMessage.content = "haha"
-            lastMessage.date = Date()
-            
-            appDelegate.saveContext()
-        }
-        
+//        if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
+//            let lastMessage = LastMessageMO(context: appDelegate.persistentContainer.viewContext)
+//            lastMessage.stickOnTop = false
+//            lastMessage.friendId = "123"
+//            lastMessage.content = "haha"
+//            lastMessage.date = Date()
+//
+//            appDelegate.saveContext()
+//        }
+//
         // Fetch data from data store
         let fetchRequest: NSFetchRequest<LastMessageMO> = LastMessageMO.fetchRequest()
         let sortDescriptor = NSSortDescriptor(key: "date", ascending: true)

@@ -7,10 +7,12 @@
 //
 
 import UIKit
+import CoreData
 
-class ContactTableViewController: UITableViewController {
+class ContactTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
 
-    var friends: [Friend] = []
+    var friends: [FriendMO] = []
+    var fetchResultController: NSFetchedResultsController<FriendMO>!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,20 +46,44 @@ class ContactTableViewController: UITableViewController {
         let cellIdentifier = "ContactTableViewCell"
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! ContactTableViewCell
         
-        // Configure the cell...
         cell.nameLabel.text = friends[indexPath.row].name
-        cell.thumbnailImageView.image = UIImage(named: friends[indexPath.row].avatar)
+//        cell.thumbnailImageView.image = UIImage(named: friends[indexPath.row].avatar)
         
         return cell
     }    
     
     func loadData() {
-        friends = [
-            Friend(id: "1", name: "Andy", avatar: "cafedeadend.jpg", isMale: false, birthday: Date()),
-            Friend(id: "1", name: "Homei", avatar: "homei.jpg", isMale: false, birthday: Date()),
-        ]
         
-        // sort friends
+//        // Save data
+//        if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
+//            let friend = FriendMO(context: appDelegate.persistentContainer.viewContext)
+//            friend.name = "Andy"
+//            friend.isMale = true
+//            friend.id = "123"
+//            friend.birthday = Date()
+//
+//            appDelegate.saveContext()
+//        }
+        
+        // Fetch data from data store
+        let fetchRequest: NSFetchRequest<FriendMO> = FriendMO.fetchRequest()
+        let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        
+        if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
+            let context = appDelegate.persistentContainer.viewContext
+            fetchResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+            fetchResultController.delegate = self
+            
+            do {
+                try fetchResultController.performFetch()
+                if let fetchedObjects = fetchResultController.fetchedObjects {
+                    friends = fetchedObjects
+                }
+            } catch {
+                print(error)
+            }
+        }
     }
 
     /*
