@@ -11,6 +11,7 @@
 		C2224AC1204CF754001A9D06 /* ContactTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2224AC0204CF754001A9D06 /* ContactTableViewController.swift */; };
 		C2224AC3204CF8B5001A9D06 /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2224AC2204CF8B5001A9D06 /* Friend.swift */; };
 		C2224AC5204D1B17001A9D06 /* FriendProlileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2224AC4204D1B17001A9D06 /* FriendProlileTableViewController.swift */; };
+		C2224AEB204D4A8B001A9D06 /* MyChat.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C2224AE9204D4A8B001A9D06 /* MyChat.xcdatamodeld */; };
 		C247D3402047956000456567 /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C247D33F2047956000456567 /* ChatMessage.swift */; };
 		C247D342204799F600456567 /* ChatPageReceiveTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C247D341204799F600456567 /* ChatPageReceiveTableViewCell.swift */; };
 		C24EBD27204B9F8500C49569 /* Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24EBD26204B9F8500C49569 /* Tools.swift */; };
@@ -32,6 +33,7 @@
 		C2224AC0204CF754001A9D06 /* ContactTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactTableViewController.swift; sourceTree = "<group>"; };
 		C2224AC2204CF8B5001A9D06 /* Friend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Friend.swift; sourceTree = "<group>"; };
 		C2224AC4204D1B17001A9D06 /* FriendProlileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendProlileTableViewController.swift; sourceTree = "<group>"; };
+		C2224AEA204D4A8B001A9D06 /* MyChat.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MyChat.xcdatamodel; sourceTree = "<group>"; };
 		C247D33F2047956000456567 /* ChatMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
 		C247D341204799F600456567 /* ChatPageReceiveTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatPageReceiveTableViewCell.swift; sourceTree = "<group>"; };
 		C24EBD26204B9F8500C49569 /* Tools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tools.swift; sourceTree = "<group>"; };
@@ -74,6 +76,7 @@
 		C264445B2024B0DE004E86C5 = {
 			isa = PBXGroup;
 			children = (
+				C2224AE9204D4A8B001A9D06 /* MyChat.xcdatamodeld */,
 				C26444662024B0DE004E86C5 /* MyChat */,
 				C26444652024B0DE004E86C5 /* Products */,
 			);
@@ -232,6 +235,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C2224ABF204CF669001A9D06 /* ContactTableViewCell.swift in Sources */,
+				C2224AEB204D4A8B001A9D06 /* MyChat.xcdatamodeld in Sources */,
 				C2224AC3204CF8B5001A9D06 /* Friend.swift in Sources */,
 				C247D3402047956000456567 /* ChatMessage.swift in Sources */,
 				C2B11B062044F73E00726A86 /* ChatTableViewCell.swift in Sources */,
@@ -430,6 +434,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		C2224AE9204D4A8B001A9D06 /* MyChat.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				C2224AEA204D4A8B001A9D06 /* MyChat.xcdatamodel */,
+			);
+			currentVersion = C2224AEA204D4A8B001A9D06 /* MyChat.xcdatamodel */;
+			path = MyChat.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = C264445C2024B0DE004E86C5 /* Project object */;
 }

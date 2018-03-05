@@ -7,10 +7,12 @@
 //
 
 import UIKit
+import CoreData
 
-class ChatTableViewController: UITableViewController {
+class ChatTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
 
-    var lastMessages: [LastMessage] = []
+    var lastMessages: [LastMessageMO] = []
+    var fetchResultController: NSFetchedResultsController<LastMessageMO>!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,12 +52,13 @@ class ChatTableViewController: UITableViewController {
         let cellIdentifier = "ChatTableViewCell"
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! ChatTableViewCell
 
-        // Configure the cell...
-        cell.nameLabel.text = lastMessages[indexPath.row].name
+//        cell.nameLabel.text = lastMessages[indexPath.row].name
         cell.chatsliceLabel.text = lastMessages[indexPath.row].content
-        // TODO: be the date parser, to the relative date to current date
-        cell.dateLabel.text = lastMessages[indexPath.row].date.relativeTime
-        cell.thumbnailImageView.image = UIImage(named: lastMessages[indexPath.row].avatar)
+        cell.dateLabel.text = lastMessages[indexPath.row].date?.relativeTime
+//        if let avatar = lastMessages[indexPath.row].avatar {
+//            cell.thumbnailImageView.image = UIImage(data: avatar as Data)
+//        }
+        // cell.thumbnailImageView.image = UIImage(named: lastMessages[indexPath.row].avatar)
 
         return cell
     }
@@ -83,29 +86,37 @@ class ChatTableViewController: UITableViewController {
     }
 
     func getData() {
-        lastMessages = [
-            LastMessage(friendId: "1", name: "Cafe Deadend", avatar: "cafedeadend.jpg", content: "G/F, 72 Po Hing Fong, Sheung Wan, Hong Kong", date: Date()),
-            LastMessage(friendId: "1", name: "Homei", avatar: "homei.jpg", content: "Shop B, G/F, 22-24A Tai Ping San Street SOHO, Sheung Wan, Hong Kong", date: Date()),
-            LastMessage(friendId: "1", name: "Teakha", avatar: "teakha.jpg", content: "Shop B, 18 Tai Ping Shan Road SOHO, Sheung Wan, Hong Kong", date: Date()),
-            LastMessage(friendId: "1", name: "Cafe loisl", avatar: "cafeloisl.jpg", content: "Shop B, 20 Tai Ping Shan Road SOHO, Sheung Wan, Hong Kong", date: Date()),
-            LastMessage(friendId: "1", name: "Petite Oyster", avatar: "petiteoyster.jpg", content: "24 Tai Ping Shan Road SOHO, Sheung Wan, Hong Kong", date: Date()),
-            LastMessage(friendId: "1", name: "For Kee Restaurant", avatar: "forkeerestaurant.jpg", content: "Shop J-K., 200 Hollywood Road, SOHO, Sheung Wan, Hong Kong", date: Date()),
-            LastMessage(friendId: "1", name: "Po's Atelier", avatar: "posatelier.jpg", content: "G/F, 62 Po Hing Fong, Sheung Wan, Hong Kong", date: Date()),
-            LastMessage(friendId: "1", name: "Bourke Street Backery", avatar: "bourkestreetbakery.jpg", content: "633 Bourke St Sydney New South Wales 2010 Surry Hills", date: Date()),
-            LastMessage(friendId: "1", name: "Haigh's Chocolate", avatar: "haighschocolate.jpg", content: "412-414 George St Sydney New South Wales", date: Date()),
-            LastMessage(friendId: "1", name: "Palomino Espresso", avatar: "palominoespresso.jpg", content: "Shop 1 61 York St Sydney New South Wales", date: Date()),
-            LastMessage(friendId: "1", name: "Upstate", avatar: "upstate.jpg", content: "95 1st Ave New York, NY 10003", date: Date()),
-            LastMessage(friendId: "1", name: "Traif", avatar: "traif.jpg", content: "229 S 4th St Brooklyn, NY 11211", date: Date()),
-            LastMessage(friendId: "1", name: "Graham Avenue Meats", avatar: "grahamavenuemeats.jpg", content: "445 Graham Ave Brooklyn, NY 11211", date: Date()),
-            LastMessage(friendId: "1", name: "Waffle & Wolf", avatar: "wafflewolf.jpg", content: "413 Graham Ave Brooklyn, NY 11211", date: Date()),
-            LastMessage(friendId: "1", name: "Five Leaves", avatar: "fiveleaves.jpg", content: "18 Bedford Ave Brooklyn, NY 11222", date: Date()),
-            LastMessage(friendId: "1", name: "Cafe Lore", avatar: "cafelore.jpg", content: "Sunset Park 4601 4th Ave Brooklyn, NY 11220", date: Date()),
-            LastMessage(friendId: "1", name: "Confessional", avatar: "confessional.jpg", content: "308 E 6th St New York, NY 10003", date: Date()),
-            LastMessage(friendId: "1", name: "Barrafina", avatar: "barrafina.jpg", content: "54 Frith Street London W1D 4SL United Kingdom", date: Date()),
-            LastMessage(friendId: "1", name: "Donostia", avatar: "donostia.jpg", content: "10 Seymour Place London W1H 7ND United Kingdom", date: Date()),
-            LastMessage(friendId: "1", name: "Royal Oak", avatar: "royaloak.jpg", content: "2 Regency Street London SW1P 4BZ United Kingdom", date: Date()),
-            LastMessage(friendId: "1", name: "CASK Pub and Kitchen", avatar: "caskpubkitchen.jpg", content: "22 Charlwood Street London SW1V 2DY Pimlico", date: Date()),
-        ]
+        
+        // Save data
+        if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
+            let lastMessage = LastMessageMO(context: appDelegate.persistentContainer.viewContext)
+            lastMessage.stickOnTop = false
+            lastMessage.friendId = "123"
+            lastMessage.content = "haha"
+            lastMessage.date = Date()
+            
+            appDelegate.saveContext()
+        }
+        
+        // Fetch data from data store
+        let fetchRequest: NSFetchRequest<LastMessageMO> = LastMessageMO.fetchRequest()
+        let sortDescriptor = NSSortDescriptor(key: "date", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        
+        if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
+            let context = appDelegate.persistentContainer.viewContext
+            fetchResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+            fetchResultController.delegate = self
+            
+            do {
+                try fetchResultController.performFetch()
+                if let fetchedObjects = fetchResultController.fetchedObjects {
+                    lastMessages = fetchedObjects
+                }
+            } catch {
+                print(error)
+            }
+        }
     }
     
     /*
@@ -146,13 +157,13 @@ class ChatTableViewController: UITableViewController {
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showChatPage" {
-            if let indexPath = tableView.indexPathForSelectedRow {
-                let destinationViewController = segue.destination as! ChatPageTableViewController
-                destinationViewController.friend = lastMessages[indexPath.row]
-            }
-        }
-    }
+    //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    //        if segue.identifier == "showChatPage" {
+    //            if let indexPath = tableView.indexPathForSelectedRow {
+    //                let destinationViewController = segue.destination as! ChatPageTableViewController
+    //                destinationViewController.friend = lastMessages[indexPath.row]
+    //            }
+    //        }
+    //    }
 
 }

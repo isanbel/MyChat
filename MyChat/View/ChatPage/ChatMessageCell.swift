@@ -45,8 +45,8 @@ class ChatMessageCell: UITableViewCell {
             self.bubbleImgView.addSubview(self.contentLbl)
             
             //将message模型中的数据给头像、内容、气泡视图
-            self.headerImgView.image = message?.msgType == MsgType.Sent ? UIImage(named: me!.avatar) : UIImage(named: friend!.avatar)
-            self.bubbleImgView.image = message?.msgType != MsgType.Sent ? UIImage(named: "bubble_received_normal") : UIImage(named: "bubble_sent_normal")
+//            self.headerImgView.image = message?.isSent == true ? UIImage(named: me!.avatar) : UIImage(named: friend!.avatar)
+            self.bubbleImgView.image = message?.isSent == false ? UIImage(named: "bubble_received_normal") : UIImage(named: "bubble_sent_normal")
             self.contentLbl.text = message?.contentText
             
             // resizable image
@@ -57,7 +57,7 @@ class ChatMessageCell: UITableViewCell {
             self.headerImgView.translatesAutoresizingMaskIntoConstraints = false
             self.contentLbl.translatesAutoresizingMaskIntoConstraints = false
             self.bubbleImgView.translatesAutoresizingMaskIntoConstraints = false
-            self.contentLbl.textAlignment = message?.msgType != MsgType.Sent ? NSTextAlignment.right : NSTextAlignment.left
+            self.contentLbl.textAlignment = message?.isSent == false ? NSTextAlignment.right : NSTextAlignment.left
             self.contentLbl.numberOfLines = 0
             
             
@@ -71,7 +71,7 @@ class ChatMessageCell: UITableViewCell {
             var content_constraint_V_Format = ""
             
             
-            if message?.msgType == MsgType.Sent {
+            if message?.isSent == true {
                 header_constraint_H_Format =  "[header(40)]-7-|"
                 header_constraint_V_Format =  "V:|-5-[header(40)]"
                 bubble_constraint_H_Format  =  "|-(>=57)-[bubble]-5-[header]"

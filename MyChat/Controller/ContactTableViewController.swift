@@ -53,8 +53,8 @@ class ContactTableViewController: UITableViewController {
     
     func loadData() {
         friends = [
-            Friend(id: "1", name: "Andy", avatar: "cafedeadend.jpg", gender: nil, birthday: nil),
-            Friend(id: "1", name: "Homei", avatar: "homei.jpg", gender: nil, birthday: nil),
+            Friend(id: "1", name: "Andy", avatar: "cafedeadend.jpg", isMale: false, birthday: Date()),
+            Friend(id: "1", name: "Homei", avatar: "homei.jpg", isMale: false, birthday: Date()),
         ]
         
         // sort friends

@@ -23,28 +23,29 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
         // clearData()
         chatMessages = [
             ChatMessage(isDateIndicator: true),
-            ChatMessage(msgType: MsgType.Sent, contentText: "今天遇见了那年的老朋友，一时间竟叫不出名字"),
-            ChatMessage(msgType: MsgType.Sent, contentText: "Mary，你还记得那年的女孩吗？"),
-            ChatMessage(msgType: MsgType.Received, contentText: "好呀"),
+            ChatMessage(isSent: true, contentText: "今天遇见了那年的老朋友，一时间竟叫不出名字"),
+            ChatMessage(isSent: true, contentText: "Mary，你还记得那年的女孩吗？"),
+            ChatMessage(isSent: false, contentText: "好呀"),
             ChatMessage(isDateIndicator: true),
-            ChatMessage(msgType: MsgType.Sent, contentText: "今天傍晚，雷雨中传来一阵丁香花的香味"),
-            ChatMessage(msgType: MsgType.Received, contentText: "我想起了故乡的山楂花树篱"),
-            ChatMessage(msgType: MsgType.Received, contentText: "你好呀"),
+            ChatMessage(isSent: true, contentText: "今天傍晚，雷雨中传来一阵丁香花的香味"),
+            ChatMessage(isSent: true, contentText: "我想起了故乡的山楂花树篱"),
+            ChatMessage(isSent: true, contentText: "你好呀"),
             ChatMessage(isDateIndicator: true),
-            ChatMessage(msgType: MsgType.Sent, contentText: "今天遇见了那年的老朋友，一时间竟叫不出名字"),
-            ChatMessage(msgType: MsgType.Sent, contentText: "Mary，你还记得那年的女孩吗？"),
-            ChatMessage(msgType: MsgType.Received, contentText: "好呀"),
+            ChatMessage(isSent: true, contentText: "今天遇见了那年的老朋友，一时间竟叫不出名字"),
+            ChatMessage(isSent: true, contentText: "Mary，你还记得那年的女孩吗？"),
+            ChatMessage(isSent: false, contentText: "好呀"),
             ChatMessage(isDateIndicator: true),
-            ChatMessage(msgType: MsgType.Sent, contentText: "今天傍晚，雷雨中传来一阵丁香花的香味"),
-            ChatMessage(msgType: MsgType.Received, contentText: "我想起了故乡的山楂花树篱")
+            ChatMessage(isSent: true, contentText: "今天傍晚，雷雨中传来一阵丁香花的香味"),
+            ChatMessage(isSent: true, contentText: "我想起了故乡的山楂花树篱"),
+            ChatMessage(isSent: true, contentText: "你好呀"),
         ]
         
-        me = User(id: "123", name: "palominoespresso", email: "12@asd.com", password: "luanMa", avatar: "palominoespresso", gender: Gender.Male, birthday: Date())
+        me = User(id: "123", name: "palominoespresso", email: "12@asd.com", password: "luanMa", avatar: "palominoespresso", isMale: true, birthday: Date())
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = friend.name
+        self.title = "name"
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Info", style: .done, target: self, action: #selector(showChatDetail))
 
         getData()
@@ -160,7 +161,7 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
         // textField.resignFirstResponder()
         
         // append message
-        chatMessages.append(ChatMessage(msgType: MsgType.Sent, contentText: textFeild.text!))
+        chatMessages.append(ChatMessage(isSent: true, contentText: textFeild.text!))
         tableView.beginUpdates()
         tableView.insertRows(at: [IndexPath(row: chatMessages.count-1, section: 0)], with: .automatic)
         tableView.endUpdates()
