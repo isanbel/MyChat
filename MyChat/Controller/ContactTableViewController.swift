@@ -18,12 +18,6 @@ class ContactTableViewController: UITableViewController, NSFetchedResultsControl
         super.viewDidLoad()
         
         loadData()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
     override func didReceiveMemoryWarning() {
@@ -47,23 +41,25 @@ class ContactTableViewController: UITableViewController, NSFetchedResultsControl
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! ContactTableViewCell
         
         cell.nameLabel.text = friends[indexPath.row].name
-//        cell.thumbnailImageView.image = UIImage(named: friends[indexPath.row].avatar)
+        if let avatarImage = friends[indexPath.row].avatar {
+            cell.thumbnailImageView.image = UIImage(data: avatarImage as Data)
+        }
         
         return cell
     }    
     
     func loadData() {
         
-//        // Save data
-//        if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
-//            let friend = FriendMO(context: appDelegate.persistentContainer.viewContext)
-//            friend.name = "Andy"
-//            friend.isMale = true
-//            friend.id = "123"
-//            friend.birthday = Date()
-//
-//            appDelegate.saveContext()
-//        }
+        // Save data
+        // if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
+        //     let friend = FriendMO(context: appDelegate.persistentContainer.viewContext)
+        //     friend.name = "Andy"
+        //     friend.isMale = true
+        //     friend.id = "123"
+        //     friend.birthday = Date()
+        //
+        //     appDelegate.saveContext()
+        // }
         
         // Fetch data from data store
         let fetchRequest: NSFetchRequest<FriendMO> = FriendMO.fetchRequest()

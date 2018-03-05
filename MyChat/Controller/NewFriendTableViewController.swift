@@ -132,9 +132,20 @@ class NewFriendTableViewController: UITableViewController, UITextFieldDelegate, 
         }
     }
     
+    // MARK: - UITextFieldDelegate methods
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if let nextTextField = view.viewWithTag(textField.tag + 1) {
+            textField.resignFirstResponder()
+            nextTextField.becomeFirstResponder()
+        }
+        
+        return true
+    }
+    
     // MARK: - Action method
     
-    func saveButtonTapped(sender: AnyObject) {
+    @IBAction func saveButtonTapped(sender: AnyObject) {
         
         if nameTextField.text == "" {
             let alertController = UIAlertController(title: "添加失败", message: "请确定所有输入框皆非空白", preferredStyle: .alert)
@@ -146,7 +157,7 @@ class NewFriendTableViewController: UITableViewController, UITextFieldDelegate, 
         }
         
         print("Name: \(nameTextField.text ?? "")")
-        print("Description: \(genderSwitchField.isOn)")
+        print("isMale: \(genderSwitchField.isOn)")
         
         // Save data
         if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
@@ -165,6 +176,19 @@ class NewFriendTableViewController: UITableViewController, UITextFieldDelegate, 
         dismiss(animated: true, completion: nil)
         
     }
+    
+    // MARK: - UIImagePickerControllerDelegate method
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        if let selectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            photoImageView.image = selectedImage
+            photoImageView.contentMode = .scaleAspectFill
+            photoImageView.clipsToBounds = true
+        }
+        
+        dismiss(animated: true, completion: nil)
+    }
+    
 
     /*
     // MARK: - Navigation

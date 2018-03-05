@@ -29,6 +29,7 @@ class RoundedTextField: UITextField {
         
         self.layer.cornerRadius = 5.0
         self.layer.masksToBounds = true
+        self.borderStyle = UITextBorderStyle.none
     }
     
 }
