@@ -10,7 +10,12 @@ import UIKit
 
 class ChatDateIndicatorCell: UITableViewCell {
 
-    @IBOutlet var dateLabel: UILabel!
+    @IBOutlet var dateLabel: UILabel! {
+        didSet {
+            self.selectionStyle = .none
+            // TODO: height
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()

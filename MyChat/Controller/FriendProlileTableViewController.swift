@@ -1,5 +1,5 @@
 //
-//  ContactTableViewController.swift
+//  FriendProlileTableViewController.swift
 //  MyChat
 //
 //  Created by Yuanyuan Zhang on 05/03/2018.
@@ -8,14 +8,11 @@
 
 import UIKit
 
-class ContactTableViewController: UITableViewController {
+class FriendProlileTableViewController: UITableViewController {
 
-    var friends: [Friend] = []
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        loadData()
+        self.title = "详细资料"
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -32,33 +29,24 @@ class ContactTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        // #warning Incomplete implementation, return the number of sections
+        return 0
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return friends.count
+        // #warning Incomplete implementation, return the number of rows
+        return 0
     }
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        let cellIdentifier = "ContactTableViewCell"
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! ContactTableViewCell
-        
+    /*
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+
         // Configure the cell...
-        cell.nameLabel.text = friends[indexPath.row].name
-        cell.thumbnailImageView.image = UIImage(named: friends[indexPath.row].avatar)
-        
+
         return cell
-    }    
-    
-    func loadData() {
-        friends = [
-            Friend(id: "1", name: "Andy", avatar: "cafedeadend.jpg", gender: nil, birthday: nil),
-            Friend(id: "1", name: "Homei", avatar: "homei.jpg", gender: nil, birthday: nil),
-        ]
-        
-        // sort friends
     }
+    */
 
     /*
     // Override to support conditional editing of the table view.

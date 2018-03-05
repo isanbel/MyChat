@@ -45,7 +45,7 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = friend.name
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Info", style: .done, target: self, action: #selector(showFriendProfile))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Info", style: .done, target: self, action: #selector(showChatDetail))
 
         getData()
         scrollToBottom(animated: false)
@@ -69,8 +69,8 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
 
     }
     
-    @objc func showFriendProfile() {
-        self.performSegue(withIdentifier: "showFriendProfile", sender: self)
+    @objc func showChatDetail() {
+        self.performSegue(withIdentifier: "ShowChatDetail", sender: self)
     }
     
     override func didReceiveMemoryWarning() {
