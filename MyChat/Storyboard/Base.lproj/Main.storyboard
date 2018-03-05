@@ -31,17 +31,17 @@
                                             <rect key="frame" x="10" y="7" width="355" height="56"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="n8m-1m-i16">
-                                                    <rect key="frame" x="0.0" y="0.0" width="56" height="56"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="52" height="56"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="56" id="4po-Zp-HBN"/>
-                                                        <constraint firstAttribute="height" constant="56" id="ahz-Ev-OUM"/>
+                                                        <constraint firstAttribute="width" constant="52" id="4po-Zp-HBN"/>
+                                                        <constraint firstAttribute="height" constant="52" id="ahz-Ev-OUM"/>
                                                     </constraints>
                                                 </imageView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="Q38-ko-ukb">
-                                                    <rect key="frame" x="66" y="0.0" width="289" height="56"/>
+                                                    <rect key="frame" x="62" y="0.0" width="293" height="56"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qdA-90-3Zh">
-                                                            <rect key="frame" x="0.0" y="0.0" width="289" height="20.5"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="293" height="20.5"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oE7-J7-jW4">
                                                                     <rect key="frame" x="0.0" y="0.0" width="45" height="20.5"/>
@@ -50,7 +50,7 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Date" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BeU-zU-BuR">
-                                                                    <rect key="frame" x="45" y="0.0" width="244" height="20.5"/>
+                                                                    <rect key="frame" x="45" y="0.0" width="248" height="20.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.56272007042253525" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
