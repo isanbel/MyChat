@@ -8,17 +8,22 @@
 
 import Foundation
 
+enum Gender {
+    case Male
+    case Female
+}
+
 class User {
-    var userId: String
+    var id: String
     var name: String
-    var gender: String
-    var birthday: Date
-    var avatar: String
     var email: String
     var password: String
+    var avatar: String
+    var gender: Gender?
+    var birthday: Date?
 
-    init(userId: String, name: String, gender: String, birthday: Date, avatar: String, email: String, password: String) {
-        self.userId = userId
+    init(id: String, name: String, email: String, password: String, avatar: String, gender: Gender?, birthday: Date?) {
+        self.id = id
         self.name = name
         self.gender = gender
         self.birthday = birthday
@@ -28,6 +33,6 @@ class User {
     }
 
     convenience init() {
-        self.init(userId: "", name: "", gender: "", birthday: Date(), avatar: "", email: "", password: "")
+        self.init(id: "", name: "", email: "", password: "", avatar: "", gender: nil, birthday: nil)
     }
 }

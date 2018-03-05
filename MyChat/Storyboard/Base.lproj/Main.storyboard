@@ -312,14 +312,48 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="sectionIndexBackgroundColor" red="0.96852236986160278" green="0.96868795156478882" blue="0.96851199865341187" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" id="feY-bT-1rh">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <outlet property="delegate" destination="fHr-0z-vja" id="V1R-fo-TOf"/>
+                            </connections>
+                        </searchBar>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="ddw-MU-9Uj">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ContactTableViewCell" id="ddw-MU-9Uj" customClass="ContactTableViewCell" customModule="MyChat" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="72" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ddw-MU-9Uj" id="wZG-Qu-LiE">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DPP-4H-LLs">
+                                            <rect key="frame" x="10" y="2" width="40" height="40"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="40" id="1u6-T5-XOY"/>
+                                                <constraint firstAttribute="width" constant="40" id="UEL-2B-4Pc"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5bt-6c-YmC">
+                                            <rect key="frame" x="60" y="12" width="45" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="DPP-4H-LLs" secondAttribute="bottom" constant="1.5" id="791-Mb-yt6"/>
+                                        <constraint firstItem="DPP-4H-LLs" firstAttribute="leading" secondItem="wZG-Qu-LiE" secondAttribute="leading" constant="10" id="jIJ-eF-DOt"/>
+                                        <constraint firstItem="DPP-4H-LLs" firstAttribute="top" secondItem="wZG-Qu-LiE" secondAttribute="top" constant="2" id="pOH-VD-QKS"/>
+                                        <constraint firstItem="5bt-6c-YmC" firstAttribute="leading" secondItem="DPP-4H-LLs" secondAttribute="trailing" constant="10" id="rPg-3s-H2g"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="nameLabel" destination="5bt-6c-YmC" id="70C-gD-hRd"/>
+                                    <outlet property="thumbnailImageView" destination="DPP-4H-LLs" id="DfB-ZR-gwc"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -328,10 +362,30 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="通讯录" id="U3H-dQ-ZdN"/>
+                    <connections>
+                        <outlet property="searchDisplayController" destination="eS3-F9-LQv" id="nWE-Ky-Ta1"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qD2-Eo-pDg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="NSB-jO-YVF">
+                    <connections>
+                        <outlet property="delegate" destination="fHr-0z-vja" id="FPn-xd-jVa"/>
+                        <outlet property="searchContentsController" destination="fHr-0z-vja" id="dPc-ms-5OY"/>
+                        <outlet property="searchResultsDataSource" destination="fHr-0z-vja" id="MD8-SE-Fn5"/>
+                        <outlet property="searchResultsDelegate" destination="fHr-0z-vja" id="kVd-wb-p5i"/>
+                    </connections>
+                </searchDisplayController>
+                <searchDisplayController id="eS3-F9-LQv">
+                    <connections>
+                        <outlet property="delegate" destination="fHr-0z-vja" id="DIF-eY-OAI"/>
+                        <outlet property="searchBar" destination="feY-bT-1rh" id="vK7-Uy-cnh"/>
+                        <outlet property="searchContentsController" destination="fHr-0z-vja" id="D8V-TW-Oog"/>
+                        <outlet property="searchResultsDataSource" destination="fHr-0z-vja" id="wYm-O1-5Lv"/>
+                        <outlet property="searchResultsDelegate" destination="fHr-0z-vja" id="dOv-a4-D05"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="1113" y="779"/>
+            <point key="canvasLocation" x="1112.8" y="778.56071964017997"/>
         </scene>
         <!--通讯录-->
         <scene sceneID="BKB-SR-HLO">
