@@ -162,8 +162,8 @@ class NewFriendTableViewController: UITableViewController, UITextFieldDelegate, 
         // Save data
         if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
             let friend = FriendMO(context: appDelegate.persistentContainer.viewContext)
-            friend.name = "Juny"
-            friend.isMale = true
+            friend.name = nameTextField.text
+            friend.isMale = genderSwitchField.isOn
             friend.id = "123"
             friend.birthday = Date()
             if let friendAvatar = photoImageView.image {
@@ -174,7 +174,7 @@ class NewFriendTableViewController: UITableViewController, UITextFieldDelegate, 
         }
         
         dismiss(animated: true, completion: nil)
-        
+        navigationController?.popViewController(animated: true)
     }
     
     // MARK: - UIImagePickerControllerDelegate method
