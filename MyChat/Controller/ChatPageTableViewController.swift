@@ -14,7 +14,7 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
     @IBOutlet weak var keyBaordView: UIView!
     @IBOutlet weak var textFeild: UITextField!
     
-    var friend = ChatOutline()
+    var friend = LastMessage()
     var me = User()
     
     var chatMessages: [ChatMessage] = []

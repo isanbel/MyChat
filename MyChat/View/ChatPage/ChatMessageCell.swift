@@ -30,7 +30,7 @@ class ChatMessageCell: UITableViewCell {
     let bubbleImgView:UIImageView = UIImageView()
     
     // the data of friend is not user for convenience
-    var friend: ChatOutline?
+    var friend: LastMessage?
     var me: User?
     
     var message: ChatMessage? {//根据消息模型构建cell布局

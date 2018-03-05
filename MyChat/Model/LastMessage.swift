@@ -8,25 +8,25 @@
 
 import Foundation
 
-class ChatOutline {
+class LastMessage {
     var friendId: String
     var avatar: String
     var name: String
-    var chatSlice: String
+    var content: String
     var date: Date
     var stickOnTop: Bool
 
-    init(friendId: String, name: String, avatar: String, chatSlice: String, date: Date) {
+    init(friendId: String, name: String, avatar: String, content: String, date: Date) {
         self.friendId = friendId
         self.name = name
         self.avatar = avatar
-        self.chatSlice = chatSlice
+        self.content = content
         self.date = date
         self.stickOnTop = false
     }
 
     convenience init() {
-        self.init(friendId: "", name: "", avatar: "", chatSlice: "", date: Date())
+        self.init(friendId: "", name: "", avatar: "", content: "", date: Date())
     }
 
     func stick() {
