@@ -39,13 +39,13 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
             ChatMessage(msgType: MsgType.Received, contentText: "我想起了故乡的山楂花树篱")
         ]
         
-        me = User(userId: "123", name: "palominoespresso", gender: "male", birthday: Date(), avatar: "palominoespresso", email: "12@asd.com", password: "luanMa")
+        me = User(id: "123", name: "palominoespresso", email: "12@asd.com", password: "luanMa", avatar: "palominoespresso", gender: Gender.Male, birthday: Date())
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = friend.name
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Info", style: .done, target: self, action: #selector(addTapped))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Info", style: .done, target: self, action: #selector(showFriendProfile))
 
         getData()
         scrollToBottom(animated: false)
@@ -69,7 +69,7 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
 
     }
     
-    @objc func addTapped() {
+    @objc func showFriendProfile() {
         self.performSegue(withIdentifier: "showFriendProfile", sender: self)
     }
     
