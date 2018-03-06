@@ -20,28 +20,9 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
     var friend = FriendMO()
     var me = UserMO()
     
-    var chatMessages: [ChatMessage] = []
+    var chatMessages: [ChatMessageMO] = []
     
     func getData() {
-        // clearData()
-        chatMessages = [
-            ChatMessage(isDateIndicator: true),
-            ChatMessage(isSent: true, contentText: "今天遇见了那年的老朋友，一时间竟叫不出名字"),
-            ChatMessage(isSent: true, contentText: "Mary，你还记得那年的女孩吗？"),
-            ChatMessage(isSent: false, contentText: "好呀"),
-            ChatMessage(isDateIndicator: true),
-            ChatMessage(isSent: true, contentText: "今天傍晚，雷雨中传来一阵丁香花的香味"),
-            ChatMessage(isSent: true, contentText: "我想起了故乡的山楂花树篱"),
-            ChatMessage(isSent: true, contentText: "你好呀"),
-            ChatMessage(isDateIndicator: true),
-            ChatMessage(isSent: true, contentText: "今天遇见了那年的老朋友，一时间竟叫不出名字"),
-            ChatMessage(isSent: true, contentText: "Mary，你还记得那年的女孩吗？"),
-            ChatMessage(isSent: false, contentText: "好呀"),
-            ChatMessage(isDateIndicator: true),
-            ChatMessage(isSent: true, contentText: "今天傍晚，雷雨中传来一阵丁香花的香味"),
-            ChatMessage(isSent: true, contentText: "我想起了故乡的山楂花树篱"),
-            ChatMessage(isSent: true, contentText: "你好呀"),
-        ]
         
         // Fetch data from data store
         let fetchRequest: NSFetchRequest<UserMO> = UserMO.fetchRequest()
@@ -63,6 +44,7 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
             }
         }
         
+        chatMessages = friend.chatMessages?.array as! [ChatMessageMO]
     }
 
     override func viewDidLoad() {
@@ -113,7 +95,7 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if chatMessages[indexPath.row].isDateIndicator == false {
+        if chatMessages[indexPath.row].isDateIdentifier == false {
             let cellIdentifier = "ChatMessageCell"
             let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! ChatMessageCell
             
@@ -125,7 +107,7 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
             let cellIdentifier = "ChatDateIndicatorCell"
             let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! ChatDateIndicatorCell
 
-            cell.dateLabel.text = chatMessages[indexPath.row].date.relativeTime
+            cell.dateLabel.text = chatMessages[indexPath.row].date?.relativeTime
             
             return cell
         }
@@ -178,15 +160,31 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        // End Editing
-        // self.view.endEditing(true)
-        // textField.resignFirstResponder()
+        // TODO: use Http to append a message
         
-        // append message
-        chatMessages.append(ChatMessage(isSent: true, contentText: textFeild.text!))
-        tableView.beginUpdates()
-        tableView.insertRows(at: [IndexPath(row: chatMessages.count-1, section: 0)], with: .automatic)
-        tableView.endUpdates()
+        // save message to store
+        if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
+            let message = ChatMessageMO(context: appDelegate.persistentContainer.viewContext)
+            message.isSent = true
+            message.date = Date()
+            message.contentText = textFeild.text!
+            message.friend = friend
+            message.isDateIdentifier = false
+            
+            // delete the old last message and add the new one
+            let context = appDelegate.persistentContainer.viewContext
+            if friend.lastMessage != nil {
+                context.delete(friend.lastMessage!)
+            }
+            let lastmessage = LastMessageMO(context: appDelegate.persistentContainer.viewContext)
+            lastmessage.content = textFeild.text!
+            lastmessage.date = Date()
+            friend.lastMessage = lastmessage
+            
+            appDelegate.saveContext()
+        }
+        getData()
+        tableView.reloadData()
         scrollToBottom(animated: true)
         
         textFeild.text = ""
@@ -195,9 +193,11 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
     }
     
     func scrollToBottom(animated: Bool){
-        DispatchQueue.main.async {
-            let indexPath = IndexPath(row: self.chatMessages.count-1, section: 0)
-            self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: animated)
+        if self.chatMessages.count > 0 {
+            DispatchQueue.main.async {
+                let indexPath = IndexPath(row: self.chatMessages.count-1, section: 0)
+                self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: animated)
+            }
         }
     }
     

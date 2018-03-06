@@ -16,9 +16,17 @@ class ContactTableViewController: UITableViewController, NSFetchedResultsControl
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated);
         
+        let friendsCount = friends.count
         loadData()
-        tableView.reloadData()
+        // reload when table changes
+        if friendsCount != friends.count {
+            tableView.reloadData()
+        }
     }
 
     override func didReceiveMemoryWarning() {

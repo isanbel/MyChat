@@ -16,12 +16,18 @@ class ChatTableViewController: UITableViewController, NSFetchedResultsController
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        getData()
 
         navigationController?.navigationBar.backgroundColor = .white
         navigationController?.navigationBar.isTranslucent = false
         
         getUserData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated);
+        
+        getData()
+        tableView.reloadData()
     }
 
     @objc func addTapped() {
@@ -32,20 +38,21 @@ class ChatTableViewController: UITableViewController, NSFetchedResultsController
         // TODO: get
         
         // then save data
-//        if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
-//            let user = UserMO(context: appDelegate.persistentContainer.viewContext)
-//            user.name = "palominoespresso"
-//            user.email = "12@asd.com"
-//            user.password = "luanMa"
-//            user.isMale = true
-//            user.id = "123"
-//            user.birthday = Date()
-//            if let friendAvatar = UIImage(named: "palominoespresso.jpg") {
-//                user.avatar = UIImagePNGRepresentation(friendAvatar)
-//            }
-//
-//            appDelegate.saveContext()
-//        }
+        //    // save the init user
+        //    if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
+        //        let user = UserMO(context: appDelegate.persistentContainer.viewContext)
+        //        user.name = "palominoespresso"
+        //        user.email = "12@asd.com"
+        //        user.password = "luanMa"
+        //        user.isMale = true
+        //        user.id = "123"
+        //        user.birthday = Date()
+        //        if let friendAvatar = UIImage(named: "palominoespresso.jpg") {
+        //            user.avatar = UIImagePNGRepresentation(friendAvatar)
+        //        }
+        //
+        //        appDelegate.saveContext()
+        //    }
     }
     
     override func didReceiveMemoryWarning() {
@@ -56,7 +63,6 @@ class ChatTableViewController: UITableViewController, NSFetchedResultsController
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
@@ -68,14 +74,14 @@ class ChatTableViewController: UITableViewController, NSFetchedResultsController
 
         let cellIdentifier = "ChatTableViewCell"
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! ChatTableViewCell
-
-//        cell.nameLabel.text = lastMessages[indexPath.row].name
+        
+        let friend = lastMessages[indexPath.row].friend
+        cell.nameLabel.text = friend?.name
         cell.chatsliceLabel.text = lastMessages[indexPath.row].content
         cell.dateLabel.text = lastMessages[indexPath.row].date?.relativeTime
-//        if let avatar = lastMessages[indexPath.row].avatar {
-//            cell.thumbnailImageView.image = UIImage(data: avatar as Data)
-//        }
-        // cell.thumbnailImageView.image = UIImage(named: lastMessages[indexPath.row].avatar)
+        if let avatar = friend?.avatar {
+            cell.thumbnailImageView.image = UIImage(data: avatar as Data)
+        }
 
         return cell
     }
@@ -104,20 +110,9 @@ class ChatTableViewController: UITableViewController, NSFetchedResultsController
 
     func getData() {
         
-        // Save data
-//        if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
-//            let lastMessage = LastMessageMO(context: appDelegate.persistentContainer.viewContext)
-//            lastMessage.stickOnTop = false
-//            lastMessage.friendId = "123"
-//            lastMessage.content = "haha"
-//            lastMessage.date = Date()
-//
-//            appDelegate.saveContext()
-//        }
-//
         // Fetch data from data store
         let fetchRequest: NSFetchRequest<LastMessageMO> = LastMessageMO.fetchRequest()
-        let sortDescriptor = NSSortDescriptor(key: "date", ascending: true)
+        let sortDescriptor = NSSortDescriptor(key: "date", ascending: false)
         fetchRequest.sortDescriptors = [sortDescriptor]
         
         if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
@@ -174,13 +169,13 @@ class ChatTableViewController: UITableViewController, NSFetchedResultsController
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    //        if segue.identifier == "showChatPage" {
-    //            if let indexPath = tableView.indexPathForSelectedRow {
-    //                let destinationViewController = segue.destination as! ChatPageTableViewController
-    //                destinationViewController.friend = lastMessages[indexPath.row]
-    //            }
-    //        }
-    //    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showChatPage" {
+            if let indexPath = tableView.indexPathForSelectedRow {
+                let destinationViewController = segue.destination as! ChatPageTableViewController
+                destinationViewController.friend = lastMessages[indexPath.row].friend!
+            }
+        }
+    }
 
 }

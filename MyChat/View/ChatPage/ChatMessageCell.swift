@@ -33,7 +33,7 @@ class ChatMessageCell: UITableViewCell {
     var friend: FriendMO?
     var me: UserMO?
     
-    var message: ChatMessage? {//根据消息模型构建cell布局
+    var message: ChatMessageMO? {//根据消息模型构建cell布局
         
         didSet{
             //当message传入时初始化视图，先移除，再添加，避免cell复用时候重复添加视图
