@@ -9,16 +9,17 @@
 import UIKit
 
 class FriendProlileTableViewController: UITableViewController {
+    
+    @IBOutlet var nameLabel: UILabel!
+    @IBOutlet var avatarImageView: UIImageView!
+    
+    var friend = FriendMO()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "详细资料"
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        loadData()
+        tableView.separatorStyle = .none
     }
 
     override func didReceiveMemoryWarning() {
@@ -30,12 +31,21 @@ class FriendProlileTableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return 3
+    }
+    
+    func loadData() {
+        
+        nameLabel.text = friend.name
+        if let avatarImage = friend.avatar {
+            avatarImageView.image = UIImage(data: avatarImage as Data)
+        }
+        
     }
 
     /*
