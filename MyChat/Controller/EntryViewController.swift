@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class EntryViewController: UIViewController {
 
@@ -21,7 +22,14 @@ class EntryViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
+    @IBAction func entry_bt(_ sender: UIButton) {
+        Alamofire.request("http://127.0.0.1:3003/").response { response in
+            print("Request: \(String(describing: response.request))")   // original url request
+            print("Response: \(String(describing: response.response))") // http url response
+        }
+        // performSegue(withIdentifier: "Enter", sender: self)
+    }
+    
     /*
     // MARK: - Navigation
 
