@@ -7,15 +7,18 @@
 //
 
 import UIKit
+import CoreData
 
-class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate {
+class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, NSFetchedResultsControllerDelegate {
+    
+    var fetchResultController: NSFetchedResultsController<UserMO>!
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var keyBaordView: UIView!
     @IBOutlet weak var textFeild: UITextField!
     
-    var friend = LastMessage()
-    var me = User()
+    var friend = FriendMO()
+    var me = UserMO()
     
     var chatMessages: [ChatMessage] = []
     
@@ -40,7 +43,26 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
             ChatMessage(isSent: true, contentText: "你好呀"),
         ]
         
-        me = User(id: "123", name: "palominoespresso", email: "12@asd.com", password: "luanMa", avatar: "palominoespresso", isMale: true, birthday: Date())
+        // Fetch data from data store
+        let fetchRequest: NSFetchRequest<UserMO> = UserMO.fetchRequest()
+        let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        
+        if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
+            let context = appDelegate.persistentContainer.viewContext
+            fetchResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+            fetchResultController.delegate = self
+            
+            do {
+                try fetchResultController.performFetch()
+                if let fetchedObjects = fetchResultController.fetchedObjects {
+                    me = fetchedObjects[0]
+                }
+            } catch {
+                print(error)
+            }
+        }
+        
     }
 
     override func viewDidLoad() {

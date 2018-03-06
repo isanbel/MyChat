@@ -18,6 +18,7 @@ class ContactTableViewController: UITableViewController, NSFetchedResultsControl
         super.viewDidLoad()
         
         loadData()
+        tableView.reloadData()
     }
 
     override func didReceiveMemoryWarning() {

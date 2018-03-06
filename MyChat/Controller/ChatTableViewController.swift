@@ -20,13 +20,32 @@ class ChatTableViewController: UITableViewController, NSFetchedResultsController
 
         navigationController?.navigationBar.backgroundColor = .white
         navigationController?.navigationBar.isTranslucent = false
-
-        // TODO: add plus button
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        getUserData()
     }
 
     @objc func addTapped() {
         print("add")
+    }
+    
+    func getUserData() {
+        // TODO: get
+        
+        // then save data
+        if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
+            let user = UserMO(context: appDelegate.persistentContainer.viewContext)
+            user.name = "palominoespresso"
+            user.email = "12@asd.com"
+            user.password = "luanMa"
+            user.isMale = true
+            user.id = "123"
+            user.birthday = Date()
+            if let friendAvatar = UIImage(named: "palominoespresso.jpg") {
+                user.avatar = UIImagePNGRepresentation(friendAvatar)
+            }
+            
+            appDelegate.saveContext()
+        }
     }
     
     override func didReceiveMemoryWarning() {

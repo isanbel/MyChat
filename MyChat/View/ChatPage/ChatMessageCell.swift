@@ -30,8 +30,8 @@ class ChatMessageCell: UITableViewCell {
     let bubbleImgView:UIImageView = UIImageView()
     
     // the data of friend is not user for convenience
-    var friend: LastMessage?
-    var me: User?
+    var friend: FriendMO?
+    var me: UserMO?
     
     var message: ChatMessage? {//根据消息模型构建cell布局
         
@@ -45,7 +45,16 @@ class ChatMessageCell: UITableViewCell {
             self.bubbleImgView.addSubview(self.contentLbl)
             
             //将message模型中的数据给头像、内容、气泡视图
-//            self.headerImgView.image = message?.isSent == true ? UIImage(named: me!.avatar) : UIImage(named: friend!.avatar)
+            
+            if message?.isSent == true {
+                if let avatarImage = me!.avatar {
+                    self.headerImgView.image = UIImage(data: avatarImage as Data)
+                }
+            } else {
+                if let avatarImage = friend!.avatar {
+                    self.headerImgView.image = UIImage(data: avatarImage as Data)
+                }
+            }
             self.bubbleImgView.image = message?.isSent == false ? UIImage(named: "bubble_received_normal") : UIImage(named: "bubble_sent_normal")
             self.contentLbl.text = message?.contentText
             
