@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		0E5AD3BCB33A25D7A2242FD1 /* Pods_MyChat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C049B3444924D59407AF0FA7 /* Pods_MyChat.framework */; };
 		A8D69F36204EF4820081B18D /* EntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D69F35204EF4820081B18D /* EntryViewController.swift */; };
+		A8D69F38204F0C370081B18D /* HttpUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D69F37204F0C370081B18D /* HttpUtil.swift */; };
+		A8D69F3A204FA4A00081B18D /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D69F39204FA4A00081B18D /* Utils.swift */; };
 		C2224ABF204CF669001A9D06 /* ContactTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2224ABE204CF669001A9D06 /* ContactTableViewCell.swift */; };
 		C2224AC1204CF754001A9D06 /* ContactTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2224AC0204CF754001A9D06 /* ContactTableViewController.swift */; };
 		C2224AC3204CF8B5001A9D06 /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2224AC2204CF8B5001A9D06 /* Friend.swift */; };
@@ -37,6 +39,8 @@
 		2F205DE40D896FC8EB7997CD /* Pods-MyChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyChat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MyChat/Pods-MyChat.debug.xcconfig"; sourceTree = "<group>"; };
 		32046CC5F7148689AF037558 /* Pods-MyChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyChat.release.xcconfig"; path = "Pods/Target Support Files/Pods-MyChat/Pods-MyChat.release.xcconfig"; sourceTree = "<group>"; };
 		A8D69F35204EF4820081B18D /* EntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryViewController.swift; sourceTree = "<group>"; };
+		A8D69F37204F0C370081B18D /* HttpUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpUtil.swift; sourceTree = "<group>"; };
+		A8D69F39204FA4A00081B18D /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		C049B3444924D59407AF0FA7 /* Pods_MyChat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyChat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2224ABE204CF669001A9D06 /* ContactTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactTableViewCell.swift; sourceTree = "<group>"; };
 		C2224AC0204CF754001A9D06 /* ContactTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactTableViewController.swift; sourceTree = "<group>"; };
@@ -116,7 +120,7 @@
 		C26444662024B0DE004E86C5 /* MyChat */ = {
 			isa = PBXGroup;
 			children = (
-				C2B11AFD2044F38000726A86 /* Resources */,
+				C2B11AFD2044F38000726A86 /* Resource */,
 				C2B11AFE2044F39400726A86 /* Storyboard */,
 				C2B11AFF2044F3A300726A86 /* Model */,
 				C2B11B002044F3AA00726A86 /* View */,
@@ -127,12 +131,14 @@
 			path = MyChat;
 			sourceTree = "<group>";
 		};
-		C2B11AFD2044F38000726A86 /* Resources */ = {
+		C2B11AFD2044F38000726A86 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
 				C24EBD26204B9F8500C49569 /* Tools.swift */,
+				A8D69F37204F0C370081B18D /* HttpUtil.swift */,
+				A8D69F39204FA4A00081B18D /* Utils.swift */,
 			);
-			path = Resources;
+			path = Resource;
 			sourceTree = "<group>";
 		};
 		C2B11AFE2044F39400726A86 /* Storyboard */ = {
@@ -336,6 +342,7 @@
 				C2224AEB204D4A8B001A9D06 /* MyChat.xcdatamodeld in Sources */,
 				C2224AC3204CF8B5001A9D06 /* Friend.swift in Sources */,
 				C247D3402047956000456567 /* ChatMessage.swift in Sources */,
+				A8D69F3A204FA4A00081B18D /* Utils.swift in Sources */,
 				C2B11B062044F73E00726A86 /* ChatTableViewCell.swift in Sources */,
 				C2B11B0E20453BB300726A86 /* ChatPageTableViewController.swift in Sources */,
 				C2224AEF204DB047001A9D06 /* RoundedTextField.swift in Sources */,
@@ -345,6 +352,7 @@
 				C2224AC1204CF754001A9D06 /* ContactTableViewController.swift in Sources */,
 				C284E02520492953009FC6CA /* ChatDateIndicatorCell.swift in Sources */,
 				C2B11B0A2045005400726A86 /* ChatTableViewController.swift in Sources */,
+				A8D69F38204F0C370081B18D /* HttpUtil.swift in Sources */,
 				C24EBD27204B9F8500C49569 /* Tools.swift in Sources */,
 				C284E023204887DB009FC6CA /* ChatMessageCell.swift in Sources */,
 				C247D342204799F600456567 /* ChatPageReceiveTableViewCell.swift in Sources */,

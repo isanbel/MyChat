@@ -2,15 +2,17 @@
 //  EntryViewController.swift
 //  MyChat
 //
-//  Created by Raincome on 07/03/2018.
+//  Created by painterdrown on 07/03/2018.
 //  Copyright © 2018 Ithink Team. All rights reserved.
 //
 
 import UIKit
-import Alamofire
 
 class EntryViewController: UIViewController {
 
+    @IBOutlet weak var username_tf: UITextField!
+    @IBOutlet weak var password_tf: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -23,21 +25,45 @@ class EntryViewController: UIViewController {
     }
     
     @IBAction func entry_bt(_ sender: UIButton) {
-        Alamofire.request("http://127.0.0.1:3003/").response { response in
-            print("Request: \(String(describing: response.request))")   // original url request
-            print("Response: \(String(describing: response.response))") // http url response
+        let username = username_tf.text!
+        let password = password_tf.text!
+        
+        // 检查账号密码不为空
+        if (username.isEmpty) {
+            let msg = "账号不能为空"
+            present(Utils.getAlertController(title: "错误", message: msg), animated: true, completion: nil)
+            return
         }
-        // performSegue(withIdentifier: "Enter", sender: self)
+        if (password.isEmpty) {
+            let msg = "密码不能为空"
+            present(Utils.getAlertController(title: "错误", message: msg), animated: true, completion: nil)
+            return
+        }
+        
+        let parameters: [String: Any] = [
+            "username": username,
+            "password": password
+        ]
+        let url: String = "/users/signin"
+        let that = self
+        let onSuccess = { (data: [String: Any]) -> Void in
+            that.performSegue(withIdentifier: "Enter", sender: nil)
+        }
+        
+        let onSignupFailure = { (data: [String: Any]) -> Void in
+            let msg = "用户名不存在，尝试创建新用户失败"
+            that.present(Utils.getAlertController(title: "错误", message: msg), animated: true, completion: nil)
+        }
+        let onSigninFailure = { (data: [String: Any]) -> Void in
+            let msg = data["message"] as! String
+            if (msg == "用户名不存在") {
+                let url = "/users/signup"
+                HttpUtil.post(url: url, parameters: parameters, onSuccess: onSuccess, onFailure: onSignupFailure)
+            } else {
+                that.present(Utils.getAlertController(title: "错误", message: msg), animated: true, completion: nil)
+            }
+        }
+        HttpUtil.post(url: url, parameters: parameters, onSuccess: onSuccess, onFailure: onSigninFailure);
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

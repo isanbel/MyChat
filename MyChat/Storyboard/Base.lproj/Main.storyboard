@@ -572,6 +572,8 @@
                         <viewLayoutGuide key="safeArea" id="PTh-a7-SEX"/>
                     </view>
                     <connections>
+                        <outlet property="password_tf" destination="7M6-2Q-9So" id="Th9-kz-9HZ"/>
+                        <outlet property="username_tf" destination="y8y-12-6hk" id="KcW-IQ-XnR"/>
                         <segue destination="8Yq-kg-Aam" kind="show" identifier="Enter" id="fpZ-aC-oTX"/>
                     </connections>
                 </viewController>
