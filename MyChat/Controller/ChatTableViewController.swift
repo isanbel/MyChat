@@ -9,11 +9,13 @@
 import UIKit
 import CoreData
 
-class ChatTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
+class ChatTableViewController: UITableViewController, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate {
 
     var lastMessages: [LastMessageMO] = []
     var fetchResultController: NSFetchedResultsController<LastMessageMO>!
-
+    
+    @IBOutlet var emptyChatTableView: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -21,6 +23,11 @@ class ChatTableViewController: UITableViewController, NSFetchedResultsController
         navigationController?.navigationBar.isTranslucent = false
         
         getUserData()
+        
+        tableView.backgroundView = emptyChatTableView
+        tableView.backgroundView?.isHidden = true
+        tableView.tableFooterView = UIView()
+        tableView.backgroundColor = UIColor(displayP3Red: 237/255, green: 235/255, blue: 235/255, alpha: 1)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -28,10 +35,6 @@ class ChatTableViewController: UITableViewController, NSFetchedResultsController
         
         getData()
         tableView.reloadData()
-    }
-
-    @objc func addTapped() {
-        print("add")
     }
     
     func getUserData() {
@@ -63,6 +66,14 @@ class ChatTableViewController: UITableViewController, NSFetchedResultsController
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
+        if lastMessages.count > 0 {
+            tableView.backgroundView?.isHidden = true
+            tableView.separatorStyle = .singleLine
+        } else {
+            tableView.backgroundView?.isHidden = false
+            tableView.separatorStyle = .none
+        }
+        
         return 1
     }
 
@@ -90,6 +101,13 @@ class ChatTableViewController: UITableViewController, NSFetchedResultsController
 
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, sourceView, completionHandler) in
+            
+            // delete the lastmessage
+            if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
+                let context = appDelegate.persistentContainer.viewContext
+                context.delete(self.lastMessages[indexPath.row])
+                appDelegate.saveContext()
+            }
             // Delete the row from the data source
             self.lastMessages.remove(at: indexPath.row)
 
@@ -175,6 +193,25 @@ class ChatTableViewController: UITableViewController, NSFetchedResultsController
                 let destinationViewController = segue.destination as! ChatPageTableViewController
                 destinationViewController.friend = lastMessages[indexPath.row].friend!
             }
+        }
+        
+        if segue.identifier == "showPopover" {
+            let popoverViewController = segue.destination
+            popoverViewController.popoverPresentationController?.delegate = self
+        }
+    }
+    
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return UIModalPresentationStyle.none
+    }
+    
+    @IBAction func AddFriendUnwindSegue(_ sender: UIStoryboardSegue) {
+        
+    }
+    
+    @IBAction func NewFriendUnwindSegue(_ sender: UIStoryboardSegue) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.performSegue(withIdentifier: "showNewFriend", sender: self)
         }
     }
 

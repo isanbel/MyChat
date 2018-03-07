@@ -59,6 +59,8 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
+        tableView.tableFooterView = UIView()
+        tableView.backgroundColor = UIColor(displayP3Red: 237/255, green: 235/255, blue: 235/255, alpha: 1)
 
         // the keyboard view
         textFeild.delegate = self as UITextFieldDelegate
