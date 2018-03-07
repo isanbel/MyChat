@@ -9,5 +9,5 @@
 import Foundation
 
 class Global {
-    static var userid: String = ""
+    static var user: UserMO = UserMO()
 }
