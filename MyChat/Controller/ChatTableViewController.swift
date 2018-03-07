@@ -14,6 +14,8 @@ class ChatTableViewController: UITableViewController, NSFetchedResultsController
     var lastMessages: [LastMessageMO] = []
     var fetchResultController: NSFetchedResultsController<LastMessageMO>!
     
+    @IBOutlet var emptyChatTableView: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -21,6 +23,9 @@ class ChatTableViewController: UITableViewController, NSFetchedResultsController
         navigationController?.navigationBar.isTranslucent = false
         
         getUserData()
+        
+        tableView.backgroundView = emptyChatTableView
+        tableView.backgroundView?.isHidden = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -59,6 +64,14 @@ class ChatTableViewController: UITableViewController, NSFetchedResultsController
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
+        if lastMessages.count > 0 {
+            tableView.backgroundView?.isHidden = true
+            tableView.separatorStyle = .singleLine
+        } else {
+            tableView.backgroundView?.isHidden = false
+            tableView.separatorStyle = .none
+        }
+        
         return 1
     }
 
