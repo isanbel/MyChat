@@ -139,7 +139,7 @@
         <scene sceneID="rm8-3x-FHP">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="0hN-hT-dKh" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="自信" springLoaded="YES" id="IBZ-90-CSe"/>
+                    <tabBarItem key="tabBarItem" title="自信" image="mychat" springLoaded="YES" id="IBZ-90-CSe"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="lbb-Ep-DDC">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -190,14 +190,14 @@
             </objects>
             <point key="canvasLocation" x="1624" y="-351"/>
         </scene>
-        <!--New Friend Table View Controller-->
+        <!--创建好友-->
         <scene sceneID="pwk-0w-C1K">
             <objects>
                 <tableViewController extendedLayoutIncludesOpaqueBars="YES" id="hVr-DM-O5B" customClass="NewFriendTableViewController" customModule="MyChat" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Dbc-Pk-RXI">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.96856635808944702" green="0.96867507696151733" blue="0.96850377321243286" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.90588235294117647" green="0.89803921568627454" blue="0.89803921568627454" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <sections>
                             <tableViewSection id="RWD-u0-c7U">
                                 <cells>
@@ -221,7 +221,7 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                             </subviews>
-                                                            <color key="backgroundColor" red="0.96856635808944702" green="0.96867507696151733" blue="0.96850377321243286" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <color key="backgroundColor" red="0.90588235294117647" green="0.89803921568627454" blue="0.89803921568627454" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <constraints>
                                                                 <constraint firstItem="1Be-t7-FLm" firstAttribute="leading" secondItem="Uxp-p1-Upn" secondAttribute="leading" constant="20" id="eGf-Sy-OQi"/>
                                                                 <constraint firstAttribute="bottom" secondItem="1Be-t7-FLm" secondAttribute="bottom" constant="10" id="iSQ-nf-UF1"/>
@@ -232,7 +232,7 @@
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GIA-Gi-gxn">
                                                             <rect key="frame" x="0.0" y="50.5" width="375" height="80"/>
                                                             <subviews>
-                                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="photo" translatesAutoresizingMaskIntoConstraints="NO" id="MTO-LL-lgN">
+                                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="avatar" translatesAutoresizingMaskIntoConstraints="NO" id="MTO-LL-lgN">
                                                                     <rect key="frame" x="46" y="31" width="24" height="18"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="60" id="l3z-Xw-eLA"/>
@@ -282,13 +282,13 @@
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="姓名" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D6A-lh-0H9">
                                                                     <rect key="frame" x="20" y="10" width="355" height="30"/>
-                                                                    <color key="backgroundColor" red="0.96856635808944702" green="0.96867507696151733" blue="0.96850377321243286" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                    <color key="backgroundColor" red="0.90588235294117647" green="0.89803921568627454" blue="0.89803921568627454" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                             </subviews>
-                                                            <color key="backgroundColor" red="0.97248762845993042" green="0.97259682416915894" blue="0.97242480516433716" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <color key="backgroundColor" red="0.90588235294117647" green="0.89803921568627454" blue="0.89803921568627454" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="trailing" secondItem="D6A-lh-0H9" secondAttribute="trailing" id="7Jl-9t-zGz"/>
                                                                 <constraint firstAttribute="bottom" secondItem="D6A-lh-0H9" secondAttribute="bottom" constant="10" id="HaO-Ri-Bui"/>
@@ -337,13 +337,13 @@
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="性别" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WK7-xw-IMp">
                                                                     <rect key="frame" x="20" y="10" width="355" height="33.5"/>
-                                                                    <color key="backgroundColor" red="0.96856635808944702" green="0.96867507696151733" blue="0.96850377321243286" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                    <color key="backgroundColor" red="0.90588235294117647" green="0.89803921568627454" blue="0.89803921568627454" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                             </subviews>
-                                                            <color key="backgroundColor" red="0.97248762845993042" green="0.97259682416915894" blue="0.97242480516433716" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <color key="backgroundColor" red="0.90588235294117647" green="0.89803921568627454" blue="0.89803921568627454" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <constraints>
                                                                 <constraint firstItem="WK7-xw-IMp" firstAttribute="top" secondItem="eLU-8F-wbQ" secondAttribute="top" constant="10" id="6Ur-QG-VZr"/>
                                                                 <constraint firstAttribute="trailing" secondItem="WK7-xw-IMp" secondAttribute="trailing" id="aRU-un-rI8"/>
@@ -400,6 +400,13 @@
                             <outlet property="delegate" destination="hVr-DM-O5B" id="Uh7-HV-nEZ"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="创建好友" id="jke-yX-phl">
+                        <barButtonItem key="rightBarButtonItem" title="确定" id="1bc-na-bRb">
+                            <connections>
+                                <action selector="saveButtonTappedWithSender:" destination="hVr-DM-O5B" id="6vH-lM-lKj"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <nil key="simulatedBottomBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <connections>
@@ -680,7 +687,7 @@
         <scene sceneID="BKB-SR-HLO">
             <objects>
                 <navigationController id="poK-mC-8lS" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="通讯录" id="R96-VT-GEb"/>
+                    <tabBarItem key="tabBarItem" title="通讯录" image="contact" id="R96-VT-GEb"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="HOg-6E-r3v">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -726,7 +733,7 @@
         <scene sceneID="TPq-Ej-zy3">
             <objects>
                 <navigationController id="EMR-kd-qOe" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="发现" id="RFV-BI-jtH"/>
+                    <tabBarItem key="tabBarItem" title="发现" image="discovery" id="RFV-BI-jtH"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="FZo-qX-vBM">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -877,7 +884,7 @@
         <scene sceneID="Nrg-Gi-XHQ">
             <objects>
                 <navigationController id="7fm-Bm-dbP" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="我" id="bi5-PO-f3e"/>
+                    <tabBarItem key="tabBarItem" title="我" image="myprofile" id="bi5-PO-f3e"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="1w0-mX-Ll1">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -983,9 +990,13 @@
         </scene>
     </scenes>
     <resources>
+        <image name="avatar" width="128" height="128"/>
         <image name="chat-input-voice" width="64" height="64"/>
+        <image name="contact" width="30" height="30"/>
+        <image name="discovery" width="30" height="30"/>
+        <image name="mychat" width="30" height="30"/>
+        <image name="myprofile" width="30" height="30"/>
         <image name="no_chat_yet" width="1200" height="1600"/>
-        <image name="photo" width="24" height="18"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="dg8-bk-EQE"/>

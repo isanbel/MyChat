@@ -102,7 +102,7 @@ class NewFriendTableViewController: UITableViewController, UITextFieldDelegate, 
             
             let photoSourceRequestController = UIAlertController(title: "", message: "Choose your photo source", preferredStyle: .actionSheet)
             
-            let cameraAction = UIAlertAction(title: "Camera", style: .default, handler: { (action) in
+            let cameraAction = UIAlertAction(title: "拍摄", style: .default, handler: { (action) in
                 if UIImagePickerController.isSourceTypeAvailable(.camera) {
                     let imagePicker = UIImagePickerController()
                     imagePicker.delegate = self
@@ -113,7 +113,7 @@ class NewFriendTableViewController: UITableViewController, UITextFieldDelegate, 
                 }
             })
             
-            let photoLibraryAction = UIAlertAction(title: "Photo library", style: .default, handler: { (action) in
+            let photoLibraryAction = UIAlertAction(title: "照片", style: .default, handler: { (action) in
                 if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
                     let imagePicker = UIImagePickerController()
                     imagePicker.delegate = self
@@ -124,8 +124,13 @@ class NewFriendTableViewController: UITableViewController, UITextFieldDelegate, 
                 }
             })
             
+            let cancelAction = UIAlertAction(title: "取消", style: .default, handler: { (action) in
+                
+            })
+            
             photoSourceRequestController.addAction(cameraAction)
             photoSourceRequestController.addAction(photoLibraryAction)
+            photoSourceRequestController.addAction(cancelAction)
             
             present(photoSourceRequestController, animated: true, completion: nil)
             
