@@ -18,8 +18,6 @@ class EntryViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        // TODO: 获取 userid，若有则将 userid 赋给 Global.userid，然后跳转
-        // performSegue(withIdentifier: "Enter", sender: nil)
     }
 
     override func didReceiveMemoryWarning() {
