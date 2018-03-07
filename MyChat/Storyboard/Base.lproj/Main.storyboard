@@ -157,8 +157,6 @@
         <!--Popover View Controller-->
         <scene sceneID="Ou8-3c-fkM">
             <objects>
-                <exit id="Ca0-9F-tAW" userLabel="Exit" sceneMemberID="exit"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="YxQ-Vq-XWt" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="B4S-TM-dTm" customClass="PopoverViewController" customModule="MyChat" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6cZ-es-qlX">
                         <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
@@ -187,6 +185,8 @@
                     <value key="contentSizeForViewInPopover" type="size" width="100" height="100"/>
                     <size key="freeformSize" width="100" height="100"/>
                 </viewController>
+                <exit id="Ca0-9F-tAW" userLabel="Exit" sceneMemberID="exit"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YxQ-Vq-XWt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1624" y="-351"/>
         </scene>
