@@ -12,6 +12,7 @@
 		A8D69F38204F0C370081B18D /* HttpUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D69F37204F0C370081B18D /* HttpUtil.swift */; };
 		A8D69F3A204FA4A00081B18D /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D69F39204FA4A00081B18D /* Utils.swift */; };
 		A8D69F3C204FC1340081B18D /* SocketIOUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D69F3B204FC1340081B18D /* SocketIOUtil.swift */; };
+		A8D69F3E205015940081B18D /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D69F3D205015940081B18D /* Global.swift */; };
 		C2224ABF204CF669001A9D06 /* ContactTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2224ABE204CF669001A9D06 /* ContactTableViewCell.swift */; };
 		C2224AC1204CF754001A9D06 /* ContactTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2224AC0204CF754001A9D06 /* ContactTableViewController.swift */; };
 		C2224AC3204CF8B5001A9D06 /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2224AC2204CF8B5001A9D06 /* Friend.swift */; };
@@ -43,6 +44,7 @@
 		A8D69F37204F0C370081B18D /* HttpUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpUtil.swift; sourceTree = "<group>"; };
 		A8D69F39204FA4A00081B18D /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		A8D69F3B204FC1340081B18D /* SocketIOUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketIOUtil.swift; sourceTree = "<group>"; };
+		A8D69F3D205015940081B18D /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		C049B3444924D59407AF0FA7 /* Pods_MyChat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyChat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2224ABE204CF669001A9D06 /* ContactTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactTableViewCell.swift; sourceTree = "<group>"; };
 		C2224AC0204CF754001A9D06 /* ContactTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactTableViewController.swift; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 				A8D69F37204F0C370081B18D /* HttpUtil.swift */,
 				A8D69F39204FA4A00081B18D /* Utils.swift */,
 				A8D69F3B204FC1340081B18D /* SocketIOUtil.swift */,
+				A8D69F3D205015940081B18D /* Global.swift */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -350,6 +353,7 @@
 				C2224AC3204CF8B5001A9D06 /* Friend.swift in Sources */,
 				C247D3402047956000456567 /* ChatMessage.swift in Sources */,
 				A8D69F3A204FA4A00081B18D /* Utils.swift in Sources */,
+				A8D69F3E205015940081B18D /* Global.swift in Sources */,
 				C2B11B062044F73E00726A86 /* ChatTableViewCell.swift in Sources */,
 				C2B11B0E20453BB300726A86 /* ChatPageTableViewController.swift in Sources */,
 				C2224AEF204DB047001A9D06 /* RoundedTextField.swift in Sources */,

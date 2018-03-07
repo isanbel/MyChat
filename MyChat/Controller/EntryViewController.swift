@@ -18,9 +18,8 @@ class EntryViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        // TODO: 获取 userid，若有则直接跳转
+        // TODO: 获取 userid，若有则将 userid 赋给 Global.userid，然后跳转
         // performSegue(withIdentifier: "Enter", sender: nil)
-        SocketIOUtil.initialize()
     }
 
     override func didReceiveMemoryWarning() {
@@ -52,6 +51,7 @@ class EntryViewController: UIViewController {
         let that = self
         let onSuccess = { (data: [String: Any]) in
             let userid = data["userid"] as! String
+            Global.userid = userid
             // TODO: 把 userid 存起来
             that.performSegue(withIdentifier: "Enter", sender: nil)
         }

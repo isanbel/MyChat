@@ -18,7 +18,7 @@ class SocketIOUtil {
         socket.on("connect", callback: { (data, ack) in
             print(data)
             print(ack)
-            socket.emit("start", ["time": 10, "thing": "test"])
+//            socket.emit("start", ["time": 10, "thing": "test"])
         })
         
         socket.on("error", callback: { (data, ack) in
@@ -27,6 +27,5 @@ class SocketIOUtil {
         })
         
         socket.connect()
-        
     }
 }
