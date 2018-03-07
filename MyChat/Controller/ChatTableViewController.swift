@@ -9,11 +9,11 @@
 import UIKit
 import CoreData
 
-class ChatTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
+class ChatTableViewController: UITableViewController, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate {
 
     var lastMessages: [LastMessageMO] = []
     var fetchResultController: NSFetchedResultsController<LastMessageMO>!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -28,10 +28,6 @@ class ChatTableViewController: UITableViewController, NSFetchedResultsController
         
         getData()
         tableView.reloadData()
-    }
-
-    @objc func addTapped() {
-        print("add")
     }
     
     func getUserData() {
@@ -175,6 +171,25 @@ class ChatTableViewController: UITableViewController, NSFetchedResultsController
                 let destinationViewController = segue.destination as! ChatPageTableViewController
                 destinationViewController.friend = lastMessages[indexPath.row].friend!
             }
+        }
+        
+        if segue.identifier == "showPopover" {
+            let popoverViewController = segue.destination
+            popoverViewController.popoverPresentationController?.delegate = self
+        }
+    }
+    
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return UIModalPresentationStyle.none
+    }
+    
+    @IBAction func AddFriendUnwindSegue(_ sender: UIStoryboardSegue) {
+        
+    }
+    
+    @IBAction func NewFriendUnwindSegue(_ sender: UIStoryboardSegue) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.performSegue(withIdentifier: "showNewFriend", sender: self)
         }
     }
 

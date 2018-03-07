@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -97,13 +96,19 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="自信" id="89P-At-BaS" userLabel="MyChat">
-                        <barButtonItem key="rightBarButtonItem" title="Item" image="plus" id="h8V-Aj-yw1">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="h8V-Aj-yw1">
                             <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
-                                <segue destination="hVr-DM-O5B" kind="show" id="FL8-Xw-bR2"/>
+                                <action selector="addBtnTapped:" destination="wU4-wb-0CM" id="WP6-Cf-met"/>
+                                <segue destination="B4S-TM-dTm" kind="popoverPresentation" identifier="showPopover" popoverAnchorBarButtonItem="h8V-Aj-yw1" id="bgF-5g-pv0">
+                                    <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                </segue>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <segue destination="hVr-DM-O5B" kind="show" identifier="showNewFriend" id="0c0-lY-6PY"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LcN-2u-JqY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -128,10 +133,46 @@
             </objects>
             <point key="canvasLocation" x="369" y="95"/>
         </scene>
-        <!--新建好友-->
+        <!--Popover View Controller-->
+        <scene sceneID="Ou8-3c-fkM">
+            <objects>
+                <exit id="Ca0-9F-tAW" userLabel="Exit" sceneMemberID="exit"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YxQ-Vq-XWt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="B4S-TM-dTm" customClass="PopoverViewController" customModule="MyChat" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="6cZ-es-qlX">
+                        <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iAa-kB-4BK">
+                                <rect key="frame" x="20" y="59" width="62" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="新建好友"/>
+                                <connections>
+                                    <segue destination="Ca0-9F-tAW" kind="unwind" unwindAction="NewFriendUnwindSegue:" id="Qj0-B3-zrZ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iQF-oh-6ca">
+                                <rect key="frame" x="20" y="20" width="62" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="添加好友"/>
+                                <connections>
+                                    <segue destination="Ca0-9F-tAW" kind="unwind" unwindAction="AddFriendUnwindSegue:" id="FMQ-Rv-qQn"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <viewLayoutGuide key="safeArea" id="F70-57-dX5"/>
+                    </view>
+                    <value key="contentSizeForViewInPopover" type="size" width="100" height="100"/>
+                    <size key="freeformSize" width="100" height="100"/>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="1333" y="-313"/>
+        </scene>
+        <!--New Friend Table View Controller-->
         <scene sceneID="pwk-0w-C1K">
             <objects>
-                <tableViewController hidesBottomBarWhenPushed="YES" id="hVr-DM-O5B" customClass="NewFriendTableViewController" customModule="MyChat" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController extendedLayoutIncludesOpaqueBars="YES" id="hVr-DM-O5B" customClass="NewFriendTableViewController" customModule="MyChat" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Dbc-Pk-RXI">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -338,14 +379,8 @@
                             <outlet property="delegate" destination="hVr-DM-O5B" id="Uh7-HV-nEZ"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="新建好友" id="68V-Xw-3it">
-                        <barButtonItem key="rightBarButtonItem" title="save" id="EA9-Da-LHt">
-                            <connections>
-                                <action selector="saveButtonTappedWithSender:" destination="hVr-DM-O5B" id="lhZ-aw-CrP"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
                     <nil key="simulatedBottomBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="genderSwitchField" destination="5iJ-39-MOE" id="LGb-vK-rBY"/>
                         <outlet property="nameTextField" destination="cHa-uq-dU7" id="08n-kj-cVh"/>
@@ -354,14 +389,14 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IUR-i4-cqB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1856.8" y="-668.81559220389806"/>
+            <point key="canvasLocation" x="1857" y="-568"/>
         </scene>
         <!--Chat Page Table View Controller-->
         <scene sceneID="FvU-gq-ojI">
             <objects>
                 <viewController hidesBottomBarWhenPushed="YES" id="N4k-Tg-JOS" customClass="ChatPageTableViewController" customModule="MyChat" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="LWX-1F-3DN">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Of7-Y5-z5j">
@@ -499,7 +534,7 @@
             <objects>
                 <tableViewController id="FRm-uA-8aW" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="2jY-l6-GxE">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
@@ -929,9 +964,8 @@
     <resources>
         <image name="chat-input-voice" width="64" height="64"/>
         <image name="photo" width="24" height="18"/>
-        <image name="plus" width="16" height="16"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Q1g-zs-RNh"/>
+        <segue reference="dg8-bk-EQE"/>
     </inferredMetricsTieBreakers>
 </document>
