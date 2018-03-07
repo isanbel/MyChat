@@ -12,6 +12,7 @@ import CoreData
 class MyProfileTableViewController: UITableViewController, NSFetchedResultsControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet var nameLabel: UILabel!
+    @IBOutlet var mychatidLabel: UILabel!
     @IBOutlet var avatarImageView: UIImageView!
     
     var user = UserMO()
@@ -21,7 +22,8 @@ class MyProfileTableViewController: UITableViewController, NSFetchedResultsContr
         super.viewDidLoad()
         
         loadData()
-        tableView.separatorStyle = .none
+        tableView.tableFooterView = UIView()
+        tableView.backgroundColor = UIColor(displayP3Red: 237/255, green: 235/255, blue: 235/255, alpha: 1)
     }
 
     override func didReceiveMemoryWarning() {
@@ -38,7 +40,7 @@ class MyProfileTableViewController: UITableViewController, NSFetchedResultsContr
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 3
+        return 10
     }
 
     func loadData() {
@@ -64,6 +66,7 @@ class MyProfileTableViewController: UITableViewController, NSFetchedResultsContr
         }
         
         nameLabel.text = user.name
+        mychatidLabel.text = user.id
         if let avatarImage = user.avatar {
             avatarImageView.image = UIImage(data: avatarImage as Data)
         }
