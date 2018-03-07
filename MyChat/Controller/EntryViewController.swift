@@ -20,6 +20,7 @@ class EntryViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         // TODO: 获取 userid，若有则直接跳转
         // performSegue(withIdentifier: "Enter", sender: nil)
+        SocketIOUtil.initialize()
     }
 
     override func didReceiveMemoryWarning() {
@@ -49,17 +50,17 @@ class EntryViewController: UIViewController {
         ]
         let url: String = "/users/signin"
         let that = self
-        let onSuccess = { (data: [String: Any]) -> Void in
+        let onSuccess = { (data: [String: Any]) in
             let userid = data["userid"] as! String
             // TODO: 把 userid 存起来
             that.performSegue(withIdentifier: "Enter", sender: nil)
         }
         
-        let onSignupFailure = { (data: [String: Any]) -> Void in
+        let onSignupFailure = { (data: [String: Any]) in
             let msg = "用户名不存在，尝试创建新用户失败"
             that.present(Utils.getAlertController(title: "错误", message: msg), animated: true, completion: nil)
         }
-        let onSigninFailure = { (data: [String: Any]) -> Void in
+        let onSigninFailure = { (data: [String: Any]) in
             let msg = data["message"] as! String
             if (msg == "用户名不存在") {
                 let url = "/users/signup"
