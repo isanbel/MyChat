@@ -15,6 +15,8 @@ class EntryViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        password_tf.isSecureTextEntry = true
     }
     
     override func viewDidAppear(_ animated: Bool) {
