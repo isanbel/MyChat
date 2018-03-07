@@ -19,7 +19,7 @@ class ChatTableViewController: UITableViewController, NSFetchedResultsController
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationController?.navigationBar.backgroundColor = .white
+        navigationController?.navigationBar.tintColor = .white
         navigationController?.navigationBar.isTranslucent = false
         
         tableView.backgroundView = emptyChatTableView

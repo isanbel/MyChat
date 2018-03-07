@@ -103,7 +103,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="自信" id="89P-At-BaS" userLabel="MyChat">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="h8V-Aj-yw1">
-                            <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="tintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="addBtnTapped:" destination="wU4-wb-0CM" id="WP6-Cf-met"/>
                                 <segue destination="B4S-TM-dTm" kind="popoverPresentation" identifier="showPopover" popoverAnchorBarButtonItem="h8V-Aj-yw1" id="bgF-5g-pv0">
@@ -428,7 +428,7 @@
             <objects>
                 <viewController hidesBottomBarWhenPushed="YES" id="N4k-Tg-JOS" customClass="ChatPageTableViewController" customModule="MyChat" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="LWX-1F-3DN">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Of7-Y5-z5j">
@@ -566,7 +566,7 @@
             <objects>
                 <tableViewController id="FRm-uA-8aW" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="2jY-l6-GxE">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
@@ -750,6 +750,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="tintColor">
+                                <color key="value" red="0.31740784645080566" green="0.49035787582397461" blue="0.72870391607284546" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </tabBar>
                     <connections>
                         <segue destination="0hN-hT-dKh" kind="relationship" relationship="viewControllers" id="ohI-AB-qzJ"/>
@@ -1558,6 +1563,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="vi1-dL-H7g"/>
-        <segue reference="Q1g-zs-RNh"/>
+        <segue reference="dg8-bk-EQE"/>
     </inferredMetricsTieBreakers>
 </document>
