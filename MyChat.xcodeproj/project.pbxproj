@@ -36,6 +36,7 @@
 		C2FDE81B204FE503005CB808 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2FDE81A204FE503005CB808 /* Assets.xcassets */; };
 		C2FDE81D20500F78005CB808 /* DiscoveryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2FDE81C20500F78005CB808 /* DiscoveryTableViewController.swift */; };
 		C2FDE81F20509193005CB808 /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2FDE81E20509193005CB808 /* LaunchViewController.swift */; };
+		C2FDE821205094CD005CB808 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2FDE820205094CD005CB808 /* SettingsTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -73,6 +74,7 @@
 		C2FDE81A204FE503005CB808 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C2FDE81C20500F78005CB808 /* DiscoveryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryTableViewController.swift; sourceTree = "<group>"; };
 		C2FDE81E20509193005CB808 /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
+		C2FDE820205094CD005CB808 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -192,6 +194,7 @@
 				A8D69F35204EF4820081B18D /* EntryViewController.swift */,
 				C2FDE81C20500F78005CB808 /* DiscoveryTableViewController.swift */,
 				C2FDE81E20509193005CB808 /* LaunchViewController.swift */,
+				C2FDE820205094CD005CB808 /* SettingsTableViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -364,6 +367,7 @@
 				C2224AEF204DB047001A9D06 /* RoundedTextField.swift in Sources */,
 				C26444682024B0DE004E86C5 /* AppDelegate.swift in Sources */,
 				C2224AC5204D1B17001A9D06 /* FriendProlileTableViewController.swift in Sources */,
+				C2FDE821205094CD005CB808 /* SettingsTableViewController.swift in Sources */,
 				C2B11B042044F4EA00726A86 /* User.swift in Sources */,
 				C2224AC1204CF754001A9D06 /* ContactTableViewController.swift in Sources */,
 				C2FDE81F20509193005CB808 /* LaunchViewController.swift in Sources */,

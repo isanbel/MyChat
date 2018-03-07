@@ -42,7 +42,7 @@ class LaunchViewController: UIViewController, UINavigationControllerDelegate {
             do {
                 try fetchResultController.performFetch()
                 if let fetchedObjects = fetchResultController.fetchedObjects {
-                    print(fetchedObjects.count)
+                    print("= user count is \(fetchedObjects.count)")
                     if fetchedObjects.count > 0 {
                         Global.user = fetchedObjects[0]
                         self.performSegue(withIdentifier: "showMyChat", sender: self)
@@ -64,5 +64,15 @@ class LaunchViewController: UIViewController, UINavigationControllerDelegate {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    @IBAction func ReLaunchUnwindSegue(_ sender: UIStoryboardSegue) {
+        
+        // logout
+        if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
+            let context = appDelegate.persistentContainer.viewContext
+            context.delete(Global.user)
+            appDelegate.saveContext()
+        }
+    }
 
 }
