@@ -11,6 +11,7 @@ import UIKit
 class FriendProlileTableViewController: UITableViewController {
     
     @IBOutlet var nameLabel: UILabel!
+    @IBOutlet var mychatidLabel: UILabel!
     @IBOutlet var avatarImageView: UIImageView!
     
     var friend = FriendMO()
@@ -38,12 +39,13 @@ class FriendProlileTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 3
+        return 5
     }
     
     func loadData() {
         
         nameLabel.text = friend.name
+        mychatidLabel.text = friend.id
         if let avatarImage = friend.avatar {
             avatarImageView.image = UIImage(data: avatarImage as Data)
         }

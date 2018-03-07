@@ -101,6 +101,13 @@ class ChatTableViewController: UITableViewController, NSFetchedResultsController
 
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, sourceView, completionHandler) in
+            
+            // delete the lastmessage
+            if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
+                let context = appDelegate.persistentContainer.viewContext
+                context.delete(self.lastMessages[indexPath.row])
+                appDelegate.saveContext()
+            }
             // Delete the row from the data source
             self.lastMessages.remove(at: indexPath.row)
 
