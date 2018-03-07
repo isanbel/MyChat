@@ -116,7 +116,7 @@ class ChatMessageCell: UITableViewCell {
             self.contentLbl.font = UIFont.systemFont(ofSize: 16)
             
             self.selectionStyle = .none
-            self.backgroundColor = UIColor(red: 248/255, green: 248/255, blue: 248/255, alpha: 1)
+            self.backgroundColor = UIColor(displayP3Red: 237/255, green: 235/255, blue: 235/255, alpha: 1)
         }
     }
     

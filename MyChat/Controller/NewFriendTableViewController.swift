@@ -34,6 +34,8 @@ class NewFriendTableViewController: UITableViewController, UITextFieldDelegate, 
         
         // Configure the table view
         tableView.separatorStyle = .none
+        tableView.tableFooterView = UIView()
+        tableView.backgroundColor = UIColor(displayP3Red: 237/255, green: 235/255, blue: 235/255, alpha: 1)
     }
 
     override func didReceiveMemoryWarning() {

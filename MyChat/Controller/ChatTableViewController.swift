@@ -26,6 +26,8 @@ class ChatTableViewController: UITableViewController, NSFetchedResultsController
         
         tableView.backgroundView = emptyChatTableView
         tableView.backgroundView?.isHidden = true
+        tableView.tableFooterView = UIView()
+        tableView.backgroundColor = UIColor(displayP3Red: 237/255, green: 235/255, blue: 235/255, alpha: 1)
     }
     
     override func viewWillAppear(_ animated: Bool) {
