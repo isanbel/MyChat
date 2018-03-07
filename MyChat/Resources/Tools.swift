@@ -18,14 +18,14 @@ extension Date {
     var minutesFromNow: Int { return Calendar.current.dateComponents([.minute],     from: self, to: Date()).minute      ?? 0 }
     var secondsFromNow: Int { return Calendar.current.dateComponents([.second],     from: self, to: Date()).second      ?? 0 }
     var relativeTime: String {
-        if yearsFromNow   > 0 { return "\(yearsFromNow) year"    + (yearsFromNow    > 1 ? "s" : "") + " ago" }
-        if monthsFromNow  > 0 { return "\(monthsFromNow) month"  + (monthsFromNow   > 1 ? "s" : "") + " ago" }
-        if weeksFromNow   > 0 { return "\(weeksFromNow) week"    + (weeksFromNow    > 1 ? "s" : "") + " ago" }
-        if daysFromNow    > 0 { return daysFromNow == 1 ? "Yesterday" : "\(daysFromNow) days ago" }
-        if hoursFromNow   > 0 { return "\(hoursFromNow) hour"     + (hoursFromNow   > 1 ? "s" : "") + " ago" }
-        if minutesFromNow > 0 { return "\(minutesFromNow) minute" + (minutesFromNow > 1 ? "s" : "") + " ago" }
-        if secondsFromNow >= 0 { return secondsFromNow < 15 ? "Just now"
-            : "\(secondsFromNow) second" + (secondsFromNow > 1 ? "s" : "") + " ago" }
+        if yearsFromNow   > 0 { return "\(yearsFromNow) 年前" }
+        if monthsFromNow  > 0 { return "\(monthsFromNow) 月前" }
+        if weeksFromNow   > 0 { return "\(weeksFromNow) 周前" }
+        if daysFromNow    > 0 { return daysFromNow == 1 ? "昨天" : "\(daysFromNow) 天前" }
+        if hoursFromNow   > 0 { return "\(hoursFromNow) 小时前" }
+        if minutesFromNow > 0 { return "\(minutesFromNow) 分钟前" }
+        if secondsFromNow >= 0 { return secondsFromNow < 15 ? "现在"
+            : "\(secondsFromNow) 秒前" }
         return ""
     }
 }
