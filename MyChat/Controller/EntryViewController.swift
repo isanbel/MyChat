@@ -15,8 +15,11 @@ class EntryViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        // TODO: 获取 userid，若有则直接跳转
+        // performSegue(withIdentifier: "Enter", sender: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -47,6 +50,8 @@ class EntryViewController: UIViewController {
         let url: String = "/users/signin"
         let that = self
         let onSuccess = { (data: [String: Any]) -> Void in
+            let userid = data["userid"] as! String
+            // TODO: 把 userid 存起来
             that.performSegue(withIdentifier: "Enter", sender: nil)
         }
         
