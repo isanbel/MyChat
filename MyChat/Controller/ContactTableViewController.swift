@@ -23,12 +23,7 @@ class ContactTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated);
         
-        let friendsCount = friends.count
         loadData()
-        // reload when table changes
-        if friendsCount != friends.count {
-            tableView.reloadData()
-        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -62,13 +57,15 @@ class ContactTableViewController: UITableViewController {
     func loadData() {
         print("== count of friends \(String(describing: Global.user.friends?.count))")
         friends = Global.user.friends?.array as! [FriendMO]
+        
+        tableView.reloadData()
     }
     
     func getFriends() {
         let url: String = "/friends?userid=" + Global.user.id!
         let onSuccess = { (data: [String: Any]) in
             print("== getFriends success")
-            // TODO: save to store and then loadData
+            self.storeNewFriends(data: data)
             self.loadData()
         }
         
@@ -76,6 +73,51 @@ class ContactTableViewController: UITableViewController {
             print("== getFriends failure")
         }
         HttpUtil.get(url: url, onSuccess: onSuccess, onFailure: onFailure)
+    }
+    
+    func storeNewFriends(data: [String: Any]) {
+        let friends = data["data"] as! [[String: Any]]
+        for friend in friends {
+            
+            // TODO: friendid be String instead of Number! to bravos
+            var friendExisted = false
+            let friendId = friend["friendid"]
+            for oldFriend in Global.user.friends?.array as! [FriendMO] {
+                print("== \(oldFriend.id) vs \(friendId)")
+                if oldFriend.id == friendId as? String {
+                    friendExisted = true
+                }
+            }
+            
+            // if friend exists
+            if friendExisted == true {
+                print("== it's old friend")
+                continue
+            }
+            
+            // else store this new friend
+            print("== store new friend")
+            if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
+                let newFriend = FriendMO(context: appDelegate.persistentContainer.viewContext)
+                newFriend.name = friend["friendname"] as? String
+                newFriend.id = friend["friendid"] as? String
+                
+                // TODO: parse Date
+                // newFriend.birthday
+                
+                // get avatar
+                let avatarUrl = "http://139.199.174.146:3000/friendAvatar/" + newFriend.name! + ".png"
+                let url = URL(string: avatarUrl)
+                let avatar = try? Data(contentsOf: url!)
+                newFriend.avatar = avatar
+                
+                newFriend.isMale = friend["friendid"] as? String == "male" ? true : false
+                
+                newFriend.user = Global.user
+                
+                appDelegate.saveContext()
+            }
+        }
     }
 
     /*
