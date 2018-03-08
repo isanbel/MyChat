@@ -161,6 +161,30 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
         
         // save message to store
         if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
+            if let lastmessageDate = friend.lastMessage?.date {
+                if lastmessageDate.timeIntervalSinceNow < -600 {
+                    print("===")
+                    let dateIndicator = ChatMessageMO(context: appDelegate.persistentContainer.viewContext)
+                    dateIndicator.date = Date()
+                    dateIndicator.contentText = ""
+                    dateIndicator.friend = friend
+                    dateIndicator.isDateIdentifier = true
+                    
+                    appDelegate.saveContext()
+                }
+            } else {
+                print("===")
+                // else the lastMessage is nil
+                let dateIndicator = ChatMessageMO(context: appDelegate.persistentContainer.viewContext)
+                dateIndicator.date = Date()
+                dateIndicator.contentText = ""
+                dateIndicator.friend = friend
+                dateIndicator.isDateIdentifier = true
+                
+                appDelegate.saveContext()
+            }
+            
+            
             let message = ChatMessageMO(context: appDelegate.persistentContainer.viewContext)
             message.isSent = true
             message.date = Date()
