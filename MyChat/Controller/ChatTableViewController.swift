@@ -183,7 +183,9 @@ class ChatTableViewController: UITableViewController, NSFetchedResultsController
     }
     
     @IBAction func AddFriendUnwindSegue(_ sender: UIStoryboardSegue) {
-        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.performSegue(withIdentifier: "showAddFriend", sender: self)
+        }
     }
     
     @IBAction func NewFriendUnwindSegue(_ sender: UIStoryboardSegue) {
