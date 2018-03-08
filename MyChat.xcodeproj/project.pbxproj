@@ -37,6 +37,7 @@
 		C2FDE81D20500F78005CB808 /* DiscoveryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2FDE81C20500F78005CB808 /* DiscoveryTableViewController.swift */; };
 		C2FDE81F20509193005CB808 /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2FDE81E20509193005CB808 /* LaunchViewController.swift */; };
 		C2FDE821205094CD005CB808 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2FDE820205094CD005CB808 /* SettingsTableViewController.swift */; };
+		C2FDE8232050B204005CB808 /* FriendManagementTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2FDE8222050B204005CB808 /* FriendManagementTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -75,6 +76,7 @@
 		C2FDE81C20500F78005CB808 /* DiscoveryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryTableViewController.swift; sourceTree = "<group>"; };
 		C2FDE81E20509193005CB808 /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		C2FDE820205094CD005CB808 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
+		C2FDE8222050B204005CB808 /* FriendManagementTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendManagementTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -195,6 +197,7 @@
 				C2FDE81C20500F78005CB808 /* DiscoveryTableViewController.swift */,
 				C2FDE81E20509193005CB808 /* LaunchViewController.swift */,
 				C2FDE820205094CD005CB808 /* SettingsTableViewController.swift */,
+				C2FDE8222050B204005CB808 /* FriendManagementTableViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -355,6 +358,7 @@
 			files = (
 				C2BE1C20204E6F37008B8E01 /* MyProfileTableViewController.swift in Sources */,
 				A8D69F36204EF4820081B18D /* EntryViewController.swift in Sources */,
+				C2FDE8232050B204005CB808 /* FriendManagementTableViewController.swift in Sources */,
 				C2224ABF204CF669001A9D06 /* ContactTableViewCell.swift in Sources */,
 				C2224AED204D7F75001A9D06 /* NewFriendTableViewController.swift in Sources */,
 				C2224AEB204D4A8B001A9D06 /* MyChat.xcdatamodeld in Sources */,

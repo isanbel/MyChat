@@ -27,7 +27,7 @@ class ChatMessageCell: UITableViewCell {
     //内容
     let contentLbl:UILabel = UILabel()
     //气泡
-    let bubbleImgView:UIImageView = UIImageView()
+    let bubbleImgView:UIImageView = UIImageView() 
     
     // the data of friend is not user for convenience
     var friend: FriendMO?
@@ -59,7 +59,7 @@ class ChatMessageCell: UITableViewCell {
             self.contentLbl.text = message?.contentText
             
             // resizable image
-            self.bubbleImgView.image? = (self.bubbleImgView.image?.resizableImage(withCapInsets: UIEdgeInsetsMake(30, 40, 30, 40)))!
+            self.bubbleImgView.image? = (self.bubbleImgView.image?.resizableImage(withCapInsets: UIEdgeInsetsMake(30, 30, 30, 40)))!
             
             //布局位置
             //1.去掉系统添加默认的autolayout，防止冲突,并设置label的对齐
@@ -81,18 +81,21 @@ class ChatMessageCell: UITableViewCell {
             
             
             if message?.isSent == true {
+                
+                self.contentLbl.textColor = UIColor.white
+                
                 header_constraint_H_Format =  "[header(40)]-7-|"
                 header_constraint_V_Format =  "V:|-5-[header(40)]"
                 bubble_constraint_H_Format  =  "|-(>=57)-[bubble]-5-[header]"
                 bubble_constraint_V_Format  =  "V:|-5-[bubble(>=43)]-5-|"
-                content_constraint_H_Format  =  "|-(>=10)-[content]-15-|"
+                content_constraint_H_Format  =  "|-(>=10)-[content]-19-|"
                 content_constraint_V_Format  =  "V:|-10-[content]-12-|"
             } else {
                 header_constraint_H_Format =  "|-7-[header(40)]"
                 header_constraint_V_Format =  "V:|-5-[header(40)]"
                 bubble_constraint_H_Format  =  "[header]-5-[bubble]-(>=57)-|"
                 bubble_constraint_V_Format  =  "V:|-5-[bubble(>=43)]-5-|"
-                content_constraint_H_Format  =  "|-15-[content]-(>=10)-|"
+                content_constraint_H_Format  =  "|-19-[content]-(>=10)-|"
                 content_constraint_V_Format  =  "V:|-10-[content]-12-|"
             }
             
@@ -114,6 +117,10 @@ class ChatMessageCell: UITableViewCell {
             self.bubbleImgView.addConstraints(content_constraint_V as! [NSLayoutConstraint])
             
             self.contentLbl.font = UIFont.systemFont(ofSize: 16)
+            
+            // be round
+            self.headerImgView.layer.cornerRadius = 20
+            self.headerImgView.clipsToBounds = true
             
             self.selectionStyle = .none
             self.backgroundColor = UIColor(displayP3Red: 237/255, green: 235/255, blue: 235/255, alpha: 1)
