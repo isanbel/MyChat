@@ -7,12 +7,10 @@
 //
 
 import UIKit
-import CoreData
 
-class ContactTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
+class ContactTableViewController: UITableViewController {
 
     var friends: [FriendMO] = []
-    var fetchResultController: NSFetchedResultsController<FriendMO>!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,25 +60,8 @@ class ContactTableViewController: UITableViewController, NSFetchedResultsControl
     }    
     
     func loadData() {
-        // Fetch data from data store
-        let fetchRequest: NSFetchRequest<FriendMO> = FriendMO.fetchRequest()
-        let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
-        fetchRequest.sortDescriptors = [sortDescriptor]
-        
-        if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
-            let context = appDelegate.persistentContainer.viewContext
-            fetchResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
-            fetchResultController.delegate = self
-            
-            do {
-                try fetchResultController.performFetch()
-                if let fetchedObjects = fetchResultController.fetchedObjects {
-                    friends = fetchedObjects
-                }
-            } catch {
-                print(error)
-            }
-        }
+        print("== count of friends \(String(describing: Global.user.friends?.count))")
+        friends = Global.user.friends?.array as! [FriendMO]
     }
     
     func getFriends() {

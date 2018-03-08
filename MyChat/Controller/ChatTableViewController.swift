@@ -104,26 +104,13 @@ class ChatTableViewController: UITableViewController, NSFetchedResultsController
     }
 
     func getData() {
-        
-        // Fetch data from data store
-        let fetchRequest: NSFetchRequest<LastMessageMO> = LastMessageMO.fetchRequest()
-        let sortDescriptor = NSSortDescriptor(key: "date", ascending: false)
-        fetchRequest.sortDescriptors = [sortDescriptor]
-        
-        if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
-            let context = appDelegate.persistentContainer.viewContext
-            fetchResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
-            fetchResultController.delegate = self
-            
-            do {
-                try fetchResultController.performFetch()
-                if let fetchedObjects = fetchResultController.fetchedObjects {
-                    lastMessages = fetchedObjects
-                }
-            } catch {
-                print(error)
+        lastMessages = []
+        for friend in Global.user.friends!.array as! [FriendMO] {
+            if let lastmessage = friend.lastMessage {
+                lastMessages.append(lastmessage)
             }
         }
+        lastMessages = lastMessages.sorted(by: {$0.date! > $1.date!})
     }
     
     /*

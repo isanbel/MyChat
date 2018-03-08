@@ -42,9 +42,18 @@ class LaunchViewController: UIViewController, UINavigationControllerDelegate {
             do {
                 try fetchResultController.performFetch()
                 if let fetchedObjects = fetchResultController.fetchedObjects {
-                    print("= user count is \(fetchedObjects.count)")
-                    if fetchedObjects.count > 0 {
-                        Global.user = fetchedObjects[0]
+                    
+                    // Check if there is a logged in user
+                    print("== user count is \(fetchedObjects.count)")
+                    var indexOfLoggedinUser = -1
+                    for i in 0..<fetchedObjects.count {
+                        if fetchedObjects[i].loggedin == true {
+                            indexOfLoggedinUser = i
+                        }
+                    }
+                    
+                    if indexOfLoggedinUser > 0 {
+                        Global.user = fetchedObjects[indexOfLoggedinUser]
                         self.performSegue(withIdentifier: "showMyChat", sender: self)
                     } else {
                         self.performSegue(withIdentifier: "showEntry", sender: self)
@@ -69,8 +78,7 @@ class LaunchViewController: UIViewController, UINavigationControllerDelegate {
         
         // logout
         if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
-            let context = appDelegate.persistentContainer.viewContext
-            context.delete(Global.user)
+            Global.user.loggedin = false
             appDelegate.saveContext()
         }
     }

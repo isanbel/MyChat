@@ -7,16 +7,14 @@
 //
 
 import UIKit
-import CoreData
 
-class MyProfileTableViewController: UITableViewController, NSFetchedResultsControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class MyProfileTableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var mychatidLabel: UILabel!
     @IBOutlet var avatarImageView: UIImageView!
     
     var user = UserMO()
-    var fetchResultController: NSFetchedResultsController<UserMO>!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,25 +43,7 @@ class MyProfileTableViewController: UITableViewController, NSFetchedResultsContr
 
     func loadData() {
         
-        // Fetch data from data store
-        let fetchRequest: NSFetchRequest<UserMO> = UserMO.fetchRequest()
-        let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
-        fetchRequest.sortDescriptors = [sortDescriptor]
-        
-        if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
-            let context = appDelegate.persistentContainer.viewContext
-            fetchResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
-            fetchResultController.delegate = self
-            
-            do {
-                try fetchResultController.performFetch()
-                if let fetchedObjects = fetchResultController.fetchedObjects {
-                    user = fetchedObjects[0]
-                }
-            } catch {
-                print(error)
-            }
-        }
+        user = Global.user
         
         nameLabel.text = user.name
         mychatidLabel.text = user.id
