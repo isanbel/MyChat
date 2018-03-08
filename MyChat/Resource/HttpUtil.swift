@@ -30,4 +30,22 @@ class HttpUtil {
             }
         }
     }
+    
+    static func get(url: String, onSuccess: @escaping([String: Any]) -> Void, onFailure: @escaping([String: Any]) -> Void) {
+        Alamofire.request(BASE_URL + url, method: .get, encoding: JSONEncoding.default).responseJSON { response in
+            switch response.result.isSuccess {
+            case true:
+                let value = response.result.value!
+                let json = JSON(value)
+                print(json)
+                if let code = json["code"].int, code == 0 {
+                    onSuccess(json.dictionaryObject!)
+                } else {
+                    onFailure(json.dictionaryObject!)
+                }
+            case false:
+                print(response.result.error!)
+            }
+        }
+    }
 }
