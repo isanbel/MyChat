@@ -18,6 +18,8 @@ class ContactTableViewController: UITableViewController, NSFetchedResultsControl
         super.viewDidLoad()
         tableView.tableFooterView = UIView()
         tableView.backgroundColor = UIColor(displayP3Red: 237/255, green: 235/255, blue: 235/255, alpha: 1)
+        
+        getFriends()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -60,18 +62,6 @@ class ContactTableViewController: UITableViewController, NSFetchedResultsControl
     }    
     
     func loadData() {
-        
-        // Save data
-        // if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
-        //     let friend = FriendMO(context: appDelegate.persistentContainer.viewContext)
-        //     friend.name = "Andy"
-        //     friend.isMale = true
-        //     friend.id = "123"
-        //     friend.birthday = Date()
-        //
-        //     appDelegate.saveContext()
-        // }
-        
         // Fetch data from data store
         let fetchRequest: NSFetchRequest<FriendMO> = FriendMO.fetchRequest()
         let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
@@ -91,6 +81,20 @@ class ContactTableViewController: UITableViewController, NSFetchedResultsControl
                 print(error)
             }
         }
+    }
+    
+    func getFriends() {
+        let url: String = "/friends?userid=" + Global.user.id!
+        let onSuccess = { (data: [String: Any]) in
+            print("== getFriends success")
+            // TODO: save to store and then loadData
+            self.loadData()
+        }
+        
+        let onFailure = { (data: [String: Any]) in
+            print("== getFriends failure")
+        }
+        HttpUtil.get(url: url, onSuccess: onSuccess, onFailure: onFailure)
     }
 
     /*

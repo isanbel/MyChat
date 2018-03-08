@@ -15,11 +15,11 @@ class EntryViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        password_tf.isSecureTextEntry = true
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        // TODO: 获取 userid，若有则将 userid 赋给 Global.userid，然后跳转
-        // performSegue(withIdentifier: "Enter", sender: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -50,9 +50,7 @@ class EntryViewController: UIViewController {
         let url: String = "/users/signin"
         let that = self
         let onSuccess = { (data: [String: Any]) in
-            let userid = data["userid"] as! String
-            Global.userid = userid
-            // TODO: 把 userid 存起来
+            self.self.saveUserData(data: data)
             that.performSegue(withIdentifier: "Enter", sender: nil)
         }
         
@@ -72,4 +70,25 @@ class EntryViewController: UIViewController {
         HttpUtil.post(url: url, parameters: parameters, onSuccess: onSuccess, onFailure: onSigninFailure);
     }
     
+    func saveUserData(data: [String: Any]) {
+        if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
+            let user = UserMO(context: appDelegate.persistentContainer.viewContext)
+            user.name = data["username"] as? String
+            user.email = ""
+            user.password = data["password"] as? String
+            user.isMale = true
+            user.id = data["userid"] as? String
+            user.birthday = Date()
+            
+            let avatarUrl = "http://139.199.174.146:3000/avatar/" + user.id! + ".jpg"
+            let url = URL(string: avatarUrl)
+            let avatar = try? Data(contentsOf: url!)
+            user.avatar = avatar
+            
+            appDelegate.saveContext()
+            
+            // Save to Global also
+            Global.user = user
+        }
+    }
 }

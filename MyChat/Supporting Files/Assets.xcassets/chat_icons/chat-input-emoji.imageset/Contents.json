@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "chat-input-emoji.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "chat-emoji.png",
       "scale" : "2x"
     },
     {

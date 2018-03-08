@@ -49,8 +49,7 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "name"
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Info", style: .done, target: self, action: #selector(showChatDetail))
+        self.title = friend.name
 
         getData()
         scrollToBottom(animated: false)
@@ -74,10 +73,6 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
         tapGestureRecognizer.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tapGestureRecognizer)
 
-    }
-    
-    @objc func showChatDetail() {
-        self.performSegue(withIdentifier: "ShowChatDetail", sender: self)
     }
     
     override func didReceiveMemoryWarning() {
@@ -166,6 +161,30 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
         
         // save message to store
         if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
+            if let lastmessageDate = friend.lastMessage?.date {
+                if lastmessageDate.timeIntervalSinceNow < -600 {
+                    print("===")
+                    let dateIndicator = ChatMessageMO(context: appDelegate.persistentContainer.viewContext)
+                    dateIndicator.date = Date()
+                    dateIndicator.contentText = ""
+                    dateIndicator.friend = friend
+                    dateIndicator.isDateIdentifier = true
+                    
+                    appDelegate.saveContext()
+                }
+            } else {
+                print("===")
+                // else the lastMessage is nil
+                let dateIndicator = ChatMessageMO(context: appDelegate.persistentContainer.viewContext)
+                dateIndicator.date = Date()
+                dateIndicator.contentText = ""
+                dateIndicator.friend = friend
+                dateIndicator.isDateIdentifier = true
+                
+                appDelegate.saveContext()
+            }
+            
+            
             let message = ChatMessageMO(context: appDelegate.persistentContainer.viewContext)
             message.isSent = true
             message.date = Date()
@@ -245,14 +264,13 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
      }
      */
     
-    /*
     // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "ShowFriendManagement" {
+            let destinationViewController = segue.destination as! FriendManagementTableViewController
+            destinationViewController.friend = friend
+        }
     }
-    */
 
 }
