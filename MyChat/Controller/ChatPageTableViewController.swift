@@ -15,7 +15,7 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var keyBaordView: UIView!
-    @IBOutlet weak var textFeild: UITextField!
+    @IBOutlet weak var textField: UITextField!
     
     var friend = FriendMO()
     var me = UserMO()
@@ -62,9 +62,9 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
         tableView.backgroundColor = UIColor(displayP3Red: 237/255, green: 235/255, blue: 235/255, alpha: 1)
 
         // the keyboard view
-        textFeild.delegate = self as UITextFieldDelegate
-        textFeild.returnKeyType = UIReturnKeyType.send
-        textFeild.enablesReturnKeyAutomatically  = true
+        textField.delegate = self as UITextFieldDelegate
+        textField.returnKeyType = UIReturnKeyType.send
+        textField.enablesReturnKeyAutomatically  = true
         
          NotificationCenter.default.addObserver(self, selector: #selector(self.keyBoardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
          NotificationCenter.default.addObserver(self, selector: #selector(self.keyBoardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
@@ -152,18 +152,16 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
     
     @objc func handleTouches(sender:UITapGestureRecognizer){
         if sender.location(in: self.view).y < self.view.bounds.height - 250{
-            textFeild.resignFirstResponder()
+            textField.resignFirstResponder()
         }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         saveMessageToStoreAndShow()
-
         getData()
         tableView.reloadData()
         textField.text = ""
         scrollToBottom(animated: true)
-        
         return false
     }
     
@@ -187,9 +185,9 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
             }
             
             let message = ChatMessageMO(context: appDelegate.persistentContainer.viewContext)
-            message.isSent = false
+            message.isSent = true
             message.date = Date()
-            message.contentText = textFeild.text!
+            message.contentText = textField.text!
             message.friend = friend
             message.isDateIdentifier = false
             
@@ -201,15 +199,17 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
             
             // 更新 lastMessage
             let lastmessage = LastMessageMO(context: appDelegate.persistentContainer.viewContext)
-            lastmessage.content = textFeild.text!
+            lastmessage.content = textField.text!
             lastmessage.date = Date()
             friend.lastMessage = lastmessage
+            
+            // 保存发送的信息
+            appDelegate.saveContext()
             
             let parameters: [String: Any] = [
                 "friendid": friend.id!,
                 "mes": message.contentText!
             ]
-            
             let onSuccess = { (data: [String: Any]) in
                 let result = data["result"] as! String
                 let response_msg = ChatMessageMO(context: appDelegate.persistentContainer.viewContext)
@@ -221,17 +221,17 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
                 
                 // 更新 lastMessage
                 let lastmessage = LastMessageMO(context: appDelegate.persistentContainer.viewContext)
-                lastmessage.content = self.textFeild.text!
+                lastmessage.content = self.textField.text!
                 lastmessage.date = Date()
                 self.friend.lastMessage = lastmessage
                 
                 appDelegate.saveContext()
+                self.getData()
+                self.tableView.reloadData()
             }
             let onFailure = { (data: [String: Any]) in
                 // TODO: 获取服务器好友回复失败后的提示
-                appDelegate.saveContext()
             }
-            
             // 从服务器获取好友的回复
             HttpUtil.post(url: "/dealMessage", parameters: parameters, onSuccess: onSuccess, onFailure: onFailure)
         }
