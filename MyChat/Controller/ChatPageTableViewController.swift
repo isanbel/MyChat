@@ -158,11 +158,11 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
         saveMessageToStoreAndShow()
-        getData()
-        tableView.reloadData()
         textField.text = ""
         scrollToBottom(animated: true)
+        
         return false
     }
     
@@ -176,6 +176,8 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
                     dateIndicator.contentText = ""
                     dateIndicator.friend = friend
                     dateIndicator.isDateIdentifier = true
+                    
+                    appendMessageAndShow(message: dateIndicator)
                 }
             } else {
                 let dateIndicator = ChatMessageMO(context: appDelegate.persistentContainer.viewContext)
@@ -183,6 +185,8 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
                 dateIndicator.contentText = ""
                 dateIndicator.friend = friend
                 dateIndicator.isDateIdentifier = true
+                
+                appendMessageAndShow(message: dateIndicator)
             }
             
             let message = ChatMessageMO(context: appDelegate.persistentContainer.viewContext)
@@ -206,6 +210,7 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
             
             // 保存发送的信息
             appDelegate.saveContext()
+            appendMessageAndShow(message: message)
             
             let parameters: [String: Any] = [
                 "friendid": friend.id!,
@@ -227,8 +232,7 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
                 self.friend.lastMessage = lastmessage
                 
                 appDelegate.saveContext()
-                self.getData()
-                self.tableView.reloadData()
+                self.appendMessageAndShow(message: response_msg)
             }
             let onFailure = { (data: [String: Any]) in
                 // TODO: 获取服务器好友回复失败后的提示
@@ -236,6 +240,14 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
             // 从服务器获取好友的回复
             HttpUtil.post(url: "/dealMessage", parameters: parameters, onSuccess: onSuccess, onFailure: onFailure)
         }
+    }
+    
+    func appendMessageAndShow(message: ChatMessageMO) {
+        chatMessages.append(message)
+        tableView.beginUpdates()
+        tableView.insertRows(at: [IndexPath(row: chatMessages.count - 1, section: 0)], with: .automatic)
+        tableView.endUpdates()
+        scrollToBottom(animated: true)
     }
     
     func scrollToBottom(animated: Bool){
