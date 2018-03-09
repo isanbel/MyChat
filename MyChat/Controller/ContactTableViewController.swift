@@ -156,7 +156,7 @@ class ContactTableViewController: UITableViewController {
         if segue.identifier == "ShowFriendProfile" {
             if let indexPath = tableView.indexPathForSelectedRow {
                 let destinationViewController = segue.destination as! FriendProlileTableViewController
-                destinationViewController.friend = friends[indexPath.row]
+                destinationViewController.friend = friendsDictionary[friendsSectionTitles[indexPath.section]]![indexPath.row]
             }
         }
     }
