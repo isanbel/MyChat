@@ -7,12 +7,10 @@
 //
 
 import UIKit
-import CoreData
 
-class ContactTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
+class ContactTableViewController: UITableViewController {
 
     var friends: [FriendMO] = []
-    var fetchResultController: NSFetchedResultsController<FriendMO>!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,12 +23,7 @@ class ContactTableViewController: UITableViewController, NSFetchedResultsControl
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated);
         
-        let friendsCount = friends.count
         loadData()
-        // reload when table changes
-        if friendsCount != friends.count {
-            tableView.reloadData()
-        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -62,32 +55,17 @@ class ContactTableViewController: UITableViewController, NSFetchedResultsControl
     }    
     
     func loadData() {
-        // Fetch data from data store
-        let fetchRequest: NSFetchRequest<FriendMO> = FriendMO.fetchRequest()
-        let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
-        fetchRequest.sortDescriptors = [sortDescriptor]
+        print("== count of friends \(String(describing: Global.user.friends?.count))")
+        friends = Global.user.friends?.array as! [FriendMO]
         
-        if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
-            let context = appDelegate.persistentContainer.viewContext
-            fetchResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
-            fetchResultController.delegate = self
-            
-            do {
-                try fetchResultController.performFetch()
-                if let fetchedObjects = fetchResultController.fetchedObjects {
-                    friends = fetchedObjects
-                }
-            } catch {
-                print(error)
-            }
-        }
+        tableView.reloadData()
     }
     
     func getFriends() {
         let url: String = "/friends?userid=" + Global.user.id!
         let onSuccess = { (data: [String: Any]) in
             print("== getFriends success")
-            // TODO: save to store and then loadData
+            self.storeNewFriends(data: data)
             self.loadData()
         }
         
@@ -95,6 +73,51 @@ class ContactTableViewController: UITableViewController, NSFetchedResultsControl
             print("== getFriends failure")
         }
         HttpUtil.get(url: url, onSuccess: onSuccess, onFailure: onFailure)
+    }
+    
+    func storeNewFriends(data: [String: Any]) {
+        let friends = data["data"] as! [[String: Any]]
+        for friend in friends {
+            
+            var friendExisted = false
+            let friendId = friend["friendid"]
+            for oldFriend in Global.user.friends?.array as! [FriendMO] {
+                // print("== \(oldFriend.id!) vs \(friendId!)")
+                if oldFriend.id! == friendId as! String {
+                    friendExisted = true
+                }
+            }
+            
+            // if friend exists
+            if friendExisted == true {
+                print("== it's old friend")
+                continue
+            }
+            
+            // else store this new friend
+            print("== store new friend")
+            if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
+                let newFriend = FriendMO(context: appDelegate.persistentContainer.viewContext)
+                newFriend.name = friend["friendname"] as? String
+                newFriend.id = friend["friendid"] as? String
+                
+                // TODO: parse Date
+                // newFriend.birthday
+                
+                // get avatar
+                // TODO: use friendid to get avatar
+                let avatarUrl = "http://139.199.174.146:3000/friendAvatar/" + newFriend.name! + ".png"
+                let url = URL(string: avatarUrl)
+                let avatar = try? Data(contentsOf: url!)
+                newFriend.avatar = avatar
+                
+                newFriend.isMale = friend["friendid"] as? String == "male" ? true : false
+                
+                newFriend.user = Global.user
+                
+                appDelegate.saveContext()
+            }
+        }
     }
 
     /*

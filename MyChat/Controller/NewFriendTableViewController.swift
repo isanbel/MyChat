@@ -176,11 +176,12 @@ class NewFriendTableViewController: UITableViewController, UITextFieldDelegate, 
             if let friendAvatar = photoImageView.image {
                 friend.avatar = UIImagePNGRepresentation(friendAvatar)
             }
+            friend.user = Global.user
             
             appDelegate.saveContext()
         }
         
-        dismiss(animated: true, completion: nil)
+        // dismiss(animated: true, completion: nil)
         navigationController?.popViewController(animated: true)
     }
     

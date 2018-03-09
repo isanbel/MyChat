@@ -157,35 +157,37 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        // TODO: use Http to append a message
+        saveMessageToStoreAndShow()
+
+        getData()
+        tableView.reloadData()
+        textField.text = ""
+        scrollToBottom(animated: true)
         
-        // save message to store
+        return false
+    }
+    
+    func saveMessageToStoreAndShow() {
         if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
+            // save date indicator if last message is nil or 10 min ago
             if let lastmessageDate = friend.lastMessage?.date {
                 if lastmessageDate.timeIntervalSinceNow < -600 {
-                    print("===")
                     let dateIndicator = ChatMessageMO(context: appDelegate.persistentContainer.viewContext)
                     dateIndicator.date = Date()
                     dateIndicator.contentText = ""
                     dateIndicator.friend = friend
                     dateIndicator.isDateIdentifier = true
-                    
-                    appDelegate.saveContext()
                 }
             } else {
-                print("===")
-                // else the lastMessage is nil
                 let dateIndicator = ChatMessageMO(context: appDelegate.persistentContainer.viewContext)
                 dateIndicator.date = Date()
                 dateIndicator.contentText = ""
                 dateIndicator.friend = friend
                 dateIndicator.isDateIdentifier = true
-                
-                appDelegate.saveContext()
             }
             
             let message = ChatMessageMO(context: appDelegate.persistentContainer.viewContext)
-            message.isSent = true
+            message.isSent = false
             message.date = Date()
             message.contentText = textFeild.text!
             message.friend = friend
@@ -224,25 +226,15 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
                 self.friend.lastMessage = lastmessage
                 
                 appDelegate.saveContext()
-                self.refreshMessageTable()
             }
             let onFailure = { (data: [String: Any]) in
+                // TODO: 获取服务器好友回复失败后的提示
                 appDelegate.saveContext()
-                self.refreshMessageTable()
             }
             
             // 从服务器获取好友的回复
             HttpUtil.post(url: "/dealMessage", parameters: parameters, onSuccess: onSuccess, onFailure: onFailure)
         }
-
-        return false
-    }
-    
-    func refreshMessageTable() {
-        getData()
-        tableView.reloadData()
-        scrollToBottom(animated: true)
-        textFeild.text = ""
     }
     
     func scrollToBottom(animated: Bool){

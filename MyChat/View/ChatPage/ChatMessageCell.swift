@@ -59,7 +59,7 @@ class ChatMessageCell: UITableViewCell {
             self.contentLbl.text = message?.contentText
             
             // resizable image
-            self.bubbleImgView.image? = (self.bubbleImgView.image?.resizableImage(withCapInsets: UIEdgeInsetsMake(30, 30, 30, 40)))!
+            self.bubbleImgView.image? = (self.bubbleImgView.image?.resizableImage(withCapInsets: UIEdgeInsetsMake(20, 20, 20, 20)))!
             
             //布局位置
             //1.去掉系统添加默认的autolayout，防止冲突,并设置label的对齐
@@ -84,21 +84,20 @@ class ChatMessageCell: UITableViewCell {
                 
                 self.contentLbl.textColor = UIColor.white
                 
-                header_constraint_H_Format =  "[header(40)]-7-|"
-                header_constraint_V_Format =  "V:|-5-[header(40)]"
+                header_constraint_H_Format =  "[header(0)]-10-|"
+                header_constraint_V_Format =  "V:|-5-[header(0)]"
                 bubble_constraint_H_Format  =  "|-(>=57)-[bubble]-5-[header]"
                 bubble_constraint_V_Format  =  "V:|-5-[bubble(>=43)]-5-|"
-                content_constraint_H_Format  =  "|-(>=10)-[content]-19-|"
+                content_constraint_H_Format  =  "|-(>=15)-[content]-15-|"
                 content_constraint_V_Format  =  "V:|-10-[content]-12-|"
             } else {
-                header_constraint_H_Format =  "|-7-[header(40)]"
+                header_constraint_H_Format =  "|-10-[header(40)]"
                 header_constraint_V_Format =  "V:|-5-[header(40)]"
                 bubble_constraint_H_Format  =  "[header]-5-[bubble]-(>=57)-|"
                 bubble_constraint_V_Format  =  "V:|-5-[bubble(>=43)]-5-|"
-                content_constraint_H_Format  =  "|-19-[content]-(>=10)-|"
+                content_constraint_H_Format  =  "|-15-[content]-(>=15)-|"
                 content_constraint_V_Format  =  "V:|-10-[content]-12-|"
             }
-            
             
             let header_constraint_H:NSArray = NSLayoutConstraint.constraints(withVisualFormat: header_constraint_H_Format, options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: viewsDictionary) as NSArray
             let header_constraint_V:NSArray = NSLayoutConstraint.constraints(withVisualFormat: header_constraint_V_Format, options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: viewsDictionary) as NSArray

@@ -7,9 +7,12 @@
 //
 
 import UIKit
+import CoreData
 
-class EntryViewController: UIViewController {
+class EntryViewController: UIViewController, UINavigationControllerDelegate {
 
+    var fetchResultController: NSFetchedResultsController<UserMO>!
+    
     @IBOutlet weak var username_tf: UITextField!
     @IBOutlet weak var password_tf: UITextField!
     
@@ -71,6 +74,11 @@ class EntryViewController: UIViewController {
     }
     
     func saveUserData(data: [String: Any]) {
+        if checkIfUserExist(data: data) == true {
+            return
+        }
+        // else save new user
+        print("== user not exists")
         if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
             let user = UserMO(context: appDelegate.persistentContainer.viewContext)
             user.name = data["username"] as? String
@@ -85,10 +93,55 @@ class EntryViewController: UIViewController {
             let avatar = try? Data(contentsOf: url!)
             user.avatar = avatar
             
+            user.loggedin = true
+            
             appDelegate.saveContext()
             
             // Save to Global also
             Global.user = user
         }
+    }
+    
+    func checkIfUserExist(data: [String: Any]) -> Bool {
+        let userId = data["userid"] as? String
+        
+        // Fetch data from data store
+        let fetchRequest: NSFetchRequest<UserMO> = UserMO.fetchRequest()
+        let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        
+        if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
+            let context = appDelegate.persistentContainer.viewContext
+            fetchResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+            fetchResultController.delegate = self as? NSFetchedResultsControllerDelegate
+            
+            do {
+                try fetchResultController.performFetch()
+                if let fetchedObjects = fetchResultController.fetchedObjects {
+                    
+                    // if this user exists
+                    for i in 0..<fetchedObjects.count {
+                        if fetchedObjects[i].id == userId {
+                            print("== user exists")
+                            if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
+                            
+                                fetchedObjects[i].loggedin = true
+                                
+                                appDelegate.saveContext()
+                                
+                                // Save to Global also
+                                Global.user = fetchedObjects[i]
+                            }
+                            return true
+                        }
+                    }
+                    return false
+                }
+            } catch {
+                print(error)
+                return false
+            }
+        }
+        return false
     }
 }
