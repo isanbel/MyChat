@@ -192,7 +192,7 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
             }
             
             let message = ChatMessageMO(context: appDelegate.persistentContainer.viewContext)
-            message.isSent = false
+            message.isSent = true
             message.date = Date()
             message.contentText = textFeild.text!
             message.friend = friend
