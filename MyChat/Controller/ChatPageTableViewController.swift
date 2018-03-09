@@ -98,6 +98,7 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
             
             cell.friend = friend
             cell.me = me
+            cell.lastMessage = indexPath.row > 1 ? chatMessages[indexPath.row - 1] : nil
             cell.message = chatMessages[indexPath.row]
             return cell
         } else {
@@ -168,9 +169,9 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
     
     func saveMessageToStoreAndShow() {
         if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
-            // save date indicator if last message is nil or 10 min ago
+            // save date indicator if last message is nil or 5 min ago
             if let lastmessageDate = friend.lastMessage?.date {
-                if lastmessageDate.timeIntervalSinceNow < -600 {
+                if lastmessageDate.timeIntervalSinceNow < -300 {
                     let dateIndicator = ChatMessageMO(context: appDelegate.persistentContainer.viewContext)
                     dateIndicator.date = Date()
                     dateIndicator.contentText = ""
@@ -192,7 +193,7 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
             }
             
             let message = ChatMessageMO(context: appDelegate.persistentContainer.viewContext)
-            message.isSent = true
+            message.isSent = false
             message.date = Date()
             message.contentText = textFeild.text!
             message.friend = friend
@@ -228,48 +229,6 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
             }
         }
     }
-    
-    // MARK: - UITableViewDelegate Protocol
-    
-   /*
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-    }
-    */
-    
-    /*
-     // Override to support conditional editing of the table view.
-     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-     // Return false if you do not want the specified item to be editable.
-     return true
-     }
-     */
-    
-    /*
-     // Override to support editing the table view.
-     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-     if editingStyle == .delete {
-     // Delete the row from the data source
-     tableView.deleteRows(at: [indexPath], with: .fade)
-     } else if editingStyle == .insert {
-     // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-     }
-     }
-     */
-    
-    /*
-     // Override to support rearranging the table view.
-     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-     
-     }
-     */
-    
-    /*
-     // Override to support conditional rearranging of the table view.
-     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-     // Return false if you do not want the item to be re-orderable.
-     return true
-     }
-     */
     
     // MARK: - Navigation
     
