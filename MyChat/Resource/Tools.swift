@@ -24,7 +24,7 @@ extension Date {
         if daysFromNow    > 0 { return daysFromNow == 1 ? "昨天" : "\(daysFromNow) 天前" }
         if hoursFromNow   > 0 { return "\(hoursFromNow) 小时前" }
         if minutesFromNow > 0 { return "\(minutesFromNow) 分钟前" }
-        if secondsFromNow >= 0 { return secondsFromNow < 15 ? "现在"
+        if secondsFromNow >= 0 { return secondsFromNow < 15 ? "刚刚"
             : "\(secondsFromNow) 秒前" }
         return ""
     }
