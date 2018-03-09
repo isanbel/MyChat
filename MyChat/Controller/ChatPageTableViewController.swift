@@ -184,7 +184,6 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
                 appDelegate.saveContext()
             }
             
-            
             let message = ChatMessageMO(context: appDelegate.persistentContainer.viewContext)
             message.isSent = true
             message.date = Date()
@@ -197,20 +196,53 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
             if friend.lastMessage != nil {
                 context.delete(friend.lastMessage!)
             }
+            
+            // 更新 lastMessage
             let lastmessage = LastMessageMO(context: appDelegate.persistentContainer.viewContext)
             lastmessage.content = textFeild.text!
             lastmessage.date = Date()
             friend.lastMessage = lastmessage
             
-            appDelegate.saveContext()
+            let parameters: [String: Any] = [
+                "friendid": friend.id!,
+                "mes": message.contentText!
+            ]
+            
+            let onSuccess = { (data: [String: Any]) in
+                let result = data["result"] as! String
+                let response_msg = ChatMessageMO(context: appDelegate.persistentContainer.viewContext)
+                response_msg.isSent = false
+                response_msg.date = Date()
+                response_msg.contentText = result
+                response_msg.friend = self.friend
+                response_msg.isDateIdentifier = false
+                
+                // 更新 lastMessage
+                let lastmessage = LastMessageMO(context: appDelegate.persistentContainer.viewContext)
+                lastmessage.content = self.textFeild.text!
+                lastmessage.date = Date()
+                self.friend.lastMessage = lastmessage
+                
+                appDelegate.saveContext()
+                self.refreshMessageTable()
+            }
+            let onFailure = { (data: [String: Any]) in
+                appDelegate.saveContext()
+                self.refreshMessageTable()
+            }
+            
+            // 从服务器获取好友的回复
+            HttpUtil.post(url: "/dealMessage", parameters: parameters, onSuccess: onSuccess, onFailure: onFailure)
         }
+
+        return false
+    }
+    
+    func refreshMessageTable() {
         getData()
         tableView.reloadData()
         scrollToBottom(animated: true)
-        
         textFeild.text = ""
-        
-        return false
     }
     
     func scrollToBottom(animated: Bool){
