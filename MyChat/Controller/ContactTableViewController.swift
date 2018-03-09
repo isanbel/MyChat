@@ -11,12 +11,14 @@ import UIKit
 class ContactTableViewController: UITableViewController {
 
     var friends: [FriendMO] = []
+    var friendsDictionary: [String: [FriendMO]] = [:]
+    var friendsSectionTitles: [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.tableFooterView = UIView()
         tableView.backgroundColor = UIColor(displayP3Red: 237/255, green: 235/255, blue: 235/255, alpha: 1)
-        
+        tableView.sectionIndexBackgroundColor = .clear
         getFriends()
     }
 
@@ -28,17 +30,20 @@ class ContactTableViewController: UITableViewController {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return friendsSectionTitles.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return friends.count
+        let friendsKey = friendsSectionTitles[section]
+        if let friendsValues = friendsDictionary[friendsKey] {
+            return friendsValues.count
+        }
+        return 0
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -46,18 +51,28 @@ class ContactTableViewController: UITableViewController {
         let cellIdentifier = "ContactTableViewCell"
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! ContactTableViewCell
         
-        cell.nameLabel.text = friends[indexPath.row].name
-        if let avatarImage = friends[indexPath.row].avatar {
-            cell.thumbnailImageView.image = UIImage(data: avatarImage as Data)
+        if let friendsValues = friendsDictionary[friendsSectionTitles[indexPath.section]] {
+            cell.nameLabel.text = friendsValues[indexPath.row].name
+            if let avatarImage = friendsValues[indexPath.row].avatar {
+                cell.thumbnailImageView.image = UIImage(data: avatarImage as Data)
+            }
         }
         
         return cell
-    }    
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return friendsSectionTitles[section]
+    }
+    
+    override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+        return friendsSectionTitles
+    }
     
     func loadData() {
         print("== count of friends \(String(describing: Global.user.friends?.count))")
         friends = Global.user.friends?.array as! [FriendMO]
-        
+        getSortedFriendsDictionaryAndSectionTitles()
         tableView.reloadData()
     }
     
@@ -85,6 +100,7 @@ class ContactTableViewController: UITableViewController {
                 // print("== \(oldFriend.id!) vs \(friendId!)")
                 if oldFriend.id! == friendId as! String {
                     friendExisted = true
+                    break
                 }
             }
             
@@ -93,7 +109,6 @@ class ContactTableViewController: UITableViewController {
                 print("== it's old friend")
                 continue
             }
-            
             // else store this new friend
             print("== store new friend")
             if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
@@ -119,46 +134,24 @@ class ContactTableViewController: UITableViewController {
             }
         }
     }
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    
+    func getSortedFriendsDictionaryAndSectionTitles() {
+        friendsDictionary = [:]
+        for friend in friends {
+            let key = Utils.findFirstLetterFromString(aString: friend.name!)
+            if friendsDictionary[key] != nil {
+                friendsDictionary[key]!.append(friend)
+            } else {
+                friendsDictionary[key] = [friend]
+            }
+        }
+        // TODO: sort
+        friendsSectionTitles = [String](friendsDictionary.keys)
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
 
     
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowFriendProfile" {
             if let indexPath = tableView.indexPathForSelectedRow {
