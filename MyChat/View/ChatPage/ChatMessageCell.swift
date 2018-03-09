@@ -68,8 +68,8 @@ class ChatMessageCell: UITableViewCell {
             self.contentLbl.translatesAutoresizingMaskIntoConstraints = false
             self.bubbleImgView.translatesAutoresizingMaskIntoConstraints = false
             self.contentLbl.textAlignment = message?.isSent == false ? NSTextAlignment.right : NSTextAlignment.left
+            self.contentLbl.textColor = message?.isSent == true ? UIColor.white : UIColor.black
             self.contentLbl.numberOfLines = 0
-            
             
             //2.设置约束
             let viewsDictionary = ["header": self.headerImgView, "content": self.contentLbl, "bubble": self.bubbleImgView]
@@ -83,9 +83,6 @@ class ChatMessageCell: UITableViewCell {
             let hideHeaderImg = lastMessage?.isSent == message?.isSent && lastMessage?.isDateIdentifier == false
             
             if message?.isSent == true {
-                
-                self.contentLbl.textColor = UIColor.white
-                
                 header_constraint_H_Format =  "[header(0)]-10-|"
                 header_constraint_V_Format =  "V:|-5-[header(0)]"
                 bubble_constraint_H_Format  =  "|-(>=57)-[bubble]-5-[header]"

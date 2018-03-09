@@ -225,11 +225,20 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
                 response_msg.friend = self.friend
                 response_msg.isDateIdentifier = false
                 
+                // delete the old last message and add the new one
+                let context = appDelegate.persistentContainer.viewContext
+                if self.friend.lastMessage != nil {
+                    context.delete(self.friend.lastMessage!)
+                }
+                
                 // 更新 lastMessage
                 let lastmessage = LastMessageMO(context: appDelegate.persistentContainer.viewContext)
-                lastmessage.content = self.textField.text!
+                lastmessage.content = result
                 lastmessage.date = Date()
                 self.friend.lastMessage = lastmessage
+                
+                print("== self.friend.lastMessage:")
+                print(self.friend.lastMessage ?? "")
                 
                 appDelegate.saveContext()
                 self.appendMessageAndShow(message: response_msg)
