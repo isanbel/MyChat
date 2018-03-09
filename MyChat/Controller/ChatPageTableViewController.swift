@@ -22,6 +22,9 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
     
     var chatMessages: [ChatMessageMO] = []
     
+    var hiddenTableCellsHeight: CGFloat = 0
+    var keyBoardBoundsSizeHeight: CGFloat = 0
+    
     func getData() {
         
         // Fetch data from data store
@@ -118,10 +121,18 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
         let keyBoardBounds = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
         let duration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
         let deltaY = keyBoardBounds.size.height
+        keyBoardBoundsSizeHeight = deltaY
         
         let animations:(() -> Void) = {
             self.keyBaordView.transform = CGAffineTransform(translationX: 0,y: -deltaY)
-            self.tableView.transform = CGAffineTransform(translationX: 0,y: -deltaY)
+            
+            let tableViewContentToBottom = self.tableView.bounds.size.height - self.tableView.contentSize.height
+            if tableViewContentToBottom > deltaY {
+            } else if tableViewContentToBottom <= 0 {
+                self.tableView.transform = CGAffineTransform(translationX: 0,y: -deltaY)
+            } else {
+                self.tableView.transform = CGAffineTransform(translationX: 0,y: tableViewContentToBottom - deltaY)
+            }
         }
         
         if duration > 0 {
@@ -157,11 +168,32 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
         }
     }
     
+    func pushTableViewIfHidden() {
+        
+        let deltaY = keyBoardBoundsSizeHeight
+        
+        let tableViewContentToBottom = self.tableView.bounds.size.height - self.tableView.contentSize.height
+        if tableViewContentToBottom > deltaY {
+        } else if tableViewContentToBottom + hiddenTableCellsHeight <= 0 {
+        } else {
+            var toPushHeight = hiddenTableCellsHeight
+            if self.tableView.contentSize.height + hiddenTableCellsHeight < self.tableView.bounds.size.height {
+                toPushHeight = hiddenTableCellsHeight
+            } else {
+                toPushHeight = hiddenTableCellsHeight - (self.tableView.contentSize.height + hiddenTableCellsHeight - self.tableView.bounds.size.height)
+            }
+            self.tableView.transform = CGAffineTransform(translationX: 0,y: -toPushHeight)
+        }
+        hiddenTableCellsHeight = 0
+    }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
         saveMessageToStoreAndShow()
         textField.text = ""
         scrollToBottom(animated: true)
+        
+//        pushTableViewIfHidden()
         
         return false
     }
@@ -255,6 +287,7 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
         chatMessages.append(message)
         tableView.beginUpdates()
         tableView.insertRows(at: [IndexPath(row: chatMessages.count - 1, section: 0)], with: .automatic)
+//        hiddenTableCellsHeight = (tableView.cellForRow(at: IndexPath(row: chatMessages.count - 1, section: 0))?.bounds.size.height)!
         tableView.endUpdates()
         scrollToBottom(animated: true)
     }
