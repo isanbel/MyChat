@@ -159,11 +159,18 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         // TODO: use Http to append a message
         
-        // save message to store
+        saveMessageToStoreAndShow()
+        textField.text = ""
+        scrollToBottom(animated: true)
+        
+        return false
+    }
+    
+    func saveMessageToStoreAndShow() {
         if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
+            // save date indicator if last message is nil or 10 min ago
             if let lastmessageDate = friend.lastMessage?.date {
                 if lastmessageDate.timeIntervalSinceNow < -600 {
-                    print("===")
                     let dateIndicator = ChatMessageMO(context: appDelegate.persistentContainer.viewContext)
                     dateIndicator.date = Date()
                     dateIndicator.contentText = ""
@@ -171,10 +178,9 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
                     dateIndicator.isDateIdentifier = true
                     
                     appDelegate.saveContext()
+                    appendMessageAndShow(message: dateIndicator)
                 }
             } else {
-                print("===")
-                // else the lastMessage is nil
                 let dateIndicator = ChatMessageMO(context: appDelegate.persistentContainer.viewContext)
                 dateIndicator.date = Date()
                 dateIndicator.contentText = ""
@@ -182,11 +188,11 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
                 dateIndicator.isDateIdentifier = true
                 
                 appDelegate.saveContext()
+                appendMessageAndShow(message: dateIndicator)
             }
             
-            
             let message = ChatMessageMO(context: appDelegate.persistentContainer.viewContext)
-            message.isSent = true
+            message.isSent = false
             message.date = Date()
             message.contentText = textFeild.text!
             message.friend = friend
@@ -203,14 +209,15 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
             friend.lastMessage = lastmessage
             
             appDelegate.saveContext()
+            appendMessageAndShow(message: message)
         }
-        getData()
-        tableView.reloadData()
-        scrollToBottom(animated: true)
-        
-        textFeild.text = ""
-        
-        return false
+    }
+    
+    func appendMessageAndShow(message: ChatMessageMO) {
+        chatMessages.append(message)
+        tableView.beginUpdates()
+        tableView.insertRows(at: [IndexPath(row: chatMessages.count - 1, section: 0)], with: .automatic)
+        tableView.endUpdates()
     }
     
     func scrollToBottom(animated: Bool){

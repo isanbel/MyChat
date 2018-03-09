@@ -180,5 +180,8 @@ class ChatTableViewController: UITableViewController, NSFetchedResultsController
             self.performSegue(withIdentifier: "showNewFriend", sender: self)
         }
     }
+    
+    @IBAction func returnToMyChatPageUnwindSegue(_ sender: UIStoryboardSegue) {
+    }
 
 }

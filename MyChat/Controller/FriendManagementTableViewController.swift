@@ -38,7 +38,23 @@ class FriendManagementTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 10
+        return 12
+    }
+    
+    // MARK: - UITableViewDelegate methods
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // delete all chatMessages
+        if indexPath.row == 11 {
+            if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
+                friend.chatMessages = []
+                let context = appDelegate.persistentContainer.viewContext
+                if friend.lastMessage != nil {
+                    context.delete(friend.lastMessage!)
+                }
+                appDelegate.saveContext()
+            }
+        }
     }
     
     func loadData() {

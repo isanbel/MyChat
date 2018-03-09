@@ -79,12 +79,11 @@ class ContactTableViewController: UITableViewController {
         let friends = data["data"] as! [[String: Any]]
         for friend in friends {
             
-            // TODO: friendid be String instead of Number! to bravos
             var friendExisted = false
             let friendId = friend["friendid"]
             for oldFriend in Global.user.friends?.array as! [FriendMO] {
-                print("== \(oldFriend.id) vs \(friendId)")
-                if oldFriend.id == friendId as? String {
+                // print("== \(oldFriend.id!) vs \(friendId!)")
+                if oldFriend.id! == friendId as! String {
                     friendExisted = true
                 }
             }
@@ -106,6 +105,7 @@ class ContactTableViewController: UITableViewController {
                 // newFriend.birthday
                 
                 // get avatar
+                // TODO: use friendid to get avatar
                 let avatarUrl = "http://139.199.174.146:3000/friendAvatar/" + newFriend.name! + ".png"
                 let url = URL(string: avatarUrl)
                 let avatar = try? Data(contentsOf: url!)
