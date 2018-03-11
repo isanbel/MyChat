@@ -33,6 +33,7 @@ class ChatMessageCell: UITableViewCell {
     var friend: FriendMO?
     var me: UserMO?
     
+    var lastMessage: ChatMessageMO?
     var message: ChatMessageMO? {//根据消息模型构建cell布局
         
         didSet{
@@ -67,8 +68,8 @@ class ChatMessageCell: UITableViewCell {
             self.contentLbl.translatesAutoresizingMaskIntoConstraints = false
             self.bubbleImgView.translatesAutoresizingMaskIntoConstraints = false
             self.contentLbl.textAlignment = message?.isSent == false ? NSTextAlignment.right : NSTextAlignment.left
+            self.contentLbl.textColor = message?.isSent == true ? UIColor.white : UIColor.black
             self.contentLbl.numberOfLines = 0
-            
             
             //2.设置约束
             let viewsDictionary = ["header": self.headerImgView, "content": self.contentLbl, "bubble": self.bubbleImgView]
@@ -79,24 +80,35 @@ class ChatMessageCell: UITableViewCell {
             var content_constraint_H_Format = ""
             var content_constraint_V_Format = ""
             
+            let hideHeaderImg = lastMessage?.isSent == message?.isSent && lastMessage?.isDateIdentifier == false
             
             if message?.isSent == true {
-                
-                self.contentLbl.textColor = UIColor.white
-                
                 header_constraint_H_Format =  "[header(0)]-10-|"
                 header_constraint_V_Format =  "V:|-5-[header(0)]"
                 bubble_constraint_H_Format  =  "|-(>=57)-[bubble]-5-[header]"
-                bubble_constraint_V_Format  =  "V:|-5-[bubble(>=43)]-5-|"
+                bubble_constraint_V_Format  =  "V:|-5-[bubble(>=43)]-6-|"
                 content_constraint_H_Format  =  "|-(>=15)-[content]-15-|"
                 content_constraint_V_Format  =  "V:|-10-[content]-12-|"
+                
+                if hideHeaderImg {
+                    header_constraint_V_Format =  "V:|-0-[header(0)]"
+                }
             } else {
                 header_constraint_H_Format =  "|-10-[header(40)]"
                 header_constraint_V_Format =  "V:|-5-[header(40)]"
                 bubble_constraint_H_Format  =  "[header]-5-[bubble]-(>=57)-|"
-                bubble_constraint_V_Format  =  "V:|-5-[bubble(>=43)]-5-|"
+                bubble_constraint_V_Format  =  "V:|-5-[bubble(>=43)]-6-|"
                 content_constraint_H_Format  =  "|-15-[content]-(>=15)-|"
                 content_constraint_V_Format  =  "V:|-10-[content]-12-|"
+                
+                if hideHeaderImg {
+                    header_constraint_V_Format =  "V:|-0-[header(40)]"
+                }
+            }
+            
+            if hideHeaderImg {
+                bubble_constraint_V_Format  =  "V:|-0-[bubble(>=43)]-6-|"
+                self.headerImgView.image = UIImage(data: Data())
             }
             
             let header_constraint_H:NSArray = NSLayoutConstraint.constraints(withVisualFormat: header_constraint_H_Format, options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: viewsDictionary) as NSArray

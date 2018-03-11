@@ -98,6 +98,7 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
             
             cell.friend = friend
             cell.me = me
+            cell.lastMessage = indexPath.row > 1 ? chatMessages[indexPath.row - 1] : nil
             cell.message = chatMessages[indexPath.row]
             return cell
         } else {
@@ -157,24 +158,26 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
         saveMessageToStoreAndShow()
-        getData()
-        tableView.reloadData()
         textField.text = ""
         scrollToBottom(animated: true)
+        
         return false
     }
     
     func saveMessageToStoreAndShow() {
         if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
-            // save date indicator if last message is nil or 10 min ago
+            // save date indicator if last message is nil or 5 min ago
             if let lastmessageDate = friend.lastMessage?.date {
-                if lastmessageDate.timeIntervalSinceNow < -600 {
+                if lastmessageDate.timeIntervalSinceNow < -300 {
                     let dateIndicator = ChatMessageMO(context: appDelegate.persistentContainer.viewContext)
                     dateIndicator.date = Date()
                     dateIndicator.contentText = ""
                     dateIndicator.friend = friend
                     dateIndicator.isDateIdentifier = true
+                    
+                    appendMessageAndShow(message: dateIndicator)
                 }
             } else {
                 let dateIndicator = ChatMessageMO(context: appDelegate.persistentContainer.viewContext)
@@ -182,6 +185,8 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
                 dateIndicator.contentText = ""
                 dateIndicator.friend = friend
                 dateIndicator.isDateIdentifier = true
+                
+                appendMessageAndShow(message: dateIndicator)
             }
             
             let message = ChatMessageMO(context: appDelegate.persistentContainer.viewContext)
@@ -205,6 +210,7 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
             
             // 保存发送的信息
             appDelegate.saveContext()
+            appendMessageAndShow(message: message)
             
             let parameters: [String: Any] = [
                 "friendid": friend.id!,
@@ -219,15 +225,23 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
                 response_msg.friend = self.friend
                 response_msg.isDateIdentifier = false
                 
+                // delete the old last message and add the new one
+                let context = appDelegate.persistentContainer.viewContext
+                if self.friend.lastMessage != nil {
+                    context.delete(self.friend.lastMessage!)
+                }
+                
                 // 更新 lastMessage
                 let lastmessage = LastMessageMO(context: appDelegate.persistentContainer.viewContext)
-                lastmessage.content = self.textField.text!
+                lastmessage.content = result
                 lastmessage.date = Date()
                 self.friend.lastMessage = lastmessage
                 
+                print("== self.friend.lastMessage:")
+                print(self.friend.lastMessage ?? "")
+                
                 appDelegate.saveContext()
-                self.getData()
-                self.tableView.reloadData()
+                self.appendMessageAndShow(message: response_msg)
             }
             let onFailure = { (data: [String: Any]) in
                 // TODO: 获取服务器好友回复失败后的提示
@@ -235,6 +249,14 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
             // 从服务器获取好友的回复
             HttpUtil.post(url: "/dealMessage", parameters: parameters, onSuccess: onSuccess, onFailure: onFailure)
         }
+    }
+    
+    func appendMessageAndShow(message: ChatMessageMO) {
+        chatMessages.append(message)
+        tableView.beginUpdates()
+        tableView.insertRows(at: [IndexPath(row: chatMessages.count - 1, section: 0)], with: .automatic)
+        tableView.endUpdates()
+        scrollToBottom(animated: true)
     }
     
     func scrollToBottom(animated: Bool){
@@ -245,48 +267,6 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
             }
         }
     }
-    
-    // MARK: - UITableViewDelegate Protocol
-    
-   /*
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-    }
-    */
-    
-    /*
-     // Override to support conditional editing of the table view.
-     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-     // Return false if you do not want the specified item to be editable.
-     return true
-     }
-     */
-    
-    /*
-     // Override to support editing the table view.
-     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-     if editingStyle == .delete {
-     // Delete the row from the data source
-     tableView.deleteRows(at: [indexPath], with: .fade)
-     } else if editingStyle == .insert {
-     // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-     }
-     }
-     */
-    
-    /*
-     // Override to support rearranging the table view.
-     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-     
-     }
-     */
-    
-    /*
-     // Override to support conditional rearranging of the table view.
-     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-     // Return false if you do not want the item to be re-orderable.
-     return true
-     }
-     */
     
     // MARK: - Navigation
     
