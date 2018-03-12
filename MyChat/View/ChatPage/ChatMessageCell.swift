@@ -63,11 +63,10 @@ class ChatMessageCell: UITableViewCell {
             self.bubbleImgView.image? = (self.bubbleImgView.image?.resizableImage(withCapInsets: UIEdgeInsetsMake(20, 20, 20, 20)))!
             
             //布局位置
-            //1.去掉系统添加默认的autolayout，防止冲突,并设置label的对齐
+            //1.去掉系统添加默认的autolayout，防止冲突
             self.headerImgView.translatesAutoresizingMaskIntoConstraints = false
             self.contentLbl.translatesAutoresizingMaskIntoConstraints = false
             self.bubbleImgView.translatesAutoresizingMaskIntoConstraints = false
-            self.contentLbl.textAlignment = message?.isSent == false ? NSTextAlignment.right : NSTextAlignment.left
             self.contentLbl.textColor = message?.isSent == true ? UIColor.white : UIColor.black
             self.contentLbl.numberOfLines = 0
             
