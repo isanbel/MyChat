@@ -12,7 +12,7 @@ import CoreData
 class EntryViewController: UIViewController, UINavigationControllerDelegate {
 
     var fetchResultController: NSFetchedResultsController<UserMO>!
-    
+
     @IBOutlet weak var username_tf: UITextField!
     @IBOutlet weak var password_tf: UITextField!
     
@@ -28,6 +28,11 @@ class EntryViewController: UIViewController, UINavigationControllerDelegate {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    // Called when the user click on the view (outside the UITextField).
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
     
     @IBAction func entry_bt(_ sender: UIButton) {
