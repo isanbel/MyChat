@@ -10,33 +10,34 @@ import UIKit
 import CoreData
 
 class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, NSFetchedResultsControllerDelegate {
-    
+
     var fetchResultController: NSFetchedResultsController<UserMO>!
-    
+
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var keyBaordView: UIView!
     @IBOutlet weak var textField: UITextField!
-    
+
     var friend = FriendMO()
     var me = UserMO()
-    
+
     var chatMessages: [ChatMessageMO] = []
-    
-    var hiddenTableCellsHeight: CGFloat = 0
-    var keyBoardBoundsSizeHeight: CGFloat = 0
-    
+
+    var hiddenTableCellHeight: CGFloat = 0
+    var keyBoardHeight: CGFloat = 0
+    var translationY: CGFloat = 0
+
     func getData() {
-        
+
         // Fetch data from data store
         let fetchRequest: NSFetchRequest<UserMO> = UserMO.fetchRequest()
         let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
-        
+
         if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
             let context = appDelegate.persistentContainer.viewContext
             fetchResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
             fetchResultController.delegate = self
-            
+
             do {
                 try fetchResultController.performFetch()
                 if let fetchedObjects = fetchResultController.fetchedObjects {
@@ -46,7 +47,7 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
                 print(error)
             }
         }
-        
+
         chatMessages = friend.chatMessages?.array as! [ChatMessageMO]
     }
 
@@ -56,7 +57,7 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
 
         getData()
         scrollToBottom(animated: false)
-        
+
         // Configure the table view
         tableView.delegate = self
         tableView.dataSource = self
@@ -68,23 +69,23 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
         textField.delegate = self as UITextFieldDelegate
         textField.returnKeyType = UIReturnKeyType.send
         textField.enablesReturnKeyAutomatically  = true
-        
+
          NotificationCenter.default.addObserver(self, selector: #selector(self.keyBoardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
          NotificationCenter.default.addObserver(self, selector: #selector(self.keyBoardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-        
+
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.handleTouches))
         tapGestureRecognizer.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tapGestureRecognizer)
 
     }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+
     // MARK: - Table view data source
-    
+
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -94,11 +95,10 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         if chatMessages[indexPath.row].isDateIdentifier == false {
             let cellIdentifier = "ChatMessageCell"
             let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! ChatMessageCell
-            
+
             cell.friend = friend
             cell.me = me
             cell.lastMessage = indexPath.row > 1 ? chatMessages[indexPath.row - 1] : nil
@@ -109,95 +109,89 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
             let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! ChatDateIndicatorCell
 
             cell.dateLabel.text = chatMessages[indexPath.row].date?.relativeTime
-            
+
             return cell
         }
     }
-    
-    
+
+
     @objc func keyBoardWillShow(note:NSNotification) {
-        
+
         let userInfo  = note.userInfo! as NSDictionary
         let keyBoardBounds = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
         let duration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
         let deltaY = keyBoardBounds.size.height
-        keyBoardBoundsSizeHeight = deltaY
-        
+        keyBoardHeight = keyBoardBounds.size.height
+
         let animations:(() -> Void) = {
             self.keyBaordView.transform = CGAffineTransform(translationX: 0,y: -deltaY)
-            
+
             let tableViewContentToBottom = self.tableView.bounds.size.height - self.tableView.contentSize.height
             if tableViewContentToBottom > deltaY {
+                self.translationY = 0
             } else if tableViewContentToBottom <= 0 {
-                self.tableView.transform = CGAffineTransform(translationX: 0,y: -deltaY)
+                self.translationY = -deltaY
             } else {
-                self.tableView.transform = CGAffineTransform(translationX: 0,y: tableViewContentToBottom - deltaY)
+                self.translationY = tableViewContentToBottom - deltaY
             }
+            self.tableView.transform = CGAffineTransform(translationX: 0,y: self.translationY)
         }
-        
+
         if duration > 0 {
             let options = UIViewAnimationOptions(rawValue: UInt((userInfo[UIKeyboardAnimationCurveUserInfoKey] as! NSNumber).intValue << 16))
-            
+
             UIView.animate(withDuration: duration, delay: 0, options:options, animations: animations, completion: nil)
         } else {
             animations()
         }
     }
-    
+
     @objc func keyBoardWillHide(note:NSNotification) {
         let userInfo  = note.userInfo! as NSDictionary
         let duration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
-        
+
         let animations:(() -> Void) = {
             self.keyBaordView.transform = CGAffineTransform(translationX: 0,y: 0)
             self.tableView.transform = CGAffineTransform(translationX: 0,y: 0)
         }
-        
+
         if duration > 0 {
             let options = UIViewAnimationOptions(rawValue: UInt((userInfo[UIKeyboardAnimationCurveUserInfoKey] as! NSNumber).intValue << 16))
-            
+
             UIView.animate(withDuration: duration, delay: 0, options:options, animations: animations, completion: nil)
         }else{
             animations()
         }
     }
-    
+
     @objc func handleTouches(sender:UITapGestureRecognizer){
         if sender.location(in: self.view).y < self.view.bounds.height - 250{
             textField.resignFirstResponder()
         }
     }
-    
+
     func pushTableViewIfHidden() {
-        
-        let deltaY = keyBoardBoundsSizeHeight
-        
         let tableViewContentToBottom = self.tableView.bounds.size.height - self.tableView.contentSize.height
-        if tableViewContentToBottom > deltaY {
-        } else if tableViewContentToBottom + hiddenTableCellsHeight <= 0 {
-        } else {
-            var toPushHeight = hiddenTableCellsHeight
-            if self.tableView.contentSize.height + hiddenTableCellsHeight < self.tableView.bounds.size.height {
-                toPushHeight = hiddenTableCellsHeight
+        if tableViewContentToBottom < keyBoardHeight && -keyBoardHeight < translationY {
+            if tableViewContentToBottom > hiddenTableCellHeight {
+                translationY -= hiddenTableCellHeight
+            } else if tableViewContentToBottom > 0 {
+                translationY -= tableViewContentToBottom
             } else {
-                toPushHeight = hiddenTableCellsHeight - (self.tableView.contentSize.height + hiddenTableCellsHeight - self.tableView.bounds.size.height)
+                translationY = -keyBoardHeight
             }
-            self.tableView.transform = CGAffineTransform(translationX: 0,y: -toPushHeight)
         }
-        hiddenTableCellsHeight = 0
+        self.tableView.transform = CGAffineTransform(translationX: 0,y: translationY)
+        hiddenTableCellHeight = 0
     }
-    
+
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        
         saveMessageToStoreAndShow()
         textField.text = ""
         scrollToBottom(animated: true)
-        
-//        pushTableViewIfHidden()
-        
         return false
     }
-    
+
     func saveMessageToStoreAndShow() {
         if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
             // save date indicator if last message is nil or 5 min ago
@@ -208,7 +202,7 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
                     dateIndicator.contentText = ""
                     dateIndicator.friend = friend
                     dateIndicator.isDateIdentifier = true
-                    
+
                     appendMessageAndShow(message: dateIndicator)
                 }
             } else {
@@ -217,33 +211,33 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
                 dateIndicator.contentText = ""
                 dateIndicator.friend = friend
                 dateIndicator.isDateIdentifier = true
-                
+
                 appendMessageAndShow(message: dateIndicator)
             }
-            
+
             let message = ChatMessageMO(context: appDelegate.persistentContainer.viewContext)
             message.isSent = true
             message.date = Date()
             message.contentText = textField.text!
             message.friend = friend
             message.isDateIdentifier = false
-            
+
             // delete the old last message and add the new one
             let context = appDelegate.persistentContainer.viewContext
             if friend.lastMessage != nil {
                 context.delete(friend.lastMessage!)
             }
-            
+
             // 更新 lastMessage
             let lastmessage = LastMessageMO(context: appDelegate.persistentContainer.viewContext)
             lastmessage.content = textField.text!
             lastmessage.date = Date()
             friend.lastMessage = lastmessage
-            
+
             // 保存发送的信息
             appDelegate.saveContext()
             appendMessageAndShow(message: message)
-            
+
             let parameters: [String: Any] = [
                 "friendid": friend.id!,
                 "mes": message.contentText!
@@ -256,22 +250,22 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
                 response_msg.contentText = result
                 response_msg.friend = self.friend
                 response_msg.isDateIdentifier = false
-                
+
                 // delete the old last message and add the new one
                 let context = appDelegate.persistentContainer.viewContext
                 if self.friend.lastMessage != nil {
                     context.delete(self.friend.lastMessage!)
                 }
-                
+
                 // 更新 lastMessage
                 let lastmessage = LastMessageMO(context: appDelegate.persistentContainer.viewContext)
                 lastmessage.content = result
                 lastmessage.date = Date()
                 self.friend.lastMessage = lastmessage
-                
+
                 print("== self.friend.lastMessage:")
                 print(self.friend.lastMessage ?? "")
-                
+
                 appDelegate.saveContext()
                 self.appendMessageAndShow(message: response_msg)
             }
@@ -282,16 +276,24 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
             HttpUtil.post(url: "/dealMessage", parameters: parameters, onSuccess: onSuccess, onFailure: onFailure)
         }
     }
-    
+
     func appendMessageAndShow(message: ChatMessageMO) {
         chatMessages.append(message)
+
         tableView.beginUpdates()
         tableView.insertRows(at: [IndexPath(row: chatMessages.count - 1, section: 0)], with: .automatic)
-//        hiddenTableCellsHeight = (tableView.cellForRow(at: IndexPath(row: chatMessages.count - 1, section: 0))?.bounds.size.height)!
         tableView.endUpdates()
+
+        // deal with the hidden cell by the keyboard
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ChatMessageCell", for: IndexPath(row: chatMessages.count - 1, section: 0))
+        hiddenTableCellHeight = cell.bounds.height
+        // Add bubble bottom constraint length. it seems the bounds.height doesnot count it
+        hiddenTableCellHeight += 12
+        pushTableViewIfHidden()
+
         scrollToBottom(animated: true)
     }
-    
+
     func scrollToBottom(animated: Bool){
         if self.chatMessages.count > 0 {
             DispatchQueue.main.async {
@@ -300,9 +302,9 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
             }
         }
     }
-    
+
     // MARK: - Navigation
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowFriendManagement" {
             let destinationViewController = segue.destination as! FriendManagementTableViewController
