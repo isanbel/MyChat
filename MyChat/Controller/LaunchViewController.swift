@@ -52,7 +52,7 @@ class LaunchViewController: UIViewController, UINavigationControllerDelegate {
                         }
                     }
                     
-                    if indexOfLoggedinUser > 0 {
+                    if indexOfLoggedinUser >= 0 {
                         Global.user = fetchedObjects[indexOfLoggedinUser]
                         self.performSegue(withIdentifier: "showMyChat", sender: self)
                     } else {
