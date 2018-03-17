@@ -16,7 +16,7 @@ class EntryViewController: UIViewController, UINavigationControllerDelegate, UIT
 
     @IBOutlet weak var username_tf: UITextField! {
         didSet {
-            username_tf.defaultTextAttributes = [NSAttributedStringKey.font.rawValue : UIFont(name: "PingFangSC-Regular", size: 14)!, NSAttributedStringKey.foregroundColor.rawValue : UIColor(hex: "#9fa0a0")]
+            username_tf.defaultTextAttributes = [NSAttributedStringKey.font.rawValue : UIFont(name: "PingFangSC-Regular", size: 14)!, NSAttributedStringKey.foregroundColor.rawValue : UIColor(hex: "#4c72a6")]
             
             username_tf.placeholder = "手机号码"
             username_tf.borderStyle = .none
@@ -25,16 +25,22 @@ class EntryViewController: UIViewController, UINavigationControllerDelegate, UIT
     
     @IBOutlet weak var code_tf: UITextField! {
         didSet {
-            code_tf.defaultTextAttributes = [NSAttributedStringKey.font.rawValue : UIFont(name: "PingFangSC-Regular", size: 14)!, NSAttributedStringKey.foregroundColor.rawValue : UIColor(hex: "#9fa0a0")]
+            code_tf.defaultTextAttributes = [NSAttributedStringKey.font.rawValue : UIFont(name: "PingFangSC-Regular", size: 14)!, NSAttributedStringKey.foregroundColor.rawValue : UIColor(hex: "#4c72a6")]
             
             code_tf.placeholder = "验证码"
             code_tf.borderStyle = .none
         }
     }
     
+    @IBOutlet weak var codeAreaView: UIStackView! {
+        didSet {
+            codeAreaView.isHidden = true
+        }
+    }
+    
     @IBOutlet weak var password_tf: UITextField! {
         didSet {
-            password_tf.defaultTextAttributes = [NSAttributedStringKey.font.rawValue : UIFont(name: "PingFangSC-Regular", size: 14)!, NSAttributedStringKey.foregroundColor.rawValue : UIColor(hex: "#9fa0a0")]
+            password_tf.defaultTextAttributes = [NSAttributedStringKey.font.rawValue : UIFont(name: "PingFangSC-Regular", size: 14)!, NSAttributedStringKey.foregroundColor.rawValue : UIColor(hex: "#4c72a6")]
             
             password_tf.placeholder = "密码"
             password_tf.borderStyle = .none
@@ -72,6 +78,9 @@ class EntryViewController: UIViewController, UINavigationControllerDelegate, UIT
         }
     }
     
+    @IBOutlet weak var forgetPwView: UIStackView!
+    @IBOutlet weak var entryBtn: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -83,12 +92,7 @@ class EntryViewController: UIViewController, UINavigationControllerDelegate, UIT
         
         selectView.setTitle("登录", forSegmentAt: 0)
         selectView.setTitle("注册", forSegmentAt: 1)
-        
-        username_tf.delegate = self
-    }
-    
-    @objc func textFieldDidChange(_ textField: UITextField) {
-        print(textField.text)
+        selectView.addTarget(self, action: #selector(tabSegment), for: .valueChanged)
     }
     
     // Called when the user click on the view (outside the UITextField).
@@ -209,5 +213,18 @@ class EntryViewController: UIViewController, UINavigationControllerDelegate, UIT
             }
         }
         return false
+    }
+    
+    @objc func tabSegment() {
+        print(selectView.selectedSegmentIndex)
+        if selectView.selectedSegmentIndex == 0 {
+            codeAreaView.isHidden = true
+            forgetPwView.isHidden = false
+            entryBtn.titleLabel?.text = "登  录"
+        } else {
+            codeAreaView.isHidden = false
+            forgetPwView.isHidden = true
+            entryBtn.titleLabel?.text = "注  册"
+        }
     }
 }
