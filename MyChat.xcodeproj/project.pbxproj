@@ -33,6 +33,8 @@
 		C2B11B0C20451A1200726A86 /* LastMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B11B0B20451A1200726A86 /* LastMessage.swift */; };
 		C2B11B0E20453BB300726A86 /* ChatPageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B11B0D20453BB300726A86 /* ChatPageTableViewController.swift */; };
 		C2BE1C20204E6F37008B8E01 /* MyProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BE1C1F204E6F37008B8E01 /* MyProfileTableViewController.swift */; };
+		C2D45DB5205D3D1D004C2685 /* ContactCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D45DB4205D3D1D004C2685 /* ContactCollectionViewController.swift */; };
+		C2D45DB7205D3D2B004C2685 /* ContactCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D45DB6205D3D2B004C2685 /* ContactCollectionViewCell.swift */; };
 		C2FDE81B204FE503005CB808 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2FDE81A204FE503005CB808 /* Assets.xcassets */; };
 		C2FDE81D20500F78005CB808 /* DiscoveryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2FDE81C20500F78005CB808 /* DiscoveryTableViewController.swift */; };
 		C2FDE81F20509193005CB808 /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2FDE81E20509193005CB808 /* LaunchViewController.swift */; };
@@ -73,6 +75,8 @@
 		C2B11B0B20451A1200726A86 /* LastMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastMessage.swift; sourceTree = "<group>"; };
 		C2B11B0D20453BB300726A86 /* ChatPageTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatPageTableViewController.swift; sourceTree = "<group>"; };
 		C2BE1C1F204E6F37008B8E01 /* MyProfileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileTableViewController.swift; sourceTree = "<group>"; };
+		C2D45DB4205D3D1D004C2685 /* ContactCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactCollectionViewController.swift; sourceTree = "<group>"; };
+		C2D45DB6205D3D2B004C2685 /* ContactCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactCollectionViewCell.swift; sourceTree = "<group>"; };
 		C2FDE81A204FE503005CB808 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C2FDE81C20500F78005CB808 /* DiscoveryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryTableViewController.swift; sourceTree = "<group>"; };
 		C2FDE81E20509193005CB808 /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
@@ -181,6 +185,7 @@
 				C247D3432048274100456567 /* ChatPage */,
 				C2B11B052044F73E00726A86 /* ChatTableViewCell.swift */,
 				C2224ABE204CF669001A9D06 /* ContactTableViewCell.swift */,
+				C2D45DB6205D3D2B004C2685 /* ContactCollectionViewCell.swift */,
 				C2224AEE204DB047001A9D06 /* RoundedTextField.swift */,
 			);
 			path = View;
@@ -192,6 +197,7 @@
 				C2B11B092045005400726A86 /* ChatTableViewController.swift */,
 				C2B11B0D20453BB300726A86 /* ChatPageTableViewController.swift */,
 				C2224AC0204CF754001A9D06 /* ContactTableViewController.swift */,
+				C2D45DB4205D3D1D004C2685 /* ContactCollectionViewController.swift */,
 				C2224AC4204D1B17001A9D06 /* FriendProlileTableViewController.swift */,
 				C2224AEC204D7F75001A9D06 /* NewFriendTableViewController.swift */,
 				C2FDE8242051449D005CB808 /* AddFriendTableViewController.swift */,
@@ -370,6 +376,7 @@
 				C247D3402047956000456567 /* ChatMessage.swift in Sources */,
 				A8D69F3A204FA4A00081B18D /* Utils.swift in Sources */,
 				A8D69F3E205015940081B18D /* Global.swift in Sources */,
+				C2D45DB7205D3D2B004C2685 /* ContactCollectionViewCell.swift in Sources */,
 				C2B11B062044F73E00726A86 /* ChatTableViewCell.swift in Sources */,
 				C2B11B0E20453BB300726A86 /* ChatPageTableViewController.swift in Sources */,
 				C2224AEF204DB047001A9D06 /* RoundedTextField.swift in Sources */,
@@ -381,6 +388,7 @@
 				C2FDE81F20509193005CB808 /* LaunchViewController.swift in Sources */,
 				C284E02520492953009FC6CA /* ChatDateIndicatorCell.swift in Sources */,
 				C2B11B0A2045005400726A86 /* ChatTableViewController.swift in Sources */,
+				C2D45DB5205D3D1D004C2685 /* ContactCollectionViewController.swift in Sources */,
 				A8D69F38204F0C370081B18D /* HttpUtil.swift in Sources */,
 				C24EBD27204B9F8500C49569 /* Tools.swift in Sources */,
 				C284E023204887DB009FC6CA /* ChatMessageCell.swift in Sources */,
