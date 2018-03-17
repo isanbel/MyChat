@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -23,6 +24,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
         
         UIApplication.shared.statusBarStyle = .lightContent
+        
+        // 注册消息推送
+        UIApplication.shared.registerForRemoteNotifications()
+        registerForPushNotifications()
+        // UIApplication.shared.registerForRemoteNotifications()
         
         return true
     }
@@ -94,7 +100,49 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-
-
+    func registerForPushNotifications() {
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge]) { (granted, error) in
+            print("Permission granted: \(granted)")
+            guard granted else { return }
+            // self.getNotificationSettings()
+        }
+    }
+    
+//    func getNotificationSettings() {
+//        UNUserNotificationCenter.current().getNotificationSettings { (settings) in
+//            print("Notification settings: \(settings)")
+//            guard settings.authorizationStatus == .authorized else { return }
+//            // UIApplication.shared.registerForRemoteNotifications()
+//        }
+//    }
+    
+//    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+//        let tokenParts = deviceToken.map { data -> String in
+//            return String(format: "%02.2hhx", data)
+//        }
+//
+//        let token = tokenParts.joined()
+//        print("Device Token: \(token)")
+//    }
+//
+//    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+//        print("Failed to register: \(error)")
+//    }
+    
+    // Handle remote notification registration.
+    func application(_ application: UIApplication,
+                     didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data){
+        print(deviceToken)
+        // Forward the token to your provider, using a custom method.
+        // self.enableRemoteNotificationFeatures()
+        // self.forwardTokenToServer(token: deviceToken)
+    }
+    
+    func application(_ application: UIApplication,
+                     didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        // The token is not currently available.
+        print("Remote notification support is unavailable due to error: \(error.localizedDescription)")
+        // self.disableRemoteNotificationFeatures()
+    }
 }
 

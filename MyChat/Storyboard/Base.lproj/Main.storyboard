@@ -483,6 +483,9 @@
                                         <rect key="frame" x="8" y="6" width="30" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Button" image="chat-input-voice"/>
+                                        <connections>
+                                            <action selector="startOrStopRecord:" destination="N4k-Tg-JOS" eventType="touchUpInside" id="SZo-9F-wYi"/>
+                                        </connections>
                                     </button>
                                     <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wpy-rr-Y7I">
                                         <rect key="frame" x="40" y="7" width="249" height="30"/>

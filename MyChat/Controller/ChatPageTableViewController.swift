@@ -9,18 +9,70 @@
 import UIKit
 import CoreData
 
-class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, NSFetchedResultsControllerDelegate {
-    
-    var fetchResultController: NSFetchedResultsController<UserMO>!
-    
+class ChatPageTableViewController:
+    UIViewController,
+    UITableViewDataSource,
+    UITableViewDelegate,
+    UITextFieldDelegate,
+    NSFetchedResultsControllerDelegate,
+    IFlySpeechRecognizerDelegate
+{
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var keyBaordView: UIView!
     @IBOutlet weak var textField: UITextField!
     
+    var iflySpeechRecognizer: IFlySpeechRecognizer = IFlySpeechRecognizer.sharedInstance() as IFlySpeechRecognizer;
+    var fetchResultController: NSFetchedResultsController<UserMO>!
     var friend = FriendMO()
     var me = UserMO()
-    
     var chatMessages: [ChatMessageMO] = []
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        initIfly()
+        // self.iflySpeechRecognizer.startListening()
+    }
+    
+    func initIfly() {
+        IFlySpeechUtility.createUtility(Global.IFLY_INIT_STRING);
+        self.iflySpeechRecognizer.delegate = self;
+        self.iflySpeechRecognizer.setParameter("iat", forKey: IFlySpeechConstant.ifly_DOMAIN())
+        self.iflySpeechRecognizer.setParameter("16000", forKey: IFlySpeechConstant.sample_RATE())
+        self.iflySpeechRecognizer.setParameter("asr.pcm", forKey: IFlySpeechConstant.asr_AUDIO_PATH())
+        self.iflySpeechRecognizer.setParameter("json", forKey: IFlySpeechConstant.result_TYPE())
+    }
+    
+    @IBAction func startOrStopRecord(_ sender: UIButton) {
+        if (self.iflySpeechRecognizer.isListening) {
+            self.iflySpeechRecognizer.stopListening()
+            print("停止录音")
+        } else {
+            self.iflySpeechRecognizer.startListening()
+            print("开始录音")
+        }
+    }
+    
+    func onError(_ err: IFlySpeechError!) {
+        print("识别出错：\(err.errorCode)  \(err.errorDesc!)")
+    }
+    
+    func onResults(_ results: [Any]!, isLast: Bool) {
+        print(isLast)
+        
+        if (isLast || results == nil) {
+            return
+        }
+        
+        var result : String = ""
+        
+        let dic: Dictionary<String, String> = results[0] as! Dictionary<String, String>
+        
+        for key in dic.keys {
+            result += key
+        }
+
+        print("识别成功：\(result)")
+    }
     
     func getData() {
         
@@ -72,15 +124,11 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.handleTouches))
         tapGestureRecognizer.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tapGestureRecognizer)
-
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
-    
-    // MARK: - Table view data source
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -91,7 +139,6 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         if chatMessages[indexPath.row].isDateIdentifier == false {
             let cellIdentifier = "ChatMessageCell"
             let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! ChatMessageCell
@@ -113,7 +160,6 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
     
     
     @objc func keyBoardWillShow(note:NSNotification) {
-        
         let userInfo  = note.userInfo! as NSDictionary
         let keyBoardBounds = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
         let duration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
@@ -126,7 +172,6 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
         
         if duration > 0 {
             let options = UIViewAnimationOptions(rawValue: UInt((userInfo[UIKeyboardAnimationCurveUserInfoKey] as! NSNumber).intValue << 16))
-            
             UIView.animate(withDuration: duration, delay: 0, options:options, animations: animations, completion: nil)
         } else {
             animations()
@@ -158,11 +203,9 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        
         saveMessageToStoreAndShow()
         textField.text = ""
         scrollToBottom(animated: true)
-        
         return false
     }
     
@@ -267,9 +310,7 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
             }
         }
     }
-    
-    // MARK: - Navigation
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowFriendManagement" {
             let destinationViewController = segue.destination as! FriendManagementTableViewController
