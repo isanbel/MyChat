@@ -9,25 +9,98 @@
 import UIKit
 import CoreData
 
-class EntryViewController: UIViewController, UINavigationControllerDelegate {
+class EntryViewController: UIViewController, UINavigationControllerDelegate, UITextFieldDelegate {
 
     var fetchResultController: NSFetchedResultsController<UserMO>!
+    var isToLogin = true
+
+    @IBOutlet weak var username_tf: UITextField! {
+        didSet {
+            username_tf.defaultTextAttributes = [NSAttributedStringKey.font.rawValue : UIFont(name: "PingFangSC-Regular", size: 14)!, NSAttributedStringKey.foregroundColor.rawValue : UIColor(hex: "#4c72a6")]
+            
+            username_tf.placeholder = "手机号码"
+            username_tf.borderStyle = .none
+        }
+    }
     
-    @IBOutlet weak var username_tf: UITextField!
-    @IBOutlet weak var password_tf: UITextField!
+    @IBOutlet weak var code_tf: UITextField! {
+        didSet {
+            code_tf.defaultTextAttributes = [NSAttributedStringKey.font.rawValue : UIFont(name: "PingFangSC-Regular", size: 14)!, NSAttributedStringKey.foregroundColor.rawValue : UIColor(hex: "#4c72a6")]
+            
+            code_tf.placeholder = "验证码"
+            code_tf.borderStyle = .none
+        }
+    }
+    
+    @IBOutlet weak var codeAreaView: UIStackView! {
+        didSet {
+            codeAreaView.isHidden = true
+        }
+    }
+    
+    @IBOutlet weak var password_tf: UITextField! {
+        didSet {
+            password_tf.defaultTextAttributes = [NSAttributedStringKey.font.rawValue : UIFont(name: "PingFangSC-Regular", size: 14)!, NSAttributedStringKey.foregroundColor.rawValue : UIColor(hex: "#4c72a6")]
+            
+            password_tf.placeholder = "密码"
+            password_tf.borderStyle = .none
+        }
+    }
+    
+    @IBOutlet weak var selectView: UISegmentedControl! {
+        didSet {
+            let frame = selectView.frame
+            selectView.frame = CGRect(x: frame.origin.x, y: frame.origin.y, width: 150, height: 35)
+            selectView.layer.cornerRadius = 17.5
+            selectView.layer.masksToBounds = true
+            selectView.layer.borderColor = UIColor(hex: "#edf2fa").cgColor
+            selectView.layer.borderWidth = 1
+            
+            selectView.layer.backgroundColor = UIColor.white.cgColor
+            selectView.tintColor = UIColor(hex: "#edf2fa")
+            
+            selectView.setTitleTextAttributes([NSAttributedStringKey.font : UIFont(name: "PingFangSC-Medium", size: 14)!, NSAttributedStringKey.foregroundColor : UIColor(hex: "#4c72a6")], for: .selected)
+            selectView.setTitleTextAttributes([NSAttributedStringKey.font : UIFont(name: "PingFangSC-Regular", size: 14)!, NSAttributedStringKey.foregroundColor : UIColor(hex: "#9fa0a0")], for: .normal)
+        }
+    }
+    
+    @IBOutlet var textAreas: [UIView]! {
+        didSet {
+            for textArea in textAreas {
+                let frame = textArea.frame
+                textArea.frame = CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.width, height: 50)
+                textArea.layer.cornerRadius = 25
+                textArea.layer.masksToBounds = true
+                textArea.layer.borderColor = UIColor(hex: "#d7e0ed").cgColor
+                textArea.layer.backgroundColor = UIColor.white.cgColor
+                textArea.layer.borderWidth = 1
+            }
+        }
+    }
+    
+    @IBOutlet weak var forgetPwView: UIStackView!
+    @IBOutlet weak var entryBtn: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         password_tf.isSecureTextEntry = true
+        
+        // For Dev convinience
+        username_tf.text = "tutu"
+        password_tf.text = "1212"
+        
+        selectView.setTitle("登录", forSegmentAt: 0)
+        selectView.setTitle("注册", forSegmentAt: 1)
+        selectView.addTarget(self, action: #selector(tabSegment), for: .valueChanged)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyBoardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyBoardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    // Called when the user click on the view (outside the UITextField).
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
     
     @IBAction func entry_bt(_ sender: UIButton) {
@@ -78,7 +151,7 @@ class EntryViewController: UIViewController, UINavigationControllerDelegate {
             return
         }
         // else save new user
-        print("== user not exists")
+        print("== user data not exists in the store")
         if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
             let user = UserMO(context: appDelegate.persistentContainer.viewContext)
             user.name = data["username"] as? String
@@ -144,4 +217,69 @@ class EntryViewController: UIViewController, UINavigationControllerDelegate {
         }
         return false
     }
+    
+    @objc func tabSegment() {
+        print(selectView.selectedSegmentIndex)
+        if selectView.selectedSegmentIndex == 0 {
+            codeAreaView.isHidden = true
+            forgetPwView.isHidden = false
+            entryBtn.titleLabel?.text = "登  录"
+            for constraint in view.constraints {
+                if constraint.identifier == "entryBtnToForgetPwC" {
+                    constraint.constant = 30
+                }
+            }
+            view.layoutIfNeeded()
+        } else {
+            codeAreaView.isHidden = false
+            forgetPwView.isHidden = true
+            entryBtn.titleLabel?.text = "注  册"
+            for constraint in view.constraints {
+                if constraint.identifier == "entryBtnToForgetPwC" {
+                    constraint.constant = 5
+                }
+            }
+            view.layoutIfNeeded()
+        }
+    }
+    
+    // Mark - KeyBoard
+    @objc func keyBoardWillShow(note:NSNotification) {
+        
+        let userInfo  = note.userInfo! as NSDictionary
+        let keyBoardBounds = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        let duration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
+        let deltaY = keyBoardBounds.size.height
+        
+        let animations:(() -> Void) = {
+            self.view.transform = CGAffineTransform(translationX: 0,y: -deltaY / 2)
+        }
+        
+        if duration > 0 {
+            let options = UIViewAnimationOptions(rawValue: UInt((userInfo[UIKeyboardAnimationCurveUserInfoKey] as! NSNumber).intValue << 16))
+            
+            UIView.animate(withDuration: duration, delay: 0, options:options, animations: animations, completion: nil)
+        } else {
+            animations()
+        }
+    }
+    
+    @objc func keyBoardWillHide(note:NSNotification) {
+        let userInfo  = note.userInfo! as NSDictionary
+        let duration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
+        
+        let animations:(() -> Void) = {
+            self.view.transform = CGAffineTransform(translationX: 0,y: 0)
+        }
+        
+        if duration > 0 {
+            let options = UIViewAnimationOptions(rawValue: UInt((userInfo[UIKeyboardAnimationCurveUserInfoKey] as! NSNumber).intValue << 16))
+            
+            UIView.animate(withDuration: duration, delay: 0, options:options, animations: animations, completion: nil)
+        }else{
+            animations()
+        }
+    }
+    
+
 }
