@@ -9,25 +9,86 @@
 import UIKit
 import CoreData
 
-class EntryViewController: UIViewController, UINavigationControllerDelegate {
+class EntryViewController: UIViewController, UINavigationControllerDelegate, UITextFieldDelegate {
 
     var fetchResultController: NSFetchedResultsController<UserMO>!
+    var isToLogin = true
 
-    @IBOutlet weak var username_tf: UITextField!
-    @IBOutlet weak var password_tf: UITextField!
+    @IBOutlet weak var username_tf: UITextField! {
+        didSet {
+            username_tf.defaultTextAttributes = [NSAttributedStringKey.font.rawValue : UIFont(name: "PingFangSC-Regular", size: 14)!, NSAttributedStringKey.foregroundColor.rawValue : UIColor(hex: "#9fa0a0")]
+            
+            username_tf.placeholder = "手机号码"
+            username_tf.borderStyle = .none
+        }
+    }
+    
+    @IBOutlet weak var code_tf: UITextField! {
+        didSet {
+            code_tf.defaultTextAttributes = [NSAttributedStringKey.font.rawValue : UIFont(name: "PingFangSC-Regular", size: 14)!, NSAttributedStringKey.foregroundColor.rawValue : UIColor(hex: "#9fa0a0")]
+            
+            code_tf.placeholder = "验证码"
+            code_tf.borderStyle = .none
+        }
+    }
+    
+    @IBOutlet weak var password_tf: UITextField! {
+        didSet {
+            password_tf.defaultTextAttributes = [NSAttributedStringKey.font.rawValue : UIFont(name: "PingFangSC-Regular", size: 14)!, NSAttributedStringKey.foregroundColor.rawValue : UIColor(hex: "#9fa0a0")]
+            
+            password_tf.placeholder = "密码"
+            password_tf.borderStyle = .none
+        }
+    }
+    
+    @IBOutlet weak var selectView: UISegmentedControl! {
+        didSet {
+            let frame = selectView.frame
+            selectView.frame = CGRect(x: frame.origin.x, y: frame.origin.y, width: 150, height: 35)
+            selectView.layer.cornerRadius = 17.5
+            selectView.layer.masksToBounds = true
+            selectView.layer.borderColor = UIColor(hex: "#edf2fa").cgColor
+            selectView.layer.borderWidth = 1
+            
+            selectView.layer.backgroundColor = UIColor.white.cgColor
+            selectView.tintColor = UIColor(hex: "#edf2fa")
+            
+            selectView.setTitleTextAttributes([NSAttributedStringKey.font : UIFont(name: "PingFangSC-Medium", size: 14)!, NSAttributedStringKey.foregroundColor : UIColor(hex: "#4c72a6")], for: .selected)
+            selectView.setTitleTextAttributes([NSAttributedStringKey.font : UIFont(name: "PingFangSC-Regular", size: 14)!, NSAttributedStringKey.foregroundColor : UIColor(hex: "#9fa0a0")], for: .normal)
+        }
+    }
+    
+    @IBOutlet var textAreas: [UIView]! {
+        didSet {
+            for textArea in textAreas {
+                let frame = textArea.frame
+                textArea.frame = CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.width, height: 50)
+                textArea.layer.cornerRadius = 25
+                textArea.layer.masksToBounds = true
+                textArea.layer.borderColor = UIColor(hex: "#d7e0ed").cgColor
+                textArea.layer.backgroundColor = UIColor.white.cgColor
+                textArea.layer.borderWidth = 1
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         password_tf.isSecureTextEntry = true
+        
+        // For Dev convinience
+        username_tf.text = "tutu"
+        password_tf.text = "1212"
+        
+        selectView.setTitle("登录", forSegmentAt: 0)
+        selectView.setTitle("注册", forSegmentAt: 1)
+        
+        username_tf.delegate = self
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        print(textField.text)
     }
     
     // Called when the user click on the view (outside the UITextField).
