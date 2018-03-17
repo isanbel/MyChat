@@ -93,6 +93,9 @@ class EntryViewController: UIViewController, UINavigationControllerDelegate, UIT
         selectView.setTitle("登录", forSegmentAt: 0)
         selectView.setTitle("注册", forSegmentAt: 1)
         selectView.addTarget(self, action: #selector(tabSegment), for: .valueChanged)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyBoardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyBoardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
     // Called when the user click on the view (outside the UITextField).
@@ -148,7 +151,7 @@ class EntryViewController: UIViewController, UINavigationControllerDelegate, UIT
             return
         }
         // else save new user
-        print("== user not exists")
+        print("== user data not exists in the store")
         if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
             let user = UserMO(context: appDelegate.persistentContainer.viewContext)
             user.name = data["username"] as? String
@@ -221,10 +224,62 @@ class EntryViewController: UIViewController, UINavigationControllerDelegate, UIT
             codeAreaView.isHidden = true
             forgetPwView.isHidden = false
             entryBtn.titleLabel?.text = "登  录"
+            for constraint in view.constraints {
+                if constraint.identifier == "entryBtnToForgetPwC" {
+                    constraint.constant = 30
+                }
+            }
+            view.layoutIfNeeded()
         } else {
             codeAreaView.isHidden = false
             forgetPwView.isHidden = true
             entryBtn.titleLabel?.text = "注  册"
+            for constraint in view.constraints {
+                if constraint.identifier == "entryBtnToForgetPwC" {
+                    constraint.constant = 5
+                }
+            }
+            view.layoutIfNeeded()
         }
     }
+    
+    // Mark - KeyBoard
+    @objc func keyBoardWillShow(note:NSNotification) {
+        
+        let userInfo  = note.userInfo! as NSDictionary
+        let keyBoardBounds = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        let duration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
+        let deltaY = keyBoardBounds.size.height
+        
+        let animations:(() -> Void) = {
+            self.view.transform = CGAffineTransform(translationX: 0,y: -deltaY / 2)
+        }
+        
+        if duration > 0 {
+            let options = UIViewAnimationOptions(rawValue: UInt((userInfo[UIKeyboardAnimationCurveUserInfoKey] as! NSNumber).intValue << 16))
+            
+            UIView.animate(withDuration: duration, delay: 0, options:options, animations: animations, completion: nil)
+        } else {
+            animations()
+        }
+    }
+    
+    @objc func keyBoardWillHide(note:NSNotification) {
+        let userInfo  = note.userInfo! as NSDictionary
+        let duration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
+        
+        let animations:(() -> Void) = {
+            self.view.transform = CGAffineTransform(translationX: 0,y: 0)
+        }
+        
+        if duration > 0 {
+            let options = UIViewAnimationOptions(rawValue: UInt((userInfo[UIKeyboardAnimationCurveUserInfoKey] as! NSNumber).intValue << 16))
+            
+            UIView.animate(withDuration: duration, delay: 0, options:options, animations: animations, completion: nil)
+        }else{
+            animations()
+        }
+    }
+    
+
 }

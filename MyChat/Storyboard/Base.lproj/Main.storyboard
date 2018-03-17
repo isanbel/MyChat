@@ -1165,7 +1165,7 @@
                                 </subviews>
                             </stackView>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YB5-te-oxK">
-                                <rect key="frame" x="50" y="507.5" width="274" height="34"/>
+                                <rect key="frame" x="50" y="502.5" width="274" height="34"/>
                                 <color key="backgroundColor" red="0.29803921570000003" green="0.44705882349999998" blue="0.65098039220000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="Lpa-K2-hev"/>
@@ -1194,7 +1194,7 @@
                             <constraint firstItem="qQd-5q-7nj" firstAttribute="centerX" secondItem="4S2-s0-E7O" secondAttribute="centerX" constant="100" id="ayE-Pd-WEz"/>
                             <constraint firstItem="Oep-j1-Xxb" firstAttribute="top" secondItem="XoL-PR-wdp" secondAttribute="bottom" constant="20" id="mmb-4U-G2b"/>
                             <constraint firstItem="XoL-PR-wdp" firstAttribute="centerX" secondItem="4S2-s0-E7O" secondAttribute="centerX" id="rdv-5x-OVB"/>
-                            <constraint firstItem="YB5-te-oxK" firstAttribute="top" secondItem="qQd-5q-7nj" secondAttribute="bottom" constant="35" id="vIB-CT-vYm"/>
+                            <constraint firstItem="YB5-te-oxK" firstAttribute="top" secondItem="qQd-5q-7nj" secondAttribute="bottom" constant="30" identifier="entryBtnToForgetPwC" id="vIB-CT-vYm"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Ye-HL-x7K"/>
                     </view>
