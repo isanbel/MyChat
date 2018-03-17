@@ -26,6 +26,9 @@ class ChatPageTableViewController:
     var friend = FriendMO()
     var me = UserMO()
     var chatMessages: [ChatMessageMO] = []
+    var hiddenTableCellHeight: CGFloat = 0
+    var keyBoardHeight: CGFloat = 0
+    var translationY: CGFloat = 0
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -37,9 +40,13 @@ class ChatPageTableViewController:
         IFlySpeechUtility.createUtility(Global.IFLY_INIT_STRING);
         self.iflySpeechRecognizer.delegate = self;
         self.iflySpeechRecognizer.setParameter("iat", forKey: IFlySpeechConstant.ifly_DOMAIN())
+        self.iflySpeechRecognizer.setParameter("json", forKey: IFlySpeechConstant.result_TYPE())
+        
+        // 录音设置
         self.iflySpeechRecognizer.setParameter("16000", forKey: IFlySpeechConstant.sample_RATE())
         self.iflySpeechRecognizer.setParameter("asr.pcm", forKey: IFlySpeechConstant.asr_AUDIO_PATH())
-        self.iflySpeechRecognizer.setParameter("json", forKey: IFlySpeechConstant.result_TYPE())
+        self.iflySpeechRecognizer.setParameter("10000", forKey: IFlySpeechConstant.vad_BOS())
+        self.iflySpeechRecognizer.setParameter("10000", forKey: IFlySpeechConstant.vad_EOS())
     }
     
     @IBAction func startOrStopRecord(_ sender: UIButton) {
