@@ -87,8 +87,8 @@ class EntryViewController: UIViewController, UINavigationControllerDelegate, UIT
         password_tf.isSecureTextEntry = true
         
         // For Dev convinience
-        username_tf.text = "tutu"
-        password_tf.text = "1212"
+        // username_tf.text = "tutu"
+        // password_tf.text = "1212"
         
         selectView.setTitle("登录", forSegmentAt: 0)
         selectView.setTitle("注册", forSegmentAt: 1)
@@ -219,28 +219,17 @@ class EntryViewController: UIViewController, UINavigationControllerDelegate, UIT
     }
     
     @objc func tabSegment() {
-        print(selectView.selectedSegmentIndex)
-        if selectView.selectedSegmentIndex == 0 {
-            codeAreaView.isHidden = true
-            forgetPwView.isHidden = false
-            entryBtn.titleLabel?.text = "登  录"
-            for constraint in view.constraints {
-                if constraint.identifier == "entryBtnToForgetPwC" {
-                    constraint.constant = 30
-                }
+        let toLogin = selectView.selectedSegmentIndex == 0
+        codeAreaView.isHidden = toLogin ? true : false
+        password_tf.placeholder = toLogin ? "密码" : "密码（不超过12位）"
+        forgetPwView.isHidden = toLogin ? false : true
+        entryBtn.titleLabel?.text = toLogin ? "登  录" : "注  册"
+        for constraint in view.constraints {
+            if constraint.identifier == "entryBtnToForgetPwC" {
+                constraint.constant = toLogin ? 30 : 5
             }
-            view.layoutIfNeeded()
-        } else {
-            codeAreaView.isHidden = false
-            forgetPwView.isHidden = true
-            entryBtn.titleLabel?.text = "注  册"
-            for constraint in view.constraints {
-                if constraint.identifier == "entryBtnToForgetPwC" {
-                    constraint.constant = 5
-                }
-            }
-            view.layoutIfNeeded()
         }
+        view.layoutIfNeeded()
     }
     
     // Mark - KeyBoard
@@ -249,10 +238,9 @@ class EntryViewController: UIViewController, UINavigationControllerDelegate, UIT
         let userInfo  = note.userInfo! as NSDictionary
         let keyBoardBounds = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
         let duration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
-        let deltaY = keyBoardBounds.size.height
         
         let animations:(() -> Void) = {
-            self.view.transform = CGAffineTransform(translationX: 0,y: -deltaY / 2)
+            self.view.transform = CGAffineTransform(translationX: 0,y: -50)
         }
         
         if duration > 0 {
