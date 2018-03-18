@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import AVFoundation
 
 class ChatPageTableViewController:
     UIViewController,
@@ -29,6 +30,9 @@ class ChatPageTableViewController:
     var hiddenTableCellHeight: CGFloat = 0
     var keyBoardHeight: CGFloat = 0
     var translationY: CGFloat = 0
+    var session: AVAudioSession!
+    var recorder: AVAudioRecorder!
+    var player: AVAudioPlayer!
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -47,37 +51,100 @@ class ChatPageTableViewController:
         self.iflySpeechRecognizer.setParameter("asr.pcm", forKey: IFlySpeechConstant.asr_AUDIO_PATH())
         self.iflySpeechRecognizer.setParameter("10000", forKey: IFlySpeechConstant.vad_BOS())
         self.iflySpeechRecognizer.setParameter("10000", forKey: IFlySpeechConstant.vad_EOS())
+        
+        // 设置音频流
+        // self.iflySpeechRecognizer.setParameter("-1", forKey: IFlySpeechConstant.audio_SOURCE())
     }
     
-    @IBAction func startOrStopRecord(_ sender: UIButton) {
-        if (self.iflySpeechRecognizer.isListening) {
-            self.iflySpeechRecognizer.stopListening()
-            print("停止录音")
-        } else {
+    @IBAction func startRecord() {
+        print("startRecord")
+        self.iflySpeechRecognizer.startListening()
+//
+//        // 初始化 session
+//        session = AVAudioSession.sharedInstance()
+//        do {
+//            try session.setCategory(AVAudioSessionCategoryPlayAndRecord)
+//        } catch {
+//            print(error)
+//        }
+//
+//        // 初始化 recorder
+//        do {
+//            recorder = try AVAudioRecorder(url: self.getUrl(), settings: self.getSettings())
+//            try session.setActive(true)
+//            recorder.prepareToRecord()
+//            recorder.record()
+//        } catch {
+//            print(error)
+//        }
+    }
+    
+    @IBAction func stopRecord() {
+        //        if (self.iflySpeechRecognizer.isListening) {
+        //            self.iflySpeechRecognizer.stopListening()
+        //            print("停止录音")
+        //        } else {
+        //            self.iflySpeechRecognizer.startListening()
+        //            print("开始录音")
+        //        }
+        print("stopRecord")
+        self.iflySpeechRecognizer.stopListening()
+        
+        
+        do {
+            recorder.stop();
+            try session.setActive(false)
+            player = try AVAudioPlayer(contentsOf: recorder.url)
+            player.play()
+            let audio_data: NSData = try NSData(contentsOf: recorder.url)
             self.iflySpeechRecognizer.startListening()
-            print("开始录音")
+            print("startListening")
+            self.iflySpeechRecognizer.writeAudio(audio_data as Data!)
+            self.iflySpeechRecognizer.stopListening()
+            print("stopListening")
+        } catch {
+            print(error)
         }
     }
     
+    func getUrl() -> URL {
+        let now = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyyMMddHHmmss"
+        let filename = formatter.string(from: now)+".caf"
+        let fm = FileManager.default
+        let urls = fm.urls(for: .documentDirectory, in: .userDomainMask)
+        let doc_dir = urls[0] as URL
+        let url = doc_dir.appendingPathComponent(filename)
+        print(url)
+        return url
+    }
+    
+    func getSettings() ->[String: NSNumber] {
+        let settings = [
+            AVSampleRateKey: NSNumber(value: Float(44100.0) as Float),  // 声音采样率
+            AVFormatIDKey: NSNumber(value: Int32(kAudioFormatMPEG4AAC) as Int32),  // 编码格式
+            AVNumberOfChannelsKey: NSNumber(value: 1 as Int32),  // 采集音轨
+            AVEncoderAudioQualityKey: NSNumber(value: Int32(AVAudioQuality.medium.rawValue) as Int32)]  // 音频质量
+        return settings
+    }
+    
     func onError(_ err: IFlySpeechError!) {
+        if (err.errorCode == 0) {  // 0 应该是代表服务正常...
+            return
+        }
         print("识别出错：\(err.errorCode)  \(err.errorDesc!)")
     }
     
     func onResults(_ results: [Any]!, isLast: Bool) {
-        print(isLast)
-        
         if (isLast || results == nil) {
             return
         }
-        
         var result : String = ""
-        
         let dic: Dictionary<String, String> = results[0] as! Dictionary<String, String>
-        
         for key in dic.keys {
             result += key
         }
-
         print("识别成功：\(result)")
     }
     
@@ -131,6 +198,8 @@ class ChatPageTableViewController:
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.handleTouches))
         tapGestureRecognizer.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tapGestureRecognizer)
+        
+        // self.navigationController?.interactivePopGestureRecognizer?.delaysTouchesBegan = false;
     }
 
     override func didReceiveMemoryWarning() {
@@ -343,7 +412,7 @@ class ChatPageTableViewController:
         scrollToBottom(animated: true)
     }
 
-    func scrollToBottom(animated: Bool){
+    func scrollToBottom(animated: Bool) {
         if self.chatMessages.count > 0 {
             DispatchQueue.main.async {
                 let indexPath = IndexPath(row: self.chatMessages.count-1, section: 0)

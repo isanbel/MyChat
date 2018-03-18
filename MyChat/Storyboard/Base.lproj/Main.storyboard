@@ -479,12 +479,13 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TEx-sf-ELg">
                                 <rect key="frame" x="0.0" y="499" width="375" height="50"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gYi-gQ-V8t">
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gYi-gQ-V8t">
                                         <rect key="frame" x="8" y="6" width="30" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Button" image="chat-input-voice"/>
                                         <connections>
-                                            <action selector="startOrStopRecord:" destination="N4k-Tg-JOS" eventType="touchUpInside" id="SZo-9F-wYi"/>
+                                            <action selector="startRecord" destination="N4k-Tg-JOS" eventType="touchDown" id="0SF-Jw-YMm"/>
+                                            <action selector="stopRecord" destination="N4k-Tg-JOS" eventType="touchUpInside" id="gsv-oY-32n"/>
                                         </connections>
                                     </button>
                                     <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wpy-rr-Y7I">
@@ -500,6 +501,10 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S7n-8S-j0a">
                                                 <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
                                                 <state key="normal" image="chat-input-emoji"/>
+                                                <connections>
+                                                    <action selector="startRecord" destination="N4k-Tg-JOS" eventType="touchDown" id="s2x-ON-Dlw"/>
+                                                    <action selector="stopRecord" destination="N4k-Tg-JOS" eventType="touchUpInside" id="Iqo-h8-G19"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iUf-fy-ZF0">
                                                 <rect key="frame" x="38" y="0.0" width="30" height="30"/>
