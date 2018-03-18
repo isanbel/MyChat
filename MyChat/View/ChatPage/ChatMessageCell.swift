@@ -98,7 +98,7 @@ class ChatMessageCell: UITableViewCell {
                 header_constraint_V_Format =  "V:|-6-[header(0)]"
                 bubble_constraint_H_Format  =  "|-(>=57)-[bubble(>=40)]-5-[header]"
                 bubble_constraint_V_Format  =  "V:|-6-[bubble(>=40)]-6-|"
-                content_constraint_H_Format  =  "|-(>=6)-[content]-6-|"
+                content_constraint_H_Format  =  "|-(>=10)-[content]-10-|"
                 content_constraint_V_Format  =  "V:|-3-[content]-3-|"
                 
                 if sameMsgType {
@@ -109,7 +109,7 @@ class ChatMessageCell: UITableViewCell {
                 header_constraint_V_Format =  "V:|-6-[header(40)]"
                 bubble_constraint_H_Format  =  "[header]-5-[bubble(>=40)]-(>=57)-|"
                 bubble_constraint_V_Format  =  "V:|-6-[bubble(>=40)]-6-|"
-                content_constraint_H_Format  =  "|-6-[content]-(>=6)-|"
+                content_constraint_H_Format  =  "|-10-[content]-(>=10)-|"
                 content_constraint_V_Format  =  "V:|-3-[content]-3-|"
                 
                 if sameMsgType {

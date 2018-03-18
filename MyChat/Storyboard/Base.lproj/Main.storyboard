@@ -26,7 +26,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="separatorColor" red="0.92941176469999998" green="0.92156862750000001" blue="0.92156862750000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <inset key="separatorInset" minX="75" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" id="IwU-8C-VlJ">
+                        <searchBar key="tableHeaderView" contentMode="redraw" misplaced="YES" id="IwU-8C-VlJ">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <textInputTraits key="textInputTraits"/>
@@ -1259,7 +1259,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="Aqp-1N-eqT">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="8Yq-kg-Aam" sceneMemberID="viewController">
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="8Yq-kg-Aam" customClass="TabBarController" customModule="MyChat" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="hBT-fG-YOl">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
@@ -1272,6 +1272,8 @@
                         </userDefinedRuntimeAttributes>
                     </tabBar>
                     <connections>
+                        <outlet property="tabBar" destination="hBT-fG-YOl" id="iUo-vh-ItV"/>
+                        <outlet property="tabbar" destination="hBT-fG-YOl" id="ksU-od-pgk"/>
                         <segue destination="0hN-hT-dKh" kind="relationship" relationship="viewControllers" id="ohI-AB-qzJ"/>
                         <segue destination="poK-mC-8lS" kind="relationship" relationship="viewControllers" id="a0t-gM-xtt"/>
                         <segue destination="EMR-kd-qOe" kind="relationship" relationship="viewControllers" id="E8O-Ef-3Nb"/>
