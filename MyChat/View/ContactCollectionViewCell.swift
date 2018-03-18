@@ -63,7 +63,7 @@ class ContactCollectionViewCell: UICollectionViewCell {
         
         let label = UILabel(frame: CGRect(x: 0, y: imageW + 10 + 5, width: self.bounds.width, height: 14))
         label.textAlignment = NSTextAlignment.center
-        label.font = UIFont.systemFont(ofSize: 14)
+        label.font = UIFont.systemFont(ofSize: 12)
         return label
     }()
     
