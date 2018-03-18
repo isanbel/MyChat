@@ -172,12 +172,12 @@ class ChatTableViewController: UITableViewController, NSFetchedResultsController
     
     // MARK: - SearchBar
     
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        filtered = lastMessages.filter { (lastMessage) -> Bool in
-            guard let text = searchBar.text else { return false }
-            return lastMessage.content!.contains(text)
-        }
-    }
+    //    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+    //        filtered = lastMessages.filter { (lastMessage) -> Bool in
+    //            guard let text = searchBar.text else { return false }
+    //            return lastMessage.content!.contains(text)
+    //        }
+    //    }
     
     // MARK: - Navigation
 
