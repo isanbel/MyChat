@@ -26,9 +26,17 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="separatorColor" red="0.92941176469999998" green="0.92156862750000001" blue="0.92156862750000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <inset key="separatorInset" minX="75" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" id="IwU-8C-VlJ">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <outlet property="delegate" destination="wU4-wb-0CM" id="rwJ-pD-Y6X"/>
+                            </connections>
+                        </searchBar>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ChatTableViewCell" rowHeight="65" id="rC2-JR-wHU" customClass="ChatTableViewCell" customModule="MyChat" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="65"/>
+                                <rect key="frame" x="0.0" y="72" width="375" height="65"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="rC2-JR-wHU" id="iap-gO-qzH">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="64.5"/>
@@ -126,6 +134,8 @@
                     </navigationItem>
                     <connections>
                         <outlet property="emptyChatTableView" destination="aoB-99-BQB" id="7w7-fw-Vgm"/>
+                        <outlet property="searchBar" destination="IwU-8C-VlJ" id="h83-pi-zlw"/>
+                        <outlet property="searchDisplayController" destination="9de-bA-jSl" id="neF-QS-yOI"/>
                         <segue destination="hVr-DM-O5B" kind="show" identifier="showNewFriend" id="0c0-lY-6PY"/>
                         <segue destination="HfS-bs-Kwh" kind="show" identifier="showAddFriend" id="x8n-XD-pBc"/>
                     </connections>
@@ -150,6 +160,15 @@
                     </constraints>
                     <viewLayoutGuide key="safeArea" id="kbA-b1-c1K"/>
                 </view>
+                <searchDisplayController id="9de-bA-jSl">
+                    <connections>
+                        <outlet property="delegate" destination="wU4-wb-0CM" id="Gif-DL-MbR"/>
+                        <outlet property="searchBar" destination="IwU-8C-VlJ" id="DfO-Ex-JGd"/>
+                        <outlet property="searchContentsController" destination="wU4-wb-0CM" id="4qN-lU-uc9"/>
+                        <outlet property="searchResultsDataSource" destination="wU4-wb-0CM" id="R2h-gd-BIL"/>
+                        <outlet property="searchResultsDelegate" destination="wU4-wb-0CM" id="uEe-uO-33Q"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="1112.8" y="94.902548725637189"/>
         </scene>
@@ -1277,7 +1296,7 @@
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="Mji-DK-Yii">
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" id="Mji-DK-Yii">
                                 <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
