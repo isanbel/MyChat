@@ -15,9 +15,25 @@ class ChatTableViewCell: UITableViewCell {
     @IBOutlet var dateLabel: UILabel!
     @IBOutlet var thumbnailImageView: UIImageView! {
         didSet {
-            thumbnailImageView.layer.cornerRadius = 5
+            thumbnailImageView.layer.cornerRadius = thumbnailImageView.layer.bounds.height / 2
             thumbnailImageView.clipsToBounds = true
         }
+    }
+    @IBOutlet var stickyImageView: UIImageView! {
+        didSet {
+            stickyImageView.isHidden = stickOnTop ? false : true
+        }
+    }
+    
+    var stickOnTop: Bool {
+        didSet {
+            stickyImageView.isHidden = stickOnTop ? false : true
+        }
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        self.stickOnTop = false
+        super.init(coder: aDecoder)
     }
     
     override func awakeFromNib() {
