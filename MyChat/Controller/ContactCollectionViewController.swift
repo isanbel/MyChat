@@ -107,7 +107,7 @@ class ContactCollectionViewController: UICollectionViewController {
                 
                 // get avatar
                 // TODO: use friendid to get avatar
-                let avatarUrl = "http://139.199.174.146:3000/friendAvatar/" + newFriend.name! + ".png"
+                let avatarUrl = "http://139.199.174.146:3000/friendAvatar/" + newFriend.id! + ".jpg"
                 let url = URL(string: avatarUrl)
                 let avatar = try? Data(contentsOf: url!)
                 newFriend.avatar = avatar
