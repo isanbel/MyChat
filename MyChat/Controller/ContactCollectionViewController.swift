@@ -156,7 +156,7 @@ class ContactCollectionViewController: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "ShowFriendProfile", sender: self)
+        performSegue(withIdentifier: "contactToChatPage", sender: self)
     }
     
     @objc func longPressGesture(_ tap: UILongPressGestureRecognizer) {
@@ -240,9 +240,9 @@ class ContactCollectionViewController: UICollectionViewController {
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "ShowFriendProfile" {
+        if segue.identifier == "contactToChatPage" {
             if let indexPath = collectionView?.indexPathsForSelectedItems![0] {
-                let destinationViewController = segue.destination as! FriendProlileTableViewController
+                let destinationViewController = segue.destination as! ChatPageTableViewController
                 destinationViewController.friend = friends[indexPath.item]
             }
         }
