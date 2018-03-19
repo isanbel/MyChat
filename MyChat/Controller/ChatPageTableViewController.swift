@@ -30,9 +30,9 @@ class ChatPageTableViewController:
     var hiddenTableCellHeight: CGFloat = 0
     var keyBoardHeight: CGFloat = 0
     var translationY: CGFloat = 0
-    var session: AVAudioSession!
-    var recorder: AVAudioRecorder!
-    var player: AVAudioPlayer!
+//    var session: AVAudioSession!
+//    var recorder: AVAudioRecorder!
+//    var player: AVAudioPlayer!
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -91,43 +91,43 @@ class ChatPageTableViewController:
         self.iflySpeechRecognizer.stopListening()
         
         
-        do {
-            recorder.stop();
-            try session.setActive(false)
-            player = try AVAudioPlayer(contentsOf: recorder.url)
-            player.play()
-            let audio_data: NSData = try NSData(contentsOf: recorder.url)
-            self.iflySpeechRecognizer.startListening()
-            print("startListening")
-            self.iflySpeechRecognizer.writeAudio(audio_data as Data!)
-            self.iflySpeechRecognizer.stopListening()
-            print("stopListening")
-        } catch {
-            print(error)
-        }
+//        do {
+//            recorder.stop();
+//            try session.setActive(false)
+//            player = try AVAudioPlayer(contentsOf: recorder.url)
+//            player.play()
+//            let audio_data: NSData = try NSData(contentsOf: recorder.url)
+//            self.iflySpeechRecognizer.startListening()
+//            print("startListening")
+//            self.iflySpeechRecognizer.writeAudio(audio_data as Data!)
+//            self.iflySpeechRecognizer.stopListening()
+//            print("stopListening")
+//        } catch {
+//            print(error)
+//        }
     }
     
-    func getUrl() -> URL {
-        let now = Date()
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyyMMddHHmmss"
-        let filename = formatter.string(from: now)+".caf"
-        let fm = FileManager.default
-        let urls = fm.urls(for: .documentDirectory, in: .userDomainMask)
-        let doc_dir = urls[0] as URL
-        let url = doc_dir.appendingPathComponent(filename)
-        print(url)
-        return url
-    }
+//    func getUrl() -> URL {
+//        let now = Date()
+//        let formatter = DateFormatter()
+//        formatter.dateFormat = "yyyyMMddHHmmss"
+//        let filename = formatter.string(from: now)+".caf"
+//        let fm = FileManager.default
+//        let urls = fm.urls(for: .documentDirectory, in: .userDomainMask)
+//        let doc_dir = urls[0] as URL
+//        let url = doc_dir.appendingPathComponent(filename)
+//        print(url)
+//        return url
+//    }
     
-    func getSettings() ->[String: NSNumber] {
-        let settings = [
-            AVSampleRateKey: NSNumber(value: Float(44100.0) as Float),  // 声音采样率
-            AVFormatIDKey: NSNumber(value: Int32(kAudioFormatMPEG4AAC) as Int32),  // 编码格式
-            AVNumberOfChannelsKey: NSNumber(value: 1 as Int32),  // 采集音轨
-            AVEncoderAudioQualityKey: NSNumber(value: Int32(AVAudioQuality.medium.rawValue) as Int32)]  // 音频质量
-        return settings
-    }
+//    func getSettings() ->[String: NSNumber] {
+//        let settings = [
+//            AVSampleRateKey: NSNumber(value: Float(44100.0) as Float),  // 声音采样率
+//            AVFormatIDKey: NSNumber(value: Int32(kAudioFormatMPEG4AAC) as Int32),  // 编码格式
+//            AVNumberOfChannelsKey: NSNumber(value: 1 as Int32),  // 采集音轨
+//            AVEncoderAudioQualityKey: NSNumber(value: Int32(AVAudioQuality.medium.rawValue) as Int32)]  // 音频质量
+//        return settings
+//    }
     
     func onError(_ err: IFlySpeechError!) {
         if (err.errorCode == 0) {  // 0 应该是代表服务正常...
