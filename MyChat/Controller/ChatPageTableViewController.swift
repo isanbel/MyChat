@@ -223,6 +223,10 @@ class ChatPageTableViewController:
             cell.me = me
             cell.lastMessage = indexPath.row > 1 ? chatMessages[indexPath.row - 1] : nil
             cell.message = chatMessages[indexPath.row]
+            cell.showProfile = { () in
+                self.performSegue(withIdentifier: "ShowFriendProfile", sender: self)
+            }
+            
             return cell
         } else {
             let cellIdentifier = "ChatDateIndicatorCell"
@@ -420,11 +424,18 @@ class ChatPageTableViewController:
             }
         }
     }
+    
+    // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowFriendManagement" {
             let destinationViewController = segue.destination as! FriendManagementTableViewController
             destinationViewController.friend = friend
+        }
+        
+        if segue.identifier == "ShowFriendProfile" {
+            let destinationViewController = segue.destination as! FriendProlileTableViewController
+            destinationViewController.friend = self.friend
         }
     }
 

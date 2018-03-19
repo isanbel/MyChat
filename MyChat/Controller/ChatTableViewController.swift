@@ -9,12 +9,22 @@
 import UIKit
 import CoreData
 
-class ChatTableViewController: UITableViewController, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate {
+class ChatTableViewController: UITableViewController, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, UISearchBarDelegate {
 
     var lastMessages: [LastMessageMO] = []
     var fetchResultController: NSFetchedResultsController<LastMessageMO>!
+    var filtered: [LastMessageMO] = []
     
     @IBOutlet var emptyChatTableView: UIView!
+    @IBOutlet weak var searchBar: UISearchBar! {
+        didSet {
+            searchBar.backgroundImage = UIImage()
+            searchBar.backgroundColor = .white
+            let searchField = searchBar.value(forKey: "searchField") as? UITextField
+            searchField?.backgroundColor = UIColor(hex: "#EDEBEB")
+            searchField?.layer.cornerRadius = (searchField?.layer.bounds.height)! / 2
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,10 +32,16 @@ class ChatTableViewController: UITableViewController, NSFetchedResultsController
         navigationController?.navigationBar.tintColor = .white
         navigationController?.navigationBar.isTranslucent = false
         
+        setUpSearchBar()
+        
         tableView.backgroundView = emptyChatTableView
         tableView.backgroundView?.isHidden = true
         tableView.tableFooterView = UIView()
         tableView.backgroundColor = UIColor(displayP3Red: 237/255, green: 235/255, blue: 235/255, alpha: 1)
+    }
+    
+    private func setUpSearchBar() {
+        searchBar.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -153,6 +169,15 @@ class ChatTableViewController: UITableViewController, NSFetchedResultsController
         normalLastMessages = normalLastMessages.sorted(by: {$0.date! > $1.date!})
         lastMessages = stickLastMessages + normalLastMessages
     }
+    
+    // MARK: - SearchBar
+    
+    //    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+    //        filtered = lastMessages.filter { (lastMessage) -> Bool in
+    //            guard let text = searchBar.text else { return false }
+    //            return lastMessage.content!.contains(text)
+    //        }
+    //    }
     
     // MARK: - Navigation
 

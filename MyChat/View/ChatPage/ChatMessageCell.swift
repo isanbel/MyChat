@@ -11,6 +11,8 @@ import UIKit
 
 class ChatMessageCell: UITableViewCell {
 
+    var showProfile: (()->())?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -23,7 +25,12 @@ class ChatMessageCell: UITableViewCell {
     }
 
     //头像
-    let headerImgView:UIImageView = UIImageView()
+    lazy var headerImgView: UIImageView = {
+        let headerImgView = UIImageView()
+        headerImgView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(avatarTapped)))
+        headerImgView.isUserInteractionEnabled = true
+        return headerImgView
+    }()
     //内容
     var contentLbl:UITextView = UITextView()
     //气泡
@@ -141,5 +148,8 @@ class ChatMessageCell: UITableViewCell {
         }
     }
     
+    @objc func avatarTapped() {
+        showProfile!()
+    }
 }
 
