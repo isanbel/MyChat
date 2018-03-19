@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0E5AD3BCB33A25D7A2242FD1 /* Pods_MyChat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C049B3444924D59407AF0FA7 /* Pods_MyChat.framework */; };
+		A8079A84205FF07500189150 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8079A83205FF07500189150 /* Config.swift */; };
 		A83D232A2056C973000FBFF8 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A83D23292056C973000FBFF8 /* libz.tbd */; };
 		A83D232C2056C98B000FBFF8 /* Contacts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A83D232B2056C98B000FBFF8 /* Contacts.framework */; };
 		A83D232E2056C99B000FBFF8 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A83D232D2056C99B000FBFF8 /* CoreLocation.framework */; };
@@ -60,6 +61,7 @@
 		2F205DE40D896FC8EB7997CD /* Pods-MyChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyChat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MyChat/Pods-MyChat.debug.xcconfig"; sourceTree = "<group>"; };
 		30F7F4412E4CAA15FF3D44E6 /* Pods-MyChat.add-hoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyChat.add-hoc.xcconfig"; path = "Pods/Target Support Files/Pods-MyChat/Pods-MyChat.add-hoc.xcconfig"; sourceTree = "<group>"; };
 		32046CC5F7148689AF037558 /* Pods-MyChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyChat.release.xcconfig"; path = "Pods/Target Support Files/Pods-MyChat/Pods-MyChat.release.xcconfig"; sourceTree = "<group>"; };
+		A8079A83205FF07500189150 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		A83D23292056C973000FBFF8 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		A83D232B2056C98B000FBFF8 /* Contacts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Contacts.framework; path = System/Library/Frameworks/Contacts.framework; sourceTree = SDKROOT; };
 		A83D232D2056C99B000FBFF8 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -211,6 +213,7 @@
 				A8D69F39204FA4A00081B18D /* Utils.swift */,
 				A8D69F3B204FC1340081B18D /* SocketIOUtil.swift */,
 				A8D69F3D205015940081B18D /* Global.swift */,
+				A8079A83205FF07500189150 /* Config.swift */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -429,6 +432,7 @@
 			files = (
 				C2BE1C20204E6F37008B8E01 /* MyProfileTableViewController.swift in Sources */,
 				C2FDE8252051449D005CB808 /* AddFriendTableViewController.swift in Sources */,
+				A8079A84205FF07500189150 /* Config.swift in Sources */,
 				A8D69F36204EF4820081B18D /* EntryViewController.swift in Sources */,
 				C2FDE8232050B204005CB808 /* FriendManagementTableViewController.swift in Sources */,
 				C2224ABF204CF669001A9D06 /* ContactTableViewCell.swift in Sources */,

@@ -26,7 +26,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="separatorColor" red="0.92941176469999998" green="0.92156862750000001" blue="0.92156862750000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <inset key="separatorInset" minX="75" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" id="IwU-8C-VlJ">
+                        <searchBar key="tableHeaderView" contentMode="redraw" misplaced="YES" id="IwU-8C-VlJ">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <textInputTraits key="textInputTraits"/>
@@ -533,8 +533,8 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
                                                 <state key="normal" image="chat-input-emoji"/>
                                                 <connections>
-                                                    <action selector="startRecord" destination="N4k-Tg-JOS" eventType="touchDown" id="s2x-ON-Dlw"/>
-                                                    <action selector="stopRecord" destination="N4k-Tg-JOS" eventType="touchUpInside" id="Iqo-h8-G19"/>
+                                                    <action selector="startRecord" destination="N4k-Tg-JOS" eventType="touchDown" id="kc3-cX-nmR"/>
+                                                    <action selector="stopRecord" destination="N4k-Tg-JOS" eventType="touchUpInside" id="dys-DI-ip1"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iUf-fy-ZF0">

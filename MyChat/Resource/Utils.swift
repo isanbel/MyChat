@@ -39,4 +39,29 @@ class Utils {
         
         return predA.evaluate(with: firstString) ? firstString : "#"
     }
+
+    static func initBaiduAccessToken() {
+        let url = "https://aip.baidubce.com/oauth/2.0/token?"
+            + "grant_type=" + Config.BAIDU_GRANT_TYPE + "&"
+            + "client_id=" + Config.BAIDU_CLIENT_ID + "&"
+            + "client_secret=" + Config.BAIDU_CLIENT_SECRET
+        let onSuccess = { (data: [String: Any]) in
+            let access_token = data["access_token"] as! String
+            print("get baidu access token: \(access_token)")
+            Config.BAIDU_ACCESS_TOKEN = access_token
+        }
+        let onFailure = {
+            print("fail to get baidu access token")
+            // TODO: 获取 Access Token 失败
+        }
+        HttpUtil.get_(url: url, onSuccess: onSuccess, onFailure: onFailure)
+    }
+    
+    static func lexicalAnalysis(text: String, onResult: @escaping([String: Any]) -> Void, onError: @escaping() -> Void) {
+        let url = "https://aip.baidubce.com/rpc/2.0/nlp/v1/lexer?access_token=" + Config.BAIDU_ACCESS_TOKEN + "&charset=UTF-8"
+        let parameters = [
+            "text": text
+        ]
+        HttpUtil.post_(url: url, parameters: parameters, onSuccess: onResult, onFailure: onError)
+    }
 }
