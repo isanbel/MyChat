@@ -47,6 +47,34 @@ class HttpUtil {
         }
     }
     
+    static func get_(url: String, onSuccess: @escaping([String: Any]) -> Void, onFailure: @escaping() -> Void) {
+        Alamofire.request(url).responseJSON { response in
+            if (response.result.isSuccess) {
+                let value = response.result.value!
+                let json = JSON(value)
+                print(json)
+                onSuccess(json.dictionaryObject!)
+            } else {
+                onFailure()
+                print(response.result.error!)
+            }
+        }
+    }
+    
+    static func post_(url: String, parameters: Parameters, onSuccess: @escaping([String: Any]) -> Void, onFailure: @escaping() -> Void) {
+        Alamofire.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default).responseJSON { response in
+            if (response.result.isSuccess) {
+                let value = response.result.value!
+                let json = JSON(value)
+                print(json)
+                onSuccess(json.dictionaryObject!)
+            } else {
+                onFailure()
+                print(response.result.error!)
+            }
+        }
+    }
+    
     static func postWithImage(url: String, image: UIImage, onSuccess: @escaping([String: Any]) -> Void, onFailure: @escaping([String: Any]) -> Void) {
         Alamofire.upload(
             multipartFormData: { multipartFormData in
@@ -66,6 +94,7 @@ class HttpUtil {
                 case .failure(let encodingError):
                     print(encodingError)
                 }
-            })
+            }
+        )
     }
 }
