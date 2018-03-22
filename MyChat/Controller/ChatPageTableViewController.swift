@@ -279,7 +279,7 @@ class ChatPageTableViewController:
         return false
     }
 
-    func sendMessageAndWaitForResponse(_ message_sent: String) {
+    func appendDateIndicatorIfNeeded() {
         if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
             // save date indicator if last message is nil or 5 min ago
             if let lastmessageDate = friend.lastMessage?.date {
@@ -299,6 +299,13 @@ class ChatPageTableViewController:
                 dateIndicator.isDateIdentifier = true
                 appendMessageAndShow(message: dateIndicator)
             }
+            appDelegate.saveContext()
+        }
+    }
+    
+    func sendMessageAndWaitForResponse(_ message_sent: String) {
+        if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
+            appendDateIndicatorIfNeeded()
             
             let message = ChatMessageMO(context: appDelegate.persistentContainer.viewContext)
             message.isSent = true
@@ -328,6 +335,8 @@ class ChatPageTableViewController:
                 "mes": message.contentText!
             ]
             let onSuccess = { (data: [String: Any]) in
+                self.appendDateIndicatorIfNeeded()
+                
                 let result = data["result"] as! String
                 let response_msg = ChatMessageMO(context: appDelegate.persistentContainer.viewContext)
                 response_msg.isSent = false
@@ -348,7 +357,7 @@ class ChatPageTableViewController:
                 lastmessage.date = Date()
                 self.friend.lastMessage = lastmessage
                 
-                print("== self.friend.lastMessage:")
+                print("// self.friend.lastMessage:")
                 print(self.friend.lastMessage ?? "")
                 
                 appDelegate.saveContext()
@@ -383,7 +392,7 @@ class ChatPageTableViewController:
 
         scrollToBottom(animated: true)
     }
-
+    
     func scrollToBottom(animated: Bool) {
         if self.chatMessages.count > 0 {
             DispatchQueue.main.async {
