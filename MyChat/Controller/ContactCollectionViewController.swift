@@ -13,7 +13,7 @@ private let SCREEN_HEIGHT = UIScreen.main.bounds.height
 
 private let reuseIdentifier = "ContactViewCell"
 
-class ContactCollectionViewController: UICollectionViewController {
+class ContactCollectionViewController: UICollectionViewController, UIGestureRecognizerDelegate {
     
     var friends: [FriendMO] = []
     
@@ -21,7 +21,6 @@ class ContactCollectionViewController: UICollectionViewController {
     
     var indexPath: IndexPath?
     var targetIndexPath: IndexPath?
-    var saveBtn: UIBarButtonItem?
     
     private lazy var dragingItem: ContactCollectionViewCell = {
         
@@ -43,16 +42,16 @@ class ContactCollectionViewController: UICollectionViewController {
         let longPress = UILongPressGestureRecognizer()
         longPress.addTarget(self, action: #selector(longPressGesture))
         collectionView?.addGestureRecognizer(longPress)
-        saveBtn = UIBarButtonItem(image: UIImage(named: "edit-saved"), style: .plain, target: self, action: #selector(saveChanges))
-        self.navigationItem.leftBarButtonItem = nil
+        
+        // tap the blank place, then save the icons arrangetment changes
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+        tapGestureRecognizer.delegate = self as UIGestureRecognizerDelegate
+        self.collectionView?.backgroundView = UIView(frame:(self.collectionView?.bounds)!)
+        self.collectionView?.backgroundView!.addGestureRecognizer(tapGestureRecognizer)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         loadData()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        self.navigationItem.leftBarButtonItem = isEdite ? saveBtn : nil
     }
     
     // Mark: get Data
@@ -165,7 +164,6 @@ class ContactCollectionViewController: UICollectionViewController {
             collectionView?.reloadData()
             return
         }
-        self.viewDidAppear(true)
         let point = tap.location(in: collectionView)
         
         switch tap.state {
@@ -231,12 +229,16 @@ class ContactCollectionViewController: UICollectionViewController {
         })
     }
     
-    @objc func saveChanges() {
+    @objc func handleTap() {
+        saveChanges()
+    }
+    
+    func saveChanges() {
         isEdite = false
         self.viewDidAppear(true)
         collectionView?.reloadData()
     }
-    
+
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
