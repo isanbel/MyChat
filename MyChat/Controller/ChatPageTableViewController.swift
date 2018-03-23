@@ -22,6 +22,15 @@ class ChatPageTableViewController:
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var keyBaordView: UIView!
     @IBOutlet weak var textField: UITextField!
+    @IBOutlet weak var msgTypeBtn: UIButton! {
+        didSet {
+            let origImage = msgTypeBtn.imageView?.image
+            let tintedImage = origImage?.withRenderingMode(.alwaysTemplate)
+            msgTypeBtn.setImage(tintedImage, for: .normal)
+            msgTypeBtn.setImage(tintedImage, for: .selected)
+            msgTypeBtn.tintColor = UIColor(hex: "#cdcdcd")
+        }
+    }
     
     var iflySpeechRecognizer: IFlySpeechRecognizer = IFlySpeechRecognizer.sharedInstance() as IFlySpeechRecognizer;
     var fetchResultController: NSFetchedResultsController<UserMO>!
@@ -107,6 +116,11 @@ class ChatPageTableViewController:
             print(error)
         }
         return message
+    }
+    
+    @IBAction func toggleMsgType(_ sender: UIButton) {
+        msgTypeBtn.isSelected = !msgTypeBtn.isSelected
+        msgTypeBtn.tintColor = msgTypeBtn.isSelected ? UIColor(hex: "#4f77af") : UIColor(hex: "#cdcdcd")
     }
     
     func getData() {
@@ -304,11 +318,12 @@ class ChatPageTableViewController:
     }
     
     func sendMessageAndWaitForResponse(_ message_sent: String) {
+        let msgTypeIsSent = !msgTypeBtn.isSelected
         if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
             appendDateIndicatorIfNeeded()
             
             let message = ChatMessageMO(context: appDelegate.persistentContainer.viewContext)
-            message.isSent = true
+            message.isSent = msgTypeIsSent
             message.date = Date()
             message.contentText = message_sent
             message.friend = friend
@@ -329,6 +344,9 @@ class ChatPageTableViewController:
             // 保存发送的信息
             appDelegate.saveContext()
             appendMessageAndShow(message: message)
+            
+            // 如果信息类型不是自己发送的，（而是接收到的，则无需进行接下来的步骤）
+            if !msgTypeIsSent { return }
             
             let parameters: [String: Any] = [
                 "friendid": friend.id!,
