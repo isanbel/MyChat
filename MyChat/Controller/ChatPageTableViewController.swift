@@ -22,15 +22,6 @@ class ChatPageTableViewController:
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var keyBaordView: UIView!
     @IBOutlet weak var textField: UITextField!
-    @IBOutlet weak var msgTypeBtn: UIButton! {
-        didSet {
-            let origImage = msgTypeBtn.imageView?.image
-            let tintedImage = origImage?.withRenderingMode(.alwaysTemplate)
-            msgTypeBtn.setImage(tintedImage, for: .normal)
-            msgTypeBtn.setImage(tintedImage, for: .selected)
-            msgTypeBtn.tintColor = UIColor(hex: "#cdcdcd")
-        }
-    }
     
     var iflySpeechRecognizer: IFlySpeechRecognizer = IFlySpeechRecognizer.sharedInstance() as IFlySpeechRecognizer;
     var fetchResultController: NSFetchedResultsController<UserMO>!
@@ -42,6 +33,9 @@ class ChatPageTableViewController:
     var translationY: CGFloat = 0
     var is_recording: Bool = false
     var voice_message: String = ""
+    
+    var keyBoardOnRight: Bool = true
+    var keyBoardSnapShotView: UIImageView!
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -118,11 +112,6 @@ class ChatPageTableViewController:
         return message
     }
     
-    @IBAction func toggleMsgType(_ sender: UIButton) {
-        msgTypeBtn.isSelected = !msgTypeBtn.isSelected
-        msgTypeBtn.tintColor = msgTypeBtn.isSelected ? UIColor(hex: "#4f77af") : UIColor(hex: "#cdcdcd")
-    }
-    
     func getData() {
         // Fetch data from data store
         let fetchRequest: NSFetchRequest<UserMO> = UserMO.fetchRequest()
@@ -179,6 +168,8 @@ class ChatPageTableViewController:
         if (Config.BAIDU_ACCESS_TOKEN == "") {
             Utils.initBaiduAccessToken()
         }
+        
+        addGestureToKeyBoardView()
     }
 
     override func didReceiveMemoryWarning() {
@@ -318,7 +309,7 @@ class ChatPageTableViewController:
     }
     
     func sendMessageAndWaitForResponse(_ message_sent: String) {
-        let msgTypeIsSent = !msgTypeBtn.isSelected
+        let msgTypeIsSent = keyBoardOnRight
         if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
             appendDateIndicatorIfNeeded()
             

@@ -27,8 +27,8 @@
 		A8D69F3C204FC1340081B18D /* SocketIOUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D69F3B204FC1340081B18D /* SocketIOUtil.swift */; };
 		A8D69F3E205015940081B18D /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D69F3D205015940081B18D /* Global.swift */; };
 		A8F97CD3205D364C001167C7 /* iflyMSC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8F97CD2205D364B001167C7 /* iflyMSC.framework */; };
+		C2222742206522F600EA5FE0 /* ChatPageTableViewController+SwipInputBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2222741206522F600EA5FE0 /* ChatPageTableViewController+SwipInputBar.swift */; };
 		C2224ABF204CF669001A9D06 /* ContactTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2224ABE204CF669001A9D06 /* ContactTableViewCell.swift */; };
-		C2224AC1204CF754001A9D06 /* ContactTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2224AC0204CF754001A9D06 /* ContactTableViewController.swift */; };
 		C2224AC3204CF8B5001A9D06 /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2224AC2204CF8B5001A9D06 /* Friend.swift */; };
 		C2224AC5204D1B17001A9D06 /* FriendProlileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2224AC4204D1B17001A9D06 /* FriendProlileTableViewController.swift */; };
 		C2224AEB204D4A8B001A9D06 /* MyChat.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C2224AE9204D4A8B001A9D06 /* MyChat.xcdatamodeld */; };
@@ -84,8 +84,8 @@
 		A8F97CCD205CF886001167C7 /* iflyMSC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iflyMSC.framework; path = MyChat/iflyMSC.framework; sourceTree = "<group>"; };
 		A8F97CD2205D364B001167C7 /* iflyMSC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iflyMSC.framework; path = lib/iflyMSC.framework; sourceTree = "<group>"; };
 		C049B3444924D59407AF0FA7 /* Pods_MyChat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyChat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C2222741206522F600EA5FE0 /* ChatPageTableViewController+SwipInputBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatPageTableViewController+SwipInputBar.swift"; sourceTree = "<group>"; };
 		C2224ABE204CF669001A9D06 /* ContactTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactTableViewCell.swift; sourceTree = "<group>"; };
-		C2224AC0204CF754001A9D06 /* ContactTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactTableViewController.swift; sourceTree = "<group>"; };
 		C2224AC2204CF8B5001A9D06 /* Friend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Friend.swift; sourceTree = "<group>"; };
 		C2224AC4204D1B17001A9D06 /* FriendProlileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendProlileTableViewController.swift; sourceTree = "<group>"; };
 		C2224AEA204D4A8B001A9D06 /* MyChat.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MyChat.xcdatamodel; sourceTree = "<group>"; };
@@ -257,7 +257,7 @@
 			children = (
 				C2B11B092045005400726A86 /* ChatTableViewController.swift */,
 				C2B11B0D20453BB300726A86 /* ChatPageTableViewController.swift */,
-				C2224AC0204CF754001A9D06 /* ContactTableViewController.swift */,
+				C2222741206522F600EA5FE0 /* ChatPageTableViewController+SwipInputBar.swift */,
 				C2D45DB4205D3D1D004C2685 /* ContactCollectionViewController.swift */,
 				C2224AC4204D1B17001A9D06 /* FriendProlileTableViewController.swift */,
 				C2224AEC204D7F75001A9D06 /* NewFriendTableViewController.swift */,
@@ -433,6 +433,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C2222742206522F600EA5FE0 /* ChatPageTableViewController+SwipInputBar.swift in Sources */,
 				C2BE1C20204E6F37008B8E01 /* MyProfileTableViewController.swift in Sources */,
 				C2FDE8252051449D005CB808 /* AddFriendTableViewController.swift in Sources */,
 				A8079A84205FF07500189150 /* Config.swift in Sources */,
@@ -453,7 +454,6 @@
 				C2224AC5204D1B17001A9D06 /* FriendProlileTableViewController.swift in Sources */,
 				C2FDE821205094CD005CB808 /* SettingsTableViewController.swift in Sources */,
 				C2B11B042044F4EA00726A86 /* User.swift in Sources */,
-				C2224AC1204CF754001A9D06 /* ContactTableViewController.swift in Sources */,
 				C2FDE81F20509193005CB808 /* LaunchViewController.swift in Sources */,
 				C284E02520492953009FC6CA /* ChatDateIndicatorCell.swift in Sources */,
 				C2B11B0A2045005400726A86 /* ChatTableViewController.swift in Sources */,
