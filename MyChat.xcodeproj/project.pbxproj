@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		0E5AD3BCB33A25D7A2242FD1 /* Pods_MyChat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C049B3444924D59407AF0FA7 /* Pods_MyChat.framework */; };
 		A8079A84205FF07500189150 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8079A83205FF07500189150 /* Config.swift */; };
+		A8309B702068856200CB98FC /* ChatPageTableViewController+iFly.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8309B6F2068856200CB98FC /* ChatPageTableViewController+iFly.swift */; };
+		A8309B72206889D900CB98FC /* ChatPageTableViewController+FriendPreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8309B71206889D900CB98FC /* ChatPageTableViewController+FriendPreference.swift */; };
 		A83D232A2056C973000FBFF8 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A83D23292056C973000FBFF8 /* libz.tbd */; };
 		A83D232C2056C98B000FBFF8 /* Contacts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A83D232B2056C98B000FBFF8 /* Contacts.framework */; };
 		A83D232E2056C99B000FBFF8 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A83D232D2056C99B000FBFF8 /* CoreLocation.framework */; };
@@ -26,6 +28,8 @@
 		A8D69F3A204FA4A00081B18D /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D69F39204FA4A00081B18D /* Utils.swift */; };
 		A8D69F3C204FC1340081B18D /* SocketIOUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D69F3B204FC1340081B18D /* SocketIOUtil.swift */; };
 		A8D69F3E205015940081B18D /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D69F3D205015940081B18D /* Global.swift */; };
+		A8D98DD72060B6E50062BD2C /* Postman.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D98DD62060B6E50062BD2C /* Postman.swift */; };
+		A8D98DDA20611DBE0062BD2C /* FriendBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D98DD920611DBE0062BD2C /* FriendBase.swift */; };
 		A8F97CD3205D364C001167C7 /* iflyMSC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8F97CD2205D364B001167C7 /* iflyMSC.framework */; };
 		C2224ABF204CF669001A9D06 /* ContactTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2224ABE204CF669001A9D06 /* ContactTableViewCell.swift */; };
 		C2224AC1204CF754001A9D06 /* ContactTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2224AC0204CF754001A9D06 /* ContactTableViewController.swift */; };
@@ -62,6 +66,8 @@
 		30F7F4412E4CAA15FF3D44E6 /* Pods-MyChat.add-hoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyChat.add-hoc.xcconfig"; path = "Pods/Target Support Files/Pods-MyChat/Pods-MyChat.add-hoc.xcconfig"; sourceTree = "<group>"; };
 		32046CC5F7148689AF037558 /* Pods-MyChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyChat.release.xcconfig"; path = "Pods/Target Support Files/Pods-MyChat/Pods-MyChat.release.xcconfig"; sourceTree = "<group>"; };
 		A8079A83205FF07500189150 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		A8309B6F2068856200CB98FC /* ChatPageTableViewController+iFly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatPageTableViewController+iFly.swift"; sourceTree = "<group>"; };
+		A8309B71206889D900CB98FC /* ChatPageTableViewController+FriendPreference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatPageTableViewController+FriendPreference.swift"; sourceTree = "<group>"; };
 		A83D23292056C973000FBFF8 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		A83D232B2056C98B000FBFF8 /* Contacts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Contacts.framework; path = System/Library/Frameworks/Contacts.framework; sourceTree = SDKROOT; };
 		A83D232D2056C99B000FBFF8 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -80,6 +86,9 @@
 		A8D69F39204FA4A00081B18D /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		A8D69F3B204FC1340081B18D /* SocketIOUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketIOUtil.swift; sourceTree = "<group>"; };
 		A8D69F3D205015940081B18D /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
+		A8D98DD42060B09F0062BD2C /* MyChat.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyChat.entitlements; sourceTree = "<group>"; };
+		A8D98DD62060B6E50062BD2C /* Postman.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Postman.swift; sourceTree = "<group>"; };
+		A8D98DD920611DBE0062BD2C /* FriendBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendBase.swift; sourceTree = "<group>"; };
 		A8F97CCD205CF886001167C7 /* iflyMSC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iflyMSC.framework; path = MyChat/iflyMSC.framework; sourceTree = "<group>"; };
 		A8F97CD2205D364B001167C7 /* iflyMSC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iflyMSC.framework; path = lib/iflyMSC.framework; sourceTree = "<group>"; };
 		C049B3444924D59407AF0FA7 /* Pods_MyChat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyChat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -162,6 +171,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		A8D98DD52060B6C40062BD2C /* Friend */ = {
+			isa = PBXGroup;
+			children = (
+				A8D98DD62060B6E50062BD2C /* Postman.swift */,
+				A8D98DD920611DBE0062BD2C /* FriendBase.swift */,
+			);
+			path = Friend;
+			sourceTree = "<group>";
+		};
 		C247D3432048274100456567 /* ChatPage */ = {
 			isa = PBXGroup;
 			children = (
@@ -195,6 +213,8 @@
 			isa = PBXGroup;
 			children = (
 				C26444732024B0DE004E86C5 /* Info.plist */,
+				A8D98DD42060B09F0062BD2C /* MyChat.entitlements */,
+				A8D98DD52060B6C40062BD2C /* Friend */,
 				C2B11AFD2044F38000726A86 /* Resource */,
 				C2B11AFE2044F39400726A86 /* Storyboard */,
 				C2B11AFF2044F3A300726A86 /* Model */,
@@ -255,6 +275,8 @@
 			children = (
 				C2B11B092045005400726A86 /* ChatTableViewController.swift */,
 				C2B11B0D20453BB300726A86 /* ChatPageTableViewController.swift */,
+				A8309B6F2068856200CB98FC /* ChatPageTableViewController+iFly.swift */,
+				A8309B71206889D900CB98FC /* ChatPageTableViewController+FriendPreference.swift */,
 				C2224AC0204CF754001A9D06 /* ContactTableViewController.swift */,
 				C2D45DB4205D3D1D004C2685 /* ContactCollectionViewController.swift */,
 				C2224AC4204D1B17001A9D06 /* FriendProlileTableViewController.swift */,
@@ -328,6 +350,9 @@
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Push = {
 								enabled = 1;
 							};
 						};
@@ -440,6 +465,7 @@
 				C2224AEB204D4A8B001A9D06 /* MyChat.xcdatamodeld in Sources */,
 				C2224AC3204CF8B5001A9D06 /* Friend.swift in Sources */,
 				C247D3402047956000456567 /* ChatMessage.swift in Sources */,
+				A8D98DD72060B6E50062BD2C /* Postman.swift in Sources */,
 				A8D69F3A204FA4A00081B18D /* Utils.swift in Sources */,
 				A8D69F3E205015940081B18D /* Global.swift in Sources */,
 				C2D45DB7205D3D2B004C2685 /* ContactCollectionViewCell.swift in Sources */,
@@ -447,9 +473,12 @@
 				C2B11B0E20453BB300726A86 /* ChatPageTableViewController.swift in Sources */,
 				C2224AEF204DB047001A9D06 /* RoundedTextField.swift in Sources */,
 				C26444682024B0DE004E86C5 /* AppDelegate.swift in Sources */,
+				A8309B702068856200CB98FC /* ChatPageTableViewController+iFly.swift in Sources */,
 				C2224AC5204D1B17001A9D06 /* FriendProlileTableViewController.swift in Sources */,
+				A8309B72206889D900CB98FC /* ChatPageTableViewController+FriendPreference.swift in Sources */,
 				C2FDE821205094CD005CB808 /* SettingsTableViewController.swift in Sources */,
 				C2B11B042044F4EA00726A86 /* User.swift in Sources */,
+				A8D98DDA20611DBE0062BD2C /* FriendBase.swift in Sources */,
 				C2224AC1204CF754001A9D06 /* ContactTableViewController.swift in Sources */,
 				C2FDE81F20509193005CB808 /* LaunchViewController.swift in Sources */,
 				C284E02520492953009FC6CA /* ChatDateIndicatorCell.swift in Sources */,
@@ -599,9 +628,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = MyChat/MyChat.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				"CODE_SIGN_STYLE[sdk=*]" = Automatic;
-				DEVELOPMENT_TEAM = E5Q42GKDH5;
+				DEVELOPMENT_TEAM = H34D54V7L7;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -611,7 +641,7 @@
 				INFOPLIST_FILE = MyChat/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ithinkteam.MyChat;
+				PRODUCT_BUNDLE_IDENTIFIER = MyChat.chengquanli;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "MyChat-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -626,9 +656,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = MyChat/MyChat.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				"CODE_SIGN_STYLE[sdk=*]" = Automatic;
-				DEVELOPMENT_TEAM = E5Q42GKDH5;
+				DEVELOPMENT_TEAM = H34D54V7L7;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -638,7 +669,7 @@
 				INFOPLIST_FILE = MyChat/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ithinkteam.MyChat;
+				PRODUCT_BUNDLE_IDENTIFIER = MyChat.chengquanli;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "MyChat-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
@@ -702,9 +733,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = MyChat/MyChat.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				"CODE_SIGN_STYLE[sdk=*]" = Automatic;
-				DEVELOPMENT_TEAM = E5Q42GKDH5;
+				DEVELOPMENT_TEAM = H34D54V7L7;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -714,7 +746,7 @@
 				INFOPLIST_FILE = MyChat/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ithinkteam.MyChat;
+				PRODUCT_BUNDLE_IDENTIFIER = MyChat.chengquanli;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "MyChat-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;

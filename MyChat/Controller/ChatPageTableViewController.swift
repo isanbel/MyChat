@@ -16,14 +16,17 @@ class ChatPageTableViewController:
     UITableViewDataSource,
     UITableViewDelegate,
     UITextFieldDelegate,
-    NSFetchedResultsControllerDelegate,
-    IFlySpeechRecognizerDelegate
+    NSFetchedResultsControllerDelegate
 {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var keyBaordView: UIView!
     @IBOutlet weak var textField: UITextField!
     
-    var iflySpeechRecognizer: IFlySpeechRecognizer = IFlySpeechRecognizer.sharedInstance() as IFlySpeechRecognizer;
+    // iFly
+    var iflySpeechRecognizer: IFlySpeechRecognizer = IFlySpeechRecognizer.sharedInstance() as IFlySpeechRecognizer
+    var is_recording: Bool = false
+    var voice_message: String = ""
+    
     var fetchResultController: NSFetchedResultsController<UserMO>!
     var friend = FriendMO()
     var me = UserMO()
@@ -31,29 +34,10 @@ class ChatPageTableViewController:
     var hiddenTableCellHeight: CGFloat = 0
     var keyBoardHeight: CGFloat = 0
     var translationY: CGFloat = 0
-    var is_recording: Bool = false
-    var voice_message: String = ""
     
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        initIfly()
-    }
-    
-    func initIfly() {
-        IFlySpeechUtility.createUtility("appid=" + Config.IFLY_APPID);
-        self.iflySpeechRecognizer.delegate = self;
-        self.iflySpeechRecognizer.setParameter("iat", forKey: IFlySpeechConstant.ifly_DOMAIN())
-        self.iflySpeechRecognizer.setParameter("json", forKey: IFlySpeechConstant.result_TYPE())
-        
-        // 录音设置
-        self.iflySpeechRecognizer.setParameter("16000", forKey: IFlySpeechConstant.sample_RATE())
-        self.iflySpeechRecognizer.setParameter("asr.pcm", forKey: IFlySpeechConstant.asr_AUDIO_PATH())
-        self.iflySpeechRecognizer.setParameter("10000", forKey: IFlySpeechConstant.vad_BOS())
-        self.iflySpeechRecognizer.setParameter("10000", forKey: IFlySpeechConstant.vad_EOS())
-        
-        // 设置音频流
-        // self.iflySpeechRecognizer.setParameter("-1", forKey: IFlySpeechConstant.audio_SOURCE())
-    }
+    // friend preference
+    var is_preferencing: Bool = false
+    var new_friend: FriendBase!
     
     @IBAction func startRecord() {
         self.iflySpeechRecognizer.startListening()
@@ -65,48 +49,6 @@ class ChatPageTableViewController:
         self.iflySpeechRecognizer.stopListening()
         self.is_recording = false
         print("stopRecord")
-    }
-    
-    func onError(_ err: IFlySpeechError!) {
-        if (err.errorCode == 0) {  // 0 应该是代表服务正常...
-            return
-        }
-        print("识别出错：\(err.errorCode)  \(err.errorDesc!)")
-    }
-    
-    func onResults(_ results: [Any]!, isLast: Bool) {
-        var keys = ""
-        let dic: Dictionary<String, String> = results[0] as! Dictionary<String, String>
-        for key in dic.keys {
-            keys += key
-        }
-        print("识别成功：\(keys)")
-        
-        let message = keys2Message(keys: keys)
-        self.voice_message += message
-        if (isLast && !self.is_recording) {
-            sendMessageAndWaitForResponse(self.voice_message)
-            self.voice_message = ""
-        }
-    }
-    
-    func keys2Message(keys: String) -> String {
-        var message = ""
-        do {
-            let json_data = keys.data(using: String.Encoding.utf8, allowLossyConversion: false)
-            let json = try JSON(data: json_data!)
-            let ws = json["ws"]
-            for (_, ws_each): (String, JSON) in ws {
-                let cw = ws_each["cw"]
-                print(cw)
-                for (_, cw_each): (String, JSON) in cw {
-                    message += cw_each["w"].string!
-                }
-            }
-        } catch {
-            print(error)
-        }
-        return message
     }
     
     func getData() {
@@ -162,11 +104,19 @@ class ChatPageTableViewController:
         // 关闭屏幕左侧的触碰延迟
         // self.navigationController?.interactivePopGestureRecognizer?.delaysTouchesBegan = false;
         
+        initIfly()
+        
         if (Config.BAIDU_ACCESS_TOKEN == "") {
             Utils.initBaiduAccessToken()
         }
+        
+        if (self.friend.preference == nil) {
+            friendPreference()
+        }
+        
+        print(friend)
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -278,8 +228,8 @@ class ChatPageTableViewController:
         scrollToBottom(animated: true)
         return false
     }
-
-    func sendMessageAndWaitForResponse(_ message_sent: String) {
+    
+    func sendMessage(message message_sent: String) {
         if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
             // save date indicator if last message is nil or 5 min ago
             if let lastmessageDate = friend.lastMessage?.date {
@@ -323,50 +273,61 @@ class ChatPageTableViewController:
             appDelegate.saveContext()
             appendMessageAndShow(message: message)
             
-            let parameters: [String: Any] = [
-                "friendid": friend.id!,
-                "mes": message.contentText!
-            ]
-            let onSuccess = { (data: [String: Any]) in
-                let result = data["result"] as! String
-                let response_msg = ChatMessageMO(context: appDelegate.persistentContainer.viewContext)
-                response_msg.isSent = false
-                response_msg.date = Date()
-                response_msg.contentText = result
-                response_msg.friend = self.friend
-                response_msg.isDateIdentifier = false
-                
-                // delete the old last message and add the new one
-                let context = appDelegate.persistentContainer.viewContext
-                if self.friend.lastMessage != nil {
-                    context.delete(self.friend.lastMessage!)
-                }
-                
-                // 更新 lastMessage
-                let lastmessage = LastMessageMO(context: appDelegate.persistentContainer.viewContext)
-                lastmessage.content = result
-                lastmessage.date = Date()
-                self.friend.lastMessage = lastmessage
-                
-                print("== self.friend.lastMessage:")
-                print(self.friend.lastMessage ?? "")
-                
-                appDelegate.saveContext()
-                self.appendMessageAndShow(message: response_msg)
+            if (is_preferencing) {
+                saveToFriendPreference()
+            } else {
+                let url = "/dealMessage"
+                let parameters: [String: Any] = [
+                    "friendid": friend.id!,
+                    "mes": textField.text!
+                ]
+                waitForResponseFromServer(url: url, parameters: parameters)
             }
-            let onFailure = { (data: [String: Any]) in
-                // TODO: 获取服务器好友回复失败后的提示
-            }
-            // 从服务器获取好友的回复
-            HttpUtil.post(url: "/dealMessage", parameters: parameters, onSuccess: onSuccess, onFailure: onFailure)
         }
+    }
+    
+    func waitForResponseFromServer(url: String, parameters: [String: Any]) {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        let onSuccess = { (data: [String: Any]) in
+            let result = data["result"] as! String
+            let response_msg = ChatMessageMO(context: appDelegate.persistentContainer.viewContext)
+            response_msg.isSent = false
+            response_msg.date = Date()
+            response_msg.contentText = result
+            response_msg.friend = self.friend
+            response_msg.isDateIdentifier = false
+            
+            // delete the old last message and add the new one
+            let context = appDelegate.persistentContainer.viewContext
+            if self.friend.lastMessage != nil {
+                context.delete(self.friend.lastMessage!)
+            }
+            
+            // 更新 lastMessage
+            let lastmessage = LastMessageMO(context: appDelegate.persistentContainer.viewContext)
+            lastmessage.content = result
+            lastmessage.date = Date()
+            self.friend.lastMessage = lastmessage
+            
+            print("== self.friend.lastMessage:")
+            print(self.friend.lastMessage ?? "")
+            
+            appDelegate.saveContext()
+            self.appendMessageAndShow(message: response_msg)
+        }
+        let onFailure = { (data: [String: Any]) in
+            // TODO: 获取服务器好友回复失败后的提示
+        }
+        // 从服务器获取好友的回复
+        HttpUtil.post(url: url, parameters: parameters, onSuccess: onSuccess, onFailure: onFailure)
     }
     
     func saveMessageToStoreAndShow() {
         let messgae = textField.text!
-        sendMessageAndWaitForResponse(messgae)
+        sendMessage(message: messgae)
     }
-
+    
     func appendMessageAndShow(message: ChatMessageMO) {
         chatMessages.append(message)
 

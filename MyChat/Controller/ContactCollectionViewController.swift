@@ -101,6 +101,7 @@ class ContactCollectionViewController: UICollectionViewController {
                 let newFriend = FriendMO(context: appDelegate.persistentContainer.viewContext)
                 newFriend.name = friend["friendname"] as? String
                 newFriend.id = friend["friendid"] as? String
+                newFriend.attributename = friend["attributename"] as? String
                 
                 // TODO: parse Date
                 // newFriend.birthday
