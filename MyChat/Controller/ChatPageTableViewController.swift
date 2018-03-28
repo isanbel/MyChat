@@ -113,8 +113,13 @@ class ChatPageTableViewController:
         if (self.friend.preference == nil) {
             friendPreference()
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
-        print(friend)
+        print("我来到了：ChatPageTableViewController")
+        setDelegate()
     }
     
     override func didReceiveMemoryWarning() {

@@ -30,6 +30,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         registerForPushNotifications()
         // UIApplication.shared.registerForRemoteNotifications()
         
+        // TODO: 到时改在判断登录成功之后再连接
+        SocketIOUtil.initialize()
+        
         return true
     }
 

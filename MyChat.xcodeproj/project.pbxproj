@@ -23,6 +23,9 @@
 		A83D233C2056C9E6000FBFF8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A83D233B2056C9E6000FBFF8 /* UIKit.framework */; };
 		A83D233E2056C9EE000FBFF8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A83D233D2056C9EE000FBFF8 /* Foundation.framework */; };
 		A83D23402056C9F7000FBFF8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A83D233F2056C9F7000FBFF8 /* CoreGraphics.framework */; };
+		A8618D19206B797D00C26D47 /* SocketIODelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8618D18206B797D00C26D47 /* SocketIODelegate.swift */; };
+		A8618D1B206B7B1D00C26D47 /* ChatPageTableViewController+NewMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8618D1A206B7B1D00C26D47 /* ChatPageTableViewController+NewMessage.swift */; };
+		A8618D1D206B7F0600C26D47 /* ChatTableViewController+NewMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8618D1C206B7F0600C26D47 /* ChatTableViewController+NewMessage.swift */; };
 		A8D69F36204EF4820081B18D /* EntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D69F35204EF4820081B18D /* EntryViewController.swift */; };
 		A8D69F38204F0C370081B18D /* HttpUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D69F37204F0C370081B18D /* HttpUtil.swift */; };
 		A8D69F3A204FA4A00081B18D /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D69F39204FA4A00081B18D /* Utils.swift */; };
@@ -81,6 +84,9 @@
 		A83D233D2056C9EE000FBFF8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A83D233F2056C9F7000FBFF8 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		A83D23412056CA92000FBFF8 /* MyChat-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MyChat-Bridging-Header.h"; sourceTree = "<group>"; };
+		A8618D18206B797D00C26D47 /* SocketIODelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketIODelegate.swift; sourceTree = "<group>"; };
+		A8618D1A206B7B1D00C26D47 /* ChatPageTableViewController+NewMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatPageTableViewController+NewMessage.swift"; sourceTree = "<group>"; };
+		A8618D1C206B7F0600C26D47 /* ChatTableViewController+NewMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatTableViewController+NewMessage.swift"; sourceTree = "<group>"; };
 		A8D69F35204EF4820081B18D /* EntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryViewController.swift; sourceTree = "<group>"; };
 		A8D69F37204F0C370081B18D /* HttpUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpUtil.swift; sourceTree = "<group>"; };
 		A8D69F39204FA4A00081B18D /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
@@ -234,6 +240,7 @@
 				A8D69F3B204FC1340081B18D /* SocketIOUtil.swift */,
 				A8D69F3D205015940081B18D /* Global.swift */,
 				A8079A83205FF07500189150 /* Config.swift */,
+				A8618D18206B797D00C26D47 /* SocketIODelegate.swift */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -274,9 +281,11 @@
 			isa = PBXGroup;
 			children = (
 				C2B11B092045005400726A86 /* ChatTableViewController.swift */,
+				A8618D1C206B7F0600C26D47 /* ChatTableViewController+NewMessage.swift */,
 				C2B11B0D20453BB300726A86 /* ChatPageTableViewController.swift */,
 				A8309B6F2068856200CB98FC /* ChatPageTableViewController+iFly.swift */,
 				A8309B71206889D900CB98FC /* ChatPageTableViewController+FriendPreference.swift */,
+				A8618D1A206B7B1D00C26D47 /* ChatPageTableViewController+NewMessage.swift */,
 				C2224AC0204CF754001A9D06 /* ContactTableViewController.swift */,
 				C2D45DB4205D3D1D004C2685 /* ContactCollectionViewController.swift */,
 				C2224AC4204D1B17001A9D06 /* FriendProlileTableViewController.swift */,
@@ -463,10 +472,13 @@
 				C2224ABF204CF669001A9D06 /* ContactTableViewCell.swift in Sources */,
 				C2224AED204D7F75001A9D06 /* NewFriendTableViewController.swift in Sources */,
 				C2224AEB204D4A8B001A9D06 /* MyChat.xcdatamodeld in Sources */,
+				A8618D1D206B7F0600C26D47 /* ChatTableViewController+NewMessage.swift in Sources */,
 				C2224AC3204CF8B5001A9D06 /* Friend.swift in Sources */,
+				A8618D19206B797D00C26D47 /* SocketIODelegate.swift in Sources */,
 				C247D3402047956000456567 /* ChatMessage.swift in Sources */,
 				A8D98DD72060B6E50062BD2C /* Postman.swift in Sources */,
 				A8D69F3A204FA4A00081B18D /* Utils.swift in Sources */,
+				A8618D1B206B7B1D00C26D47 /* ChatPageTableViewController+NewMessage.swift in Sources */,
 				A8D69F3E205015940081B18D /* Global.swift in Sources */,
 				C2D45DB7205D3D2B004C2685 /* ContactCollectionViewCell.swift in Sources */,
 				C2B11B062044F73E00726A86 /* ChatTableViewCell.swift in Sources */,
