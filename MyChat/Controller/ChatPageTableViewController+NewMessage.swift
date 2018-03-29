@@ -15,6 +15,23 @@ extension ChatPageTableViewController: SocketIODelegate {
     }
     
     func revieveMessage(message: String, from: String) {
-        friendSendsMessage(message)
+        if (from == friend.id) {
+            friendSendsMessage(message)
+        } else {
+            if (!Global.unread_messages.keys.contains(from)) {
+                Global.unread_messages[from] = [String]()
+            }
+            Global.unread_messages[from]!.append(message)
+        }
+    }
+    
+    func checkUnreadMessgae() {
+        let friendid = friend.id!
+        if (Global.unread_messages.keys.contains(friendid)) {
+            let messages = Global.unread_messages[friendid]!
+            for message in messages {
+                friendSendsMessage(message)
+            }
+        }
     }
 }

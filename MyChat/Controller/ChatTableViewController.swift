@@ -39,6 +39,7 @@ class ChatTableViewController: UITableViewController, NSFetchedResultsController
         tableView.tableFooterView = UIView()
         tableView.backgroundColor = UIColor(displayP3Red: 237/255, green: 235/255, blue: 235/255, alpha: 1)
         
+        SocketIOUtil.initialize()
     }
     
     private func setUpSearchBar() {
@@ -52,6 +53,7 @@ class ChatTableViewController: UITableViewController, NSFetchedResultsController
         getData()
         tableView.reloadData()
         setDelegate()
+        checkUnreadMessgae()
     }
     
     override func didReceiveMemoryWarning() {

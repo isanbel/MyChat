@@ -17,4 +17,12 @@ extension ChatTableViewController: SocketIODelegate {
     func revieveMessage(message: String, from: String) {
         print("在列表收到了：\(message)")
     }
+    
+    func checkUnreadMessgae() {
+        for lm in lastMessages {
+            if (Global.unread_messages.keys.contains(lm.friend!.id!)) {
+                // TODO: 把未读消息 lm 显示，并加小红点
+            }
+        }
+    }
 }

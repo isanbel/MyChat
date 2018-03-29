@@ -31,7 +31,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // UIApplication.shared.registerForRemoteNotifications()
         
         // TODO: 到时改在判断登录成功之后再连接
-        SocketIOUtil.initialize()
+//        if (Global.user.id != nil) {
+//            SocketIOUtil.initialize()
+//        }
         
         return true
     }

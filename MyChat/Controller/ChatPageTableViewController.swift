@@ -10,6 +10,7 @@ import UIKit
 import CoreData
 import AVFoundation
 import SwiftyJSON
+import SocketIO
 
 class ChatPageTableViewController:
     UIViewController,
@@ -38,6 +39,10 @@ class ChatPageTableViewController:
     // friend preference
     var is_preferencing: Bool = false
     var new_friend: FriendBase!
+    var socket_manager: SocketManager!
+    var socket: SocketIOClient!
+    var preference_key: String!
+    var preference_value: String!
     
     @IBAction func startRecord() {
         self.iflySpeechRecognizer.startListening()
@@ -120,6 +125,7 @@ class ChatPageTableViewController:
         
         print("我来到了：ChatPageTableViewController")
         setDelegate()
+        checkUnreadMessgae()
     }
     
     override func didReceiveMemoryWarning() {
