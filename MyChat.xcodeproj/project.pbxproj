@@ -34,13 +34,14 @@
 		A8D98DD72060B6E50062BD2C /* Postman.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D98DD62060B6E50062BD2C /* Postman.swift */; };
 		A8D98DDA20611DBE0062BD2C /* FriendBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D98DD920611DBE0062BD2C /* FriendBase.swift */; };
 		A8F97CD3205D364C001167C7 /* iflyMSC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8F97CD2205D364B001167C7 /* iflyMSC.framework */; };
+		C2222742206522F600EA5FE0 /* ChatPageTableViewController+SwipInputBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2222741206522F600EA5FE0 /* ChatPageTableViewController+SwipInputBar.swift */; };
 		C2224ABF204CF669001A9D06 /* ContactTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2224ABE204CF669001A9D06 /* ContactTableViewCell.swift */; };
-		C2224AC1204CF754001A9D06 /* ContactTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2224AC0204CF754001A9D06 /* ContactTableViewController.swift */; };
 		C2224AC3204CF8B5001A9D06 /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2224AC2204CF8B5001A9D06 /* Friend.swift */; };
 		C2224AC5204D1B17001A9D06 /* FriendProlileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2224AC4204D1B17001A9D06 /* FriendProlileTableViewController.swift */; };
 		C2224AEB204D4A8B001A9D06 /* MyChat.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C2224AE9204D4A8B001A9D06 /* MyChat.xcdatamodeld */; };
 		C2224AED204D7F75001A9D06 /* NewFriendTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2224AEC204D7F75001A9D06 /* NewFriendTableViewController.swift */; };
 		C2224AEF204DB047001A9D06 /* RoundedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2224AEE204DB047001A9D06 /* RoundedTextField.swift */; };
+		C2399274205E8E1400EB3D13 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2399273205E8E1400EB3D13 /* TabBarController.swift */; };
 		C247D3402047956000456567 /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C247D33F2047956000456567 /* ChatMessage.swift */; };
 		C24EBD27204B9F8500C49569 /* Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24EBD26204B9F8500C49569 /* Tools.swift */; };
 		C26444682024B0DE004E86C5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26444672024B0DE004E86C5 /* AppDelegate.swift */; };
@@ -98,13 +99,14 @@
 		A8F97CCD205CF886001167C7 /* iflyMSC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iflyMSC.framework; path = MyChat/iflyMSC.framework; sourceTree = "<group>"; };
 		A8F97CD2205D364B001167C7 /* iflyMSC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iflyMSC.framework; path = lib/iflyMSC.framework; sourceTree = "<group>"; };
 		C049B3444924D59407AF0FA7 /* Pods_MyChat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyChat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C2222741206522F600EA5FE0 /* ChatPageTableViewController+SwipInputBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatPageTableViewController+SwipInputBar.swift"; sourceTree = "<group>"; };
 		C2224ABE204CF669001A9D06 /* ContactTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactTableViewCell.swift; sourceTree = "<group>"; };
-		C2224AC0204CF754001A9D06 /* ContactTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactTableViewController.swift; sourceTree = "<group>"; };
 		C2224AC2204CF8B5001A9D06 /* Friend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Friend.swift; sourceTree = "<group>"; };
 		C2224AC4204D1B17001A9D06 /* FriendProlileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendProlileTableViewController.swift; sourceTree = "<group>"; };
 		C2224AEA204D4A8B001A9D06 /* MyChat.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MyChat.xcdatamodel; sourceTree = "<group>"; };
 		C2224AEC204D7F75001A9D06 /* NewFriendTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewFriendTableViewController.swift; sourceTree = "<group>"; };
 		C2224AEE204DB047001A9D06 /* RoundedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedTextField.swift; sourceTree = "<group>"; };
+		C2399273205E8E1400EB3D13 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		C247D33F2047956000456567 /* ChatMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
 		C24EBD26204B9F8500C49569 /* Tools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tools.swift; sourceTree = "<group>"; };
 		C26444642024B0DE004E86C5 /* MyChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -287,6 +289,7 @@
 				A8309B71206889D900CB98FC /* ChatPageTableViewController+FriendPreference.swift */,
 				A8618D1A206B7B1D00C26D47 /* ChatPageTableViewController+NewMessage.swift */,
 				C2224AC0204CF754001A9D06 /* ContactTableViewController.swift */,
+				C2222741206522F600EA5FE0 /* ChatPageTableViewController+SwipInputBar.swift */,
 				C2D45DB4205D3D1D004C2685 /* ContactCollectionViewController.swift */,
 				C2224AC4204D1B17001A9D06 /* FriendProlileTableViewController.swift */,
 				C2224AEC204D7F75001A9D06 /* NewFriendTableViewController.swift */,
@@ -297,6 +300,7 @@
 				C2FDE81E20509193005CB808 /* LaunchViewController.swift */,
 				C2FDE820205094CD005CB808 /* SettingsTableViewController.swift */,
 				C2FDE8222050B204005CB808 /* FriendManagementTableViewController.swift */,
+				C2399273205E8E1400EB3D13 /* TabBarController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -464,6 +468,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C2222742206522F600EA5FE0 /* ChatPageTableViewController+SwipInputBar.swift in Sources */,
 				C2BE1C20204E6F37008B8E01 /* MyProfileTableViewController.swift in Sources */,
 				C2FDE8252051449D005CB808 /* AddFriendTableViewController.swift in Sources */,
 				A8079A84205FF07500189150 /* Config.swift in Sources */,
@@ -502,6 +507,7 @@
 				C2FDE81D20500F78005CB808 /* DiscoveryTableViewController.swift in Sources */,
 				C2B11B0C20451A1200726A86 /* LastMessage.swift in Sources */,
 				A8D69F3C204FC1340081B18D /* SocketIOUtil.swift in Sources */,
+				C2399274205E8E1400EB3D13 /* TabBarController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -653,7 +659,7 @@
 				INFOPLIST_FILE = MyChat/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = MyChat.chengquanli;
+				PRODUCT_BUNDLE_IDENTIFIER = mychat.com;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "MyChat-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -681,7 +687,7 @@
 				INFOPLIST_FILE = MyChat/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = MyChat.chengquanli;
+				PRODUCT_BUNDLE_IDENTIFIER = mychat.com;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "MyChat-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
@@ -758,7 +764,7 @@
 				INFOPLIST_FILE = MyChat/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = MyChat.chengquanli;
+				PRODUCT_BUNDLE_IDENTIFIER = mychat.com;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "MyChat-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;

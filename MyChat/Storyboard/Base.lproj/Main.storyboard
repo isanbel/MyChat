@@ -510,24 +510,25 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TEx-sf-ELg">
                                 <rect key="frame" x="0.0" y="499" width="375" height="50"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gYi-gQ-V8t">
-                                        <rect key="frame" x="8" y="6" width="30" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Button" image="chat-input-voice"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gYi-gQ-V8t">
+                                        <rect key="frame" x="5" y="10" width="30" height="30"/>
+                                        <state key="normal" image="chat-input-voice"/>
                                         <connections>
                                             <action selector="startRecord" destination="N4k-Tg-JOS" eventType="touchDown" id="0SF-Jw-YMm"/>
                                             <action selector="stopRecord" destination="N4k-Tg-JOS" eventType="touchUpInside" id="gsv-oY-32n"/>
                                         </connections>
                                     </button>
-                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wpy-rr-Y7I">
-                                        <rect key="frame" x="40" y="7" width="249" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wpy-rr-Y7I">
+                                        <rect key="frame" x="40" y="8" width="260" height="34"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="34" id="zqy-FC-w5h"/>
+                                        </constraints>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="PS1-7I-DGK">
-                                        <rect key="frame" x="297" y="7" width="68" height="30"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="PS1-7I-DGK">
+                                        <rect key="frame" x="305" y="10" width="65" height="30"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S7n-8S-j0a">
                                                 <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
@@ -538,17 +539,26 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iUf-fy-ZF0">
-                                                <rect key="frame" x="38" y="0.0" width="30" height="30"/>
+                                                <rect key="frame" x="35" y="0.0" width="30" height="30"/>
                                                 <state key="normal" image="chat-input-add"/>
                                             </button>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstItem="iUf-fy-ZF0" firstAttribute="centerY" secondItem="PS1-7I-DGK" secondAttribute="centerY" id="Fln-rw-YpF"/>
+                                            <constraint firstAttribute="width" constant="65" id="HHP-zs-li3"/>
+                                        </constraints>
                                     </stackView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="PS1-7I-DGK" firstAttribute="top" secondItem="TEx-sf-ELg" secondAttribute="top" constant="7" id="RSd-d4-26V"/>
+                                    <constraint firstItem="gYi-gQ-V8t" firstAttribute="leading" secondItem="TEx-sf-ELg" secondAttribute="leading" constant="5" id="IaM-ub-waL"/>
+                                    <constraint firstItem="wpy-rr-Y7I" firstAttribute="leading" secondItem="gYi-gQ-V8t" secondAttribute="trailing" constant="5" id="MUj-O4-BtN"/>
+                                    <constraint firstItem="PS1-7I-DGK" firstAttribute="centerY" secondItem="TEx-sf-ELg" secondAttribute="centerY" id="OgR-Ii-JTk"/>
                                     <constraint firstAttribute="height" constant="50" id="XXI-cG-P6u"/>
-                                    <constraint firstAttribute="trailing" secondItem="PS1-7I-DGK" secondAttribute="trailing" constant="10" id="xxI-mb-Irt"/>
+                                    <constraint firstItem="gYi-gQ-V8t" firstAttribute="centerY" secondItem="TEx-sf-ELg" secondAttribute="centerY" id="c7X-2a-8kE"/>
+                                    <constraint firstItem="PS1-7I-DGK" firstAttribute="leading" secondItem="wpy-rr-Y7I" secondAttribute="trailing" constant="5" id="nYx-fD-Rcl"/>
+                                    <constraint firstItem="wpy-rr-Y7I" firstAttribute="centerY" secondItem="TEx-sf-ELg" secondAttribute="centerY" id="rFk-MJ-p53"/>
+                                    <constraint firstAttribute="trailing" secondItem="PS1-7I-DGK" secondAttribute="trailing" constant="5" id="xxI-mb-Irt"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -1259,7 +1269,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="Aqp-1N-eqT">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="8Yq-kg-Aam" sceneMemberID="viewController">
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="8Yq-kg-Aam" customClass="TabBarController" customModule="MyChat" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="hBT-fG-YOl">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
@@ -1272,6 +1282,8 @@
                         </userDefinedRuntimeAttributes>
                     </tabBar>
                     <connections>
+                        <outlet property="tabBar" destination="hBT-fG-YOl" id="iUo-vh-ItV"/>
+                        <outlet property="tabbar" destination="hBT-fG-YOl" id="ksU-od-pgk"/>
                         <segue destination="0hN-hT-dKh" kind="relationship" relationship="viewControllers" id="ohI-AB-qzJ"/>
                         <segue destination="poK-mC-8lS" kind="relationship" relationship="viewControllers" id="a0t-gM-xtt"/>
                         <segue destination="EMR-kd-qOe" kind="relationship" relationship="viewControllers" id="E8O-Ef-3Nb"/>

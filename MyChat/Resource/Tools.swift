@@ -23,9 +23,10 @@ extension Date {
         // 时间
         formatter.dateFormat = "hh:mm"
         var time = formatter.string(from: self)
-        if daysFromNow == 0 { date = "今天" }
-        if daysFromNow == 1 { date = "昨天" }
+        if daysFromNow > 2 { time = "" }
         if daysFromNow == 2 { date = "前天" }
+        if daysFromNow == 1 { date = "昨天" }
+        if daysFromNow == 0 { date = "今天" }
         if hoursFromNow == 0 && secondsFromNow >= 0 {
             date = ""
             if minutesFromNow > 0 {
@@ -34,7 +35,7 @@ extension Date {
                 time = secondsFromNow < 15 ? "刚刚" : "\(secondsFromNow) 秒前"
             }
         }
-        return date == "" ? time : date + " " + time
+        return date == "" ? time : ( time == "" ? date : date + " " + time)
     }
 }
 

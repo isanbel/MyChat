@@ -44,6 +44,7 @@ class ChatTableViewController: UITableViewController, NSFetchedResultsController
     
     private func setUpSearchBar() {
         searchBar.delegate = self
+        searchBar.setValue("取消", forKey: "cancelButtonText")
     }
     
     override func viewWillAppear(_ animated: Bool) {

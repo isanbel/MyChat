@@ -43,6 +43,9 @@ class ChatPageTableViewController:
     var socket: SocketIOClient!
     var preference_key: String!
     var preference_value: String!
+
+    var keyBoardOnRight: Bool = true
+    var keyBoardSnapShotView: UIImageView!
     
     @IBAction func startRecord() {
         self.iflySpeechRecognizer.startListening()
@@ -115,6 +118,8 @@ class ChatPageTableViewController:
             Utils.initBaiduAccessToken()
         }
         
+        addGestureToKeyBoardView()
+
         if (self.friend.preference == nil) {
             friendPreference()
         }
@@ -240,7 +245,7 @@ class ChatPageTableViewController:
         return false
     }
     
-    func sendMessage(message message_sent: String) {
+    func appendDateIndicatorIfNeeded() {
         if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
             // save date indicator if last message is nil or 5 min ago
             if let lastmessageDate = friend.lastMessage?.date {
@@ -260,9 +265,17 @@ class ChatPageTableViewController:
                 dateIndicator.isDateIdentifier = true
                 appendMessageAndShow(message: dateIndicator)
             }
+            appDelegate.saveContext()
+        }
+    }
+    
+    func sendMessage(_ message_sent: String) {
+        let msgTypeIsSent = keyBoardOnRight
+        if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
+            appendDateIndicatorIfNeeded()
             
             let message = ChatMessageMO(context: appDelegate.persistentContainer.viewContext)
-            message.isSent = true
+            message.isSent = msgTypeIsSent
             message.date = Date()
             message.contentText = message_sent
             message.friend = friend
@@ -301,6 +314,8 @@ class ChatPageTableViewController:
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         
         let onSuccess = { (data: [String: Any]) in
+            self.appendDateIndicatorIfNeeded()
+
             let result = data["result"] as! String
             let response_msg = ChatMessageMO(context: appDelegate.persistentContainer.viewContext)
             response_msg.isSent = false
@@ -336,7 +351,7 @@ class ChatPageTableViewController:
     
     func saveMessageToStoreAndShow() {
         let messgae = textField.text!
-        sendMessage(message: messgae)
+        sendMessage(messgae)
     }
     
     func appendMessageAndShow(message: ChatMessageMO) {
@@ -355,7 +370,7 @@ class ChatPageTableViewController:
 
         scrollToBottom(animated: true)
     }
-
+    
     func scrollToBottom(animated: Bool) {
         if self.chatMessages.count > 0 {
             DispatchQueue.main.async {
