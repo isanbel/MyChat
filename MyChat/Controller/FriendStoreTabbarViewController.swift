@@ -32,7 +32,7 @@ class FriendStoreTabbarViewController: UITabBarController {
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
         
         UIApplication.shared.statusBarStyle = .lightContent
-        UIApplication.shared.statusBarView?.backgroundColor = Global.navbar_bgc
+        UIApplication.shared.statusBarView?.backgroundColor = UIColor.clear
         
         navigationController?.hidesBarsOnSwipe = false
     }
