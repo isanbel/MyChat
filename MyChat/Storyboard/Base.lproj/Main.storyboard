@@ -1529,7 +1529,7 @@
         <!--好友商店-->
         <scene sceneID="jcA-aE-32W">
             <objects>
-                <tabBarController title="好友商店" hidesBottomBarWhenPushed="YES" id="zVJ-u3-SZi" sceneMemberID="viewController">
+                <tabBarController title="好友商店" hidesBottomBarWhenPushed="YES" id="zVJ-u3-SZi" customClass="FriendStoreTabbarViewController" customModule="MyChat" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="fVN-QN-pPs">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
