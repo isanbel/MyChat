@@ -65,13 +65,17 @@ class TodayTableViewCell: UITableViewCell {
             self.containerView.layer.shadowOffset = .zero
             self.containerView.layer.shadowRadius = 10
             
-            let subTitleAttr = [NSAttributedStringKey.foregroundColor: UIColor(hex: "#bcbcbc")]
-            subTitleLabel.attributedText = NSAttributedString(string: subTitleLabel.text!, attributes: subTitleAttr)
-            subTitleLabel.frame = CGRect(x: 20, y: 18, width: 200, height: 40)
             
-            let titleAttr = [NSAttributedStringKey.foregroundColor: UIColor(hex: "#ffffff"), NSAttributedStringKey.font: UIFont(name: "PingFangSC-Regular", size: 30)]
+            let subTitleColor = (todayCommodity?.isLightMode)! ? UIColor(hex: "#dddddd") : UIColor(hex: "#333333")
+            let titleColor = (todayCommodity?.isLightMode)! ? UIColor(hex: "#ffffff") : UIColor(hex: "#222222")
+            
+            let subTitleAttr = [NSAttributedStringKey.foregroundColor: subTitleColor]
+            subTitleLabel.attributedText = NSAttributedString(string: subTitleLabel.text!, attributes: subTitleAttr)
+            subTitleLabel.frame = CGRect(x: 20, y: 15, width: 200, height: 40)
+            
+            let titleAttr = [NSAttributedStringKey.foregroundColor: titleColor, NSAttributedStringKey.font: UIFont(name: "PingFangSC-Medium", size: 26)]
             titleLabel.attributedText = NSAttributedString(string: titleLabel.text!, attributes: titleAttr)
-            titleLabel.frame = CGRect(x: 20, y: 50, width: 200, height: 40)
+            titleLabel.frame = CGRect(x: 20, y: 50, width: SCREEN_WIDTH - 80, height: 40)
             
         }
     }

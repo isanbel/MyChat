@@ -20,6 +20,7 @@ class FriendStoreTabbarViewController: UITabBarController {
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.black]
         
         UIApplication.shared.statusBarStyle = .default
+        UIApplication.shared.statusBarView?.backgroundColor = .white
         
         navigationController?.hidesBarsOnSwipe = true
     }
@@ -31,7 +32,17 @@ class FriendStoreTabbarViewController: UITabBarController {
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
         
         UIApplication.shared.statusBarStyle = .lightContent
+        UIApplication.shared.statusBarView?.backgroundColor = Global.navbar_bgc
         
         navigationController?.hidesBarsOnSwipe = false
+    }
+}
+
+extension UIApplication {
+    var statusBarView: UIView? {
+        if responds(to: Selector(("statusBar"))) {
+            return value(forKey: "statusBar") as? UIView
+        }
+        return nil
     }
 }
