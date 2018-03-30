@@ -460,7 +460,7 @@
             <objects>
                 <viewController hidesBottomBarWhenPushed="YES" id="N4k-Tg-JOS" customClass="ChatPageTableViewController" customModule="MyChat" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="LWX-1F-3DN">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Of7-Y5-z5j">
@@ -508,7 +508,7 @@
                                 </prototypes>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TEx-sf-ELg">
-                                <rect key="frame" x="0.0" y="435" width="375" height="50"/>
+                                <rect key="frame" x="0.0" y="499" width="375" height="50"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gYi-gQ-V8t">
                                         <rect key="frame" x="5" y="10" width="30" height="30"/>
@@ -721,7 +721,7 @@
             <objects>
                 <tableViewController id="FRm-uA-8aW" customClass="FriendManagementTableViewController" customModule="MyChat" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="2jY-l6-GxE">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <sections>
@@ -1512,13 +1512,26 @@
         <!--好友商店-->
         <scene sceneID="19Q-ur-PzY">
             <objects>
-                <viewController id="Rfm-C1-veZ" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="OVh-kt-cfL">
+                <viewController id="Rfm-C1-veZ" customClass="TodayTableViewController" customModule="MyChat" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="GTI-4P-0SK">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="ezz-du-CBe"/>
-                    </view>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TodayTableViewCell" id="ahK-bx-FRV" customClass="TodayTableViewCell" customModule="MyChat" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ahK-bx-FRV" id="EC1-Yl-q5t">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Rfm-C1-veZ" id="OnY-20-u3d"/>
+                            <outlet property="delegate" destination="Rfm-C1-veZ" id="oUg-yI-zCK"/>
+                        </connections>
+                    </tableView>
                     <tabBarItem key="tabBarItem" title="今日" image="store_today" id="PHI-8N-6h6"/>
                     <navigationItem key="navigationItem" title="好友商店" id="rNz-pf-A4K"/>
                 </viewController>
@@ -2139,7 +2152,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="LIL-AL-66x"/>
         <segue reference="fpZ-aC-oTX"/>
-        <segue reference="1GW-4Y-men"/>
-        <segue reference="Ecw-gw-TT8"/>
+        <segue reference="dg8-bk-EQE"/>
+        <segue reference="0c0-lY-6PY"/>
     </inferredMetricsTieBreakers>
 </document>
