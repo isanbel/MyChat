@@ -1,20 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="m6T-eq-jEw">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="m6T-eq-jEw">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="PingFang.ttc">
-            <string>PingFangSC-Regular</string>
-        </array>
-    </customFonts>
     <scenes>
         <!--自信-->
         <scene sceneID="cUc-Ml-k6n">
@@ -315,10 +310,10 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="79.5"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jA1-HG-tXq">
-                                                            <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="375" height="49.5"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="姓名" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D6A-lh-0H9">
-                                                                    <rect key="frame" x="20" y="10" width="355" height="30"/>
+                                                                    <rect key="frame" x="20" y="10" width="355" height="29.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -333,7 +328,7 @@
                                                             </constraints>
                                                         </view>
                                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cHa-uq-dU7" customClass="RoundedTextField" customModule="MyChat" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="50" width="355" height="29.5"/>
+                                                            <rect key="frame" x="0.0" y="49.5" width="355" height="30"/>
                                                             <nil key="textColor"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <textInputTraits key="textInputTraits"/>
@@ -508,7 +503,7 @@
                                 </prototypes>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TEx-sf-ELg">
-                                <rect key="frame" x="0.0" y="499" width="375" height="50"/>
+                                <rect key="frame" x="0.0" y="617" width="375" height="50"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gYi-gQ-V8t">
                                         <rect key="frame" x="5" y="10" width="30" height="30"/>
@@ -1143,6 +1138,9 @@
                                                         <integer key="value" value="25"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="getCode:" destination="wAc-2a-Z6n" eventType="touchUpInside" id="r5T-0Z-eQZ"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
@@ -1253,13 +1251,14 @@
                         <outlet property="code_tf" destination="nme-mq-zh4" id="6zG-FO-IKI"/>
                         <outlet property="entryBtn" destination="YB5-te-oxK" id="3cE-Rl-8Z5"/>
                         <outlet property="forgetPwView" destination="qQd-5q-7nj" id="BSE-u6-bVa"/>
+                        <outlet property="getCodeBtn" destination="0mf-X7-oSn" id="7dv-D9-b4u"/>
                         <outlet property="password_tf" destination="cC0-ch-yZZ" id="fnt-h0-9qx"/>
                         <outlet property="selectView" destination="xAb-d3-cOw" id="gSJ-J0-0rb"/>
                         <outlet property="username_tf" destination="ZMH-DJ-uCW" id="p3s-Su-KUY"/>
                         <outletCollection property="textAreas" destination="6op-5W-jTN" collectionClass="NSMutableArray" id="sce-ad-qtc"/>
                         <outletCollection property="textAreas" destination="jDa-cy-pPT" collectionClass="NSMutableArray" id="Ba8-wB-5Sp"/>
                         <outletCollection property="textAreas" destination="LKy-u5-pyU" collectionClass="NSMutableArray" id="Zd0-sI-Tf0"/>
-                        <segue destination="8Yq-kg-Aam" kind="showDetail" identifier="Enter" action="showViewController:sender:" id="fpZ-aC-oTX"/>
+                        <segue destination="8Yq-kg-Aam" kind="showDetail" identifier="Enter" id="fpZ-aC-oTX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3yO-B7-NW6" userLabel="First Responder" sceneMemberID="firstResponder"/>

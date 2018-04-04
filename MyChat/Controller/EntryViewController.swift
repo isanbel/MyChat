@@ -13,6 +13,10 @@ class EntryViewController: UIViewController, UINavigationControllerDelegate, UIT
 
     var fetchResultController: NSFetchedResultsController<UserMO>!
     var isToLogin = true
+    var correctCode: String?
+    
+    var codeTimer: Timer?
+    var remainingSec: Int = 60
 
     @IBOutlet weak var username_tf: UITextField! {
         didSet {
@@ -29,6 +33,53 @@ class EntryViewController: UIViewController, UINavigationControllerDelegate, UIT
             
             code_tf.placeholder = "验证码"
             code_tf.borderStyle = .none
+        }
+    }
+    
+    @IBAction func getCode(_ sender: UIButton) {
+        let username = username_tf.text!
+        
+        if !isValidEmail(testStr: username) {
+            let msg = "请输入有效的邮箱"
+            present(Utils.getAlertController(title: "错误", message: msg), animated: true, completion: nil)
+        }
+        
+        let parameters: [String: Any] = [
+            "username": username
+        ]
+
+        let url: String = "/users/auth"
+        let that = self
+        let onSuccess = { (data: [String: Any]) in
+            self.remainingSec = 120
+            self.codeTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.startCodeTimer), userInfo: nil, repeats: true)
+            self.correctCode = data["authcode"] as? String
+        }
+        let onFailure = { (data: [String: Any]) in
+            let msg = data["message"] as! String
+            that.present(Utils.getAlertController(title: "错误", message: msg), animated: true, completion: nil)
+        }
+        
+        HttpUtil.post(url: url, parameters: parameters, onSuccess: onSuccess, onFailure: onFailure);
+    }
+    
+    @objc func startCodeTimer()
+    {
+        getCodeBtn.setTitle(String(remainingSec) + "s", for: .normal)
+        getCodeBtn.isEnabled = false
+        remainingSec = remainingSec - 1
+        if remainingSec < 0 {
+            stopCodeTimer()
+        }
+    }
+    
+    func stopCodeTimer() {
+        getCodeBtn.setTitle("发送验证码", for: .normal)
+        getCodeBtn.isEnabled = true
+        correctCode = nil
+        if codeTimer != nil {
+            codeTimer?.invalidate()
+            codeTimer = nil
         }
     }
     
@@ -80,15 +131,12 @@ class EntryViewController: UIViewController, UINavigationControllerDelegate, UIT
     
     @IBOutlet weak var forgetPwView: UIStackView!
     @IBOutlet weak var entryBtn: UIButton!
+    @IBOutlet weak var getCodeBtn: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         password_tf.isSecureTextEntry = true
-        
-        // For Dev convinience
-        // username_tf.text = "tutu"
-        // password_tf.text = "1212"
         
         selectView.setTitle("登录", forSegmentAt: 0)
         selectView.setTitle("注册", forSegmentAt: 1)
@@ -103,13 +151,24 @@ class EntryViewController: UIViewController, UINavigationControllerDelegate, UIT
         self.view.endEditing(true)
     }
     
+    func codeIsCorrect() -> Bool {
+        let code = code_tf.text!
+        if code == correctCode {
+            return true
+        } else {
+            let msg = "验证码错误"
+            present(Utils.getAlertController(title: "错误", message: msg), animated: true, completion: nil)
+            return false
+        }
+    }
+    
     @IBAction func entry_bt(_ sender: UIButton) {
         let username = username_tf.text!
         let password = password_tf.text!
         
         // 检查账号密码不为空
-        if (username.isEmpty) {
-            let msg = "账号不能为空"
+        if (!isValidEmail(testStr: username)) {
+            let msg = "请输入有效的邮箱"
             present(Utils.getAlertController(title: "错误", message: msg), animated: true, completion: nil)
             return
         }
@@ -119,31 +178,28 @@ class EntryViewController: UIViewController, UINavigationControllerDelegate, UIT
             return
         }
         
+        // 如果是注册，先验证验证码
+        if !isToLogin && !codeIsCorrect() {
+            return
+        }
+        
         let parameters: [String: Any] = [
             "username": username,
             "password": password
         ]
-        let url: String = "/users/signin"
+        let url: String = isToLogin ? "/users/signin" : "/users/signup"
         let that = self
         let onSuccess = { (data: [String: Any]) in
             self.self.saveUserData(data: data)
             that.performSegue(withIdentifier: "Enter", sender: nil)
         }
         
-        let onSignupFailure = { (data: [String: Any]) in
-            let msg = "用户名不存在，尝试创建新用户失败"
+        let onFailure = { (data: [String: Any]) in
+            let msg = data["message"] as! String
             that.present(Utils.getAlertController(title: "错误", message: msg), animated: true, completion: nil)
         }
-        let onSigninFailure = { (data: [String: Any]) in
-            let msg = data["message"] as! String
-            if (msg == "用户名不存在") {
-                let url = "/users/signup"
-                HttpUtil.post(url: url, parameters: parameters, onSuccess: onSuccess, onFailure: onSignupFailure)
-            } else {
-                that.present(Utils.getAlertController(title: "错误", message: msg), animated: true, completion: nil)
-            }
-        }
-        HttpUtil.post(url: url, parameters: parameters, onSuccess: onSuccess, onFailure: onSigninFailure);
+        
+        HttpUtil.post(url: url, parameters: parameters, onSuccess: onSuccess, onFailure: onFailure);
     }
     
     func saveUserData(data: [String: Any]) {
@@ -220,10 +276,12 @@ class EntryViewController: UIViewController, UINavigationControllerDelegate, UIT
     
     @objc func tabSegment() {
         let toLogin = selectView.selectedSegmentIndex == 0
+        isToLogin = toLogin
         codeAreaView.isHidden = toLogin ? true : false
         password_tf.placeholder = toLogin ? "密码" : "密码（不超过12位）"
         forgetPwView.isHidden = toLogin ? false : true
-        entryBtn.titleLabel?.text = toLogin ? "登  录" : "注  册"
+        let entryBtnTitle = toLogin ? "登  录" : "注  册"
+        entryBtn.setTitle(entryBtnTitle, for: .normal)
         for constraint in view.constraints {
             if constraint.identifier == "entryBtnToForgetPwC" {
                 constraint.constant = toLogin ? 30 : 5
@@ -270,4 +328,12 @@ class EntryViewController: UIViewController, UINavigationControllerDelegate, UIT
     }
     
 
+}
+
+func isValidEmail(testStr:String) -> Bool {
+    // print("validate calendar: \(testStr)")
+    let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+    
+    let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+    return emailTest.evaluate(with: testStr)
 }
