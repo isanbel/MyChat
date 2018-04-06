@@ -30,6 +30,23 @@ class HttpUtil {
         }
     }
     
+    static func delete(url: String, parameters: Parameters, onSuccess: @escaping([String: Any]) -> Void, onFailure: @escaping([String: Any]) -> Void) {
+        Alamofire.request(BASE_URL + url, method: .delete, parameters: parameters, encoding: JSONEncoding.default).responseJSON { response in
+            if (response.result.isSuccess) {
+                let value = response.result.value!
+                let json = JSON(value)
+                print(json)
+                if let code = json["code"].int, code == 0 {
+                    onSuccess(json.dictionaryObject!)
+                } else {
+                    onFailure(json.dictionaryObject!)
+                }
+            } else {
+                print(response.result.error!)
+            }
+        }
+    }
+    
     static func get(url: String, onSuccess: @escaping([String: Any]) -> Void, onFailure: @escaping([String: Any]) -> Void) {
         Alamofire.request(BASE_URL + url).responseJSON { response in
             if (response.result.isSuccess) {
