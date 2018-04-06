@@ -142,17 +142,57 @@ class ContactCollectionViewController: UICollectionViewController, UIGestureReco
         cell.name = friends[indexPath.item].name!
         cell.isEditing = self.isEdite
         cell.remove = {
-            var indexOfItem = 0
-            for i in 0..<self.friends.count {
-                if self.friends[i].id == cell.id {
-                    indexOfItem = i
-                }
+            // 弹窗确认删除
+            let alert = UIAlertController(title:"温馨提示",message:"确认要删除" + cell.name + "吗？",preferredStyle:.alert)
+            let cancel=UIAlertAction(title:"取消",style:.cancel)
+            let confirm=UIAlertAction(title:"确定",style:.default){(action)in
+                self.removeCell(atCellId: cell.id)
+                self.removeFriend(atFriendId: cell.id)
             }
-            self.friends.remove(at: indexOfItem)
-            collectionView.deleteItems(at: [IndexPath(item: indexOfItem, section: 0)])
+            alert.addAction(cancel)
+            alert.addAction(confirm)
+            self.present(alert, animated: true, completion: nil)
         }
     
         return cell
+    }
+    
+    func removeCell(atCellId: String) {
+        var indexOfItem = 0
+        for i in 0..<self.friends.count {
+            if self.friends[i].id == atCellId {
+                indexOfItem = i
+            }
+        }
+        // delete the friend in the store
+        if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
+            let context = appDelegate.persistentContainer.viewContext
+            context.delete(self.friends[indexOfItem])
+            appDelegate.saveContext()
+        }
+        self.friends.remove(at: indexOfItem)
+        
+        collectionView?.deleteItems(at: [IndexPath(item: indexOfItem, section: 0)])
+    }
+    
+    func removeFriend(atFriendId: String) {
+        let userid = Global.user.id
+        let friendId = atFriendId
+        
+        let parameters: [String: Any] = [
+            "userid": userid!,
+            "friendid": friendId
+        ]
+        
+        let url = "/friends"
+        let onSuccess = { (data: [String: Any]) in
+        }
+        let onFailure = { (data: [String: Any]) in
+            let msg = data["message"] as! String
+            self.present(Utils.getAlertController(title: "错误", message: msg), animated: true, completion: nil)
+        }
+        
+        HttpUtil.delete(url: url, parameters: parameters, onSuccess: onSuccess, onFailure: onFailure);
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -264,4 +304,3 @@ class ContactViewLayout: UICollectionViewFlowLayout {
         sectionInset = UIEdgeInsets(top: 10, left: paddingLeft, bottom: 10, right: paddingLeft)
     }
 }
-
