@@ -15,7 +15,6 @@ class SocketIOUtil {
     static weak var delegate: SocketIODelegate?
     
     static func initialize() {
-        ß
         socket.on("connect", callback: { (data, ack) in
             print(data)
             print(ack)
