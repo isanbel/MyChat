@@ -9,22 +9,15 @@
 import UIKit
 import CoreData
 
-class ChatTableViewController: UITableViewController, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, UISearchBarDelegate {
+class ChatTableViewController: UITableViewController, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, UISearchBarDelegate, UISearchResultsUpdating {
 
     var lastMessages: [LastMessageMO] = []
     var fetchResultController: NSFetchedResultsController<LastMessageMO>!
-    var filtered: [LastMessageMO] = []
+    var filteredLastMessages: [LastMessageMO] = []
     
     @IBOutlet var emptyChatTableView: UIView!
-    @IBOutlet weak var searchBar: UISearchBar! {
-        didSet {
-            searchBar.backgroundImage = UIImage()
-            searchBar.backgroundColor = .white
-            let searchField = searchBar.value(forKey: "searchField") as? UITextField
-            searchField?.backgroundColor = UIColor(hex: "#EDEBEB")
-            searchField?.layer.cornerRadius = (searchField?.layer.bounds.height)! / 2
-        }
-    }
+    
+    var searchController = UISearchController(searchResultsController: nil)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +26,11 @@ class ChatTableViewController: UITableViewController, NSFetchedResultsController
         navigationController?.navigationBar.isTranslucent = false
         
         setUpSearchBar()
+        
+        searchController.searchResultsUpdater = self
+        searchController.dimsBackgroundDuringPresentation = false
+        definesPresentationContext = true
+        tableView.tableHeaderView = searchController.searchBar
         
         tableView.backgroundView = emptyChatTableView
         tableView.backgroundView?.isHidden = true
@@ -43,8 +41,23 @@ class ChatTableViewController: UITableViewController, NSFetchedResultsController
     }
     
     private func setUpSearchBar() {
-        searchBar.delegate = self
-        searchBar.setValue("取消", forKey: "cancelButtonText")
+        searchController.searchBar.setValue("取消", forKey: "cancelButtonText")
+        searchController.searchBar.backgroundImage = UIImage()
+        searchController.searchBar.backgroundColor = .white
+        let searchField = searchController.searchBar.value(forKey: "searchField") as? UITextField
+        searchField?.backgroundColor = UIColor(hex: "#EDEBEB")
+        searchField?.layer.cornerRadius = (searchField?.layer.bounds.height)! / 2
+    }
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        if let searchTxt = searchController.searchBar.text {
+            if searchTxt == "" {
+                filteredLastMessages = lastMessages
+            } else {
+                filteredLastMessages = lastMessages.filter({ (($0.friend?.name?.lowercased().contains(searchTxt.lowercased()))! || $0.content!.lowercased().contains(searchTxt.lowercased()) )})
+            }
+        }
+        tableView.reloadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -52,6 +65,7 @@ class ChatTableViewController: UITableViewController, NSFetchedResultsController
         
         print("我来到了：ChatTableViewController")
         getData()
+        filteredLastMessages = lastMessages
         tableView.reloadData()
         setDelegate()
         checkUnreadMessgae()
@@ -77,7 +91,7 @@ class ChatTableViewController: UITableViewController, NSFetchedResultsController
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return lastMessages.count
+        return filteredLastMessages.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -85,11 +99,11 @@ class ChatTableViewController: UITableViewController, NSFetchedResultsController
         let cellIdentifier = "ChatTableViewCell"
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! ChatTableViewCell
         
-        let friend = lastMessages[indexPath.row].friend
+        let friend = filteredLastMessages[indexPath.row].friend
         cell.nameLabel.text = friend?.name
-        cell.chatsliceLabel.text = lastMessages[indexPath.row].content
-        cell.dateLabel.text = lastMessages[indexPath.row].date?.relativeTime
-        cell.stickOnTop = lastMessages[indexPath.row].stickOnTop
+        cell.chatsliceLabel.text = filteredLastMessages[indexPath.row].content
+        cell.dateLabel.text = filteredLastMessages[indexPath.row].date?.relativeTime
+        cell.stickOnTop = filteredLastMessages[indexPath.row].stickOnTop
         if let avatar = friend?.avatar {
             cell.thumbnailImageView.image = UIImage(data: avatar as Data)
         }
