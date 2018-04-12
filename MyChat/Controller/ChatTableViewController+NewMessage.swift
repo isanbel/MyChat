@@ -14,8 +14,8 @@ extension ChatTableViewController: SocketIODelegate {
         SocketIOUtil.delegate = self
     }
     
-    func revieveMessage(message: String, from: String) {
-        print("在列表收到了：\(message)")
+    func recieveMessages(messages: [String], from: String) {
+        print("在列表收到了：\(messages)")
     }
     
     func checkUnreadMessgae() {

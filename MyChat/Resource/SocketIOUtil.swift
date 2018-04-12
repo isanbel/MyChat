@@ -10,7 +10,7 @@ import SocketIO
 
 class SocketIOUtil {
     static let BASE_URL: String = "http://\(Config.SERVER_IP):3000"
-    static var manager: SocketManager = SocketManager(socketURL: URL(string: BASE_URL)!, config: [.log(true), .compress])
+    static var manager: SocketManager = SocketManager(socketURL: URL(string: BASE_URL)!, config: [.log(false), .compress])
     static var socket: SocketIOClient = manager.socket(forNamespace: "/")
     static weak var delegate: SocketIODelegate?
     
@@ -27,7 +27,15 @@ class SocketIOUtil {
         })
         
         socket.on("message", callback: { (data, ack) in
-            delegate!.revieveMessage(message: "test", from: "test")
+            let temp = data[0] as! [String: Any]
+            let message = temp["message"] as! String
+            delegate!.recieveMessages(messages: ["test"], from: "test")
+        })
+        
+        socket.on("messages", callback: { (data, ack) in
+            let temp = data[0] as! [String: Any]
+            let messages = temp["messages"] as! [String]
+            delegate!.recieveMessages(messages: ["test"], from: "test")
         })
         
         socket.connect()
