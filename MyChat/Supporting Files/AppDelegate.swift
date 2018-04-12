@@ -26,7 +26,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIApplication.shared.statusBarStyle = .lightContent
         
         // 注册消息推送
-        UIApplication.shared.registerForRemoteNotifications()
         registerForPushNotifications()
         // UIApplication.shared.registerForRemoteNotifications()
         
@@ -106,7 +105,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func registerForPushNotifications() {
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge]) { (granted, error) in
+        UIApplication.shared.registerForRemoteNotifications()
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
             print("Permission granted: \(granted)")
             guard granted else { return }
             // self.getNotificationSettings()
@@ -137,11 +137,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // Handle remote notification registration.
     func application(_ application: UIApplication,
                      didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data){
-        print(deviceToken)
+        print("deviceToken: \(deviceToken)")
         // Forward the token to your provider, using a custom method.
         // self.enableRemoteNotificationFeatures()
-        // self.forwardTokenToServer(token: deviceToken)
+        self.forwardTokenToServer(token: deviceToken)
     }
+    
+    func forwardTokenToServer(token: Data) {
+        let str = String(data: token, encoding: String.Encoding.utf8) as String!
+        print(str)
+    }
+    
     
     func application(_ application: UIApplication,
                      didFailToRegisterForRemoteNotificationsWithError error: Error) {

@@ -17,7 +17,10 @@ extension ChatPageTableViewController {
         socket = socket_manager.socket(forNamespace: "/")
         socket.on("connect", callback: { (data, ack) in
             print(data)
-            self.socket.emit("hello", ["userid": Global.user.id!])
+            self.socket.emit("hello", [
+                "userid": Global.user.id!,
+                "friendid": self.friend.id!
+            ])
         })
         socket.on("message", callback: { (data, ack) in
             print(data)

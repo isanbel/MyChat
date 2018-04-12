@@ -292,7 +292,7 @@ class ChatPageTableViewController:
             appDelegate.saveContext()
             appendMessageAndShow(message: message)
             
-            socketSend(message: textField.text!)
+            socketSend(message: message_sent)
         }
     }
 

@@ -18,7 +18,7 @@ class SocketIOUtil {
         socket.on("connect", callback: { (data, ack) in
             print(data)
             print(ack)
-            socket.emit("start", ["userid": Global.user.id!])
+            socket.emit("hello", ["userid": Global.user.id!])
         })
         
         socket.on("error", callback: { (data, ack) in
@@ -28,14 +28,16 @@ class SocketIOUtil {
         
         socket.on("message", callback: { (data, ack) in
             let temp = data[0] as! [String: Any]
+            let friendid = temp["friendid"] as! String
             let message = temp["message"] as! String
-            delegate!.recieveMessages(messages: ["test"], from: "test")
+            delegate!.recieveMessages(messages: [message], from: friendid)
         })
         
         socket.on("messages", callback: { (data, ack) in
             let temp = data[0] as! [String: Any]
+            let friendid = temp["friendid"] as! String
             let messages = temp["messages"] as! [String]
-            delegate!.recieveMessages(messages: ["test"], from: "test")
+            delegate!.recieveMessages(messages: messages, from: friendid)
         })
         
         socket.connect()

@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import UserNotifications
 
 class Utils {
     static func getAlertController(title: String, message: String) -> UIAlertController {
@@ -63,5 +64,17 @@ class Utils {
             "text": text
         ]
         HttpUtil.post_(url: url, parameters: parameters, onSuccess: onResult, onFailure: onError)
+    }
+    
+    static func showNotification(title: String, subtitle: String, body: String) {
+        let content = UNMutableNotificationContent()
+        content.title = title;
+        content.subtitle = subtitle;
+        content.body = body;
+        content.sound = UNNotificationSound.default()
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 10, repeats: false)
+        let request = UNNotificationRequest(identifier: "mychat", content: content, trigger: trigger)
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+        print("**********************")
     }
 }
