@@ -11,9 +11,7 @@ import Alamofire
 import SwiftyJSON
 
 class HttpUtil {
-    static let BASE_URL: String = "http://139.199.174.146:3000/api"
-    // static let BASE_URL: String = "http://127.0.0.1:3000/api"
-    // static let BASE_URL: String = "http://192.168.2.179:3000/api"
+    static let BASE_URL: String = "http://\(Config.SERVER_IP):3000/api"
     static func post(url: String, parameters: Parameters, onSuccess: @escaping([String: Any]) -> Void, onFailure: @escaping([String: Any]) -> Void) {
         Alamofire.request(BASE_URL + url, method: .post, parameters: parameters, encoding: JSONEncoding.default).responseJSON { response in
             if (response.result.isSuccess) {
