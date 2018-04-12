@@ -45,10 +45,13 @@ class SocketIOUtil {
         case "translate":
             url += ":3003"
             break
+        case "Weather":
+            url += ":3004"
+            break
         case "Mary":
             url += ":3005"
             break
-        case "secure":
+        case "secretary":
             url += ":3006"
             break
         case "SanXing":
