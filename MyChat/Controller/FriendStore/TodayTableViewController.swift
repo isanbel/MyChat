@@ -19,7 +19,7 @@ class TodayTableViewController: UITableViewController {
             TodayCommodity(id: "2", title: "准备考四六级了吗", subTitle: "英语词典", image: UIImage(named: "u750")!, price: 0, date: Date(), isLightMode: false)
         ],
         [
-            TodayCommodity(id: "3", title: "跳跃，离奇，魔幻", subTitle: "爱讲故事", image: UIImage(named: "u756")!, price: 0, date: Date(), isLightMode: false)
+            TodayCommodity(id: "3", title: "跳跃，离奇，魔幻", subTitle: "爱讲故事", image: UIImage(named: "u756")!, price: 0, date: Date().yesterday, isLightMode: false)
         ]
     ]
     
@@ -63,7 +63,8 @@ class TodayTableViewController: UITableViewController {
         let headerCellIdentifier = "TodayHeaderTableViewCell"
         let headerCell = tableView.dequeueReusableHeaderFooterView(withIdentifier: headerCellIdentifier) as! TodayHeaderTableViewCell
         
-        let titles = ["Header", "sub header"]
+        let todayCommodity = todayCommodities[section][0]
+        let titles = [todayCommodity.date.weekDayCH, todayCommodity.date.monthDayCH]
         headerCell.titles = titles
 
         return headerCell
@@ -78,13 +79,3 @@ class TodayTableViewController: UITableViewController {
         return 70
     }
 }
-
-extension Date {
-    var monthDay: String {
-        return "3月31日"
-    }
-    var weekday: String {
-        return "星期一"
-    }
-}
-

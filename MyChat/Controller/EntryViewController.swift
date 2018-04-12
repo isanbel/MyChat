@@ -22,7 +22,7 @@ class EntryViewController: UIViewController, UINavigationControllerDelegate, UIT
         didSet {
             username_tf.defaultTextAttributes = [NSAttributedStringKey.font.rawValue : UIFont(name: "PingFangSC-Regular", size: 14)!, NSAttributedStringKey.foregroundColor.rawValue : UIColor(hex: "#4c72a6")]
             
-            username_tf.placeholder = "手机号码"
+            username_tf.placeholder = "邮箱"
             username_tf.borderStyle = .none
         }
     }

@@ -163,7 +163,7 @@ class ChatPageTableViewController:
             let cellIdentifier = "ChatDateIndicatorCell"
             let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! ChatDateIndicatorCell
 
-            cell.dateLabel.text = chatMessages[indexPath.row].date?.relativeTime
+            cell.dateLabel.text = chatMessages[indexPath.row].date?.relativeDetailedTime
 
             return cell
         }
