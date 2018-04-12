@@ -667,7 +667,7 @@
 				CODE_SIGN_ENTITLEMENTS = MyChat/MyChat.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				"CODE_SIGN_STYLE[sdk=*]" = Automatic;
-				DEVELOPMENT_TEAM = H34D54V7L7;
+				DEVELOPMENT_TEAM = E5Q42GKDH5;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -677,7 +677,7 @@
 				INFOPLIST_FILE = MyChat/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = painterdrown.mychat.com;
+				PRODUCT_BUNDLE_IDENTIFIER = ithink.mychat.com;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "MyChat-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -695,7 +695,7 @@
 				CODE_SIGN_ENTITLEMENTS = MyChat/MyChat.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				"CODE_SIGN_STYLE[sdk=*]" = Automatic;
-				DEVELOPMENT_TEAM = H34D54V7L7;
+				DEVELOPMENT_TEAM = E5Q42GKDH5;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -705,7 +705,7 @@
 				INFOPLIST_FILE = MyChat/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = painterdrown.mychat.com;
+				PRODUCT_BUNDLE_IDENTIFIER = ithink.mychat.com;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "MyChat-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
@@ -772,7 +772,7 @@
 				CODE_SIGN_ENTITLEMENTS = MyChat/MyChat.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				"CODE_SIGN_STYLE[sdk=*]" = Automatic;
-				DEVELOPMENT_TEAM = H34D54V7L7;
+				DEVELOPMENT_TEAM = E5Q42GKDH5;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -782,7 +782,7 @@
 				INFOPLIST_FILE = MyChat/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = painterdrown.mychat.com;
+				PRODUCT_BUNDLE_IDENTIFIER = ithink.mychat.com;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "MyChat-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
