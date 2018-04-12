@@ -9,5 +9,5 @@
 import Foundation
 
 protocol SocketIODelegate: NSObjectProtocol {
-    func revieveMessage(message: String, from: String)
+    func recieveMessages(messages: [String], from: String)
 }

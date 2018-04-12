@@ -14,14 +14,18 @@ extension ChatPageTableViewController: SocketIODelegate {
         SocketIOUtil.delegate = self
     }
     
-    func revieveMessage(message: String, from: String) {
+    func recieveMessages(messages: [String], from: String) {
         if (from == friend.id) {
-            friendSendsMessage(message)
-        } else {
-            if (!Global.unread_messages.keys.contains(from)) {
-                Global.unread_messages[from] = [String]()
+            for message in messages {
+                self.friendSendsMessage(message)
             }
-            Global.unread_messages[from]!.append(message)
+        } else {
+//            if (!Global.unread_messages.keys.contains(from)) {
+//                Global.unread_messages[from] = [String]()
+//            }
+//            Global.unread_messages[from]!.append(message)
+            // 将未读消息存到本地数据库
+            // TODO: 左上角显示未读提示
         }
     }
     
