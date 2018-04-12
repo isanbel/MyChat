@@ -35,17 +35,13 @@ class ChatPageTableViewController:
     var hiddenTableCellHeight: CGFloat = 0
     var keyBoardHeight: CGFloat = 0
     var translationY: CGFloat = 0
-    
-    // friend preference
-    var is_preferencing: Bool = false
-    var new_friend: FriendBase!
-    var socket_manager: SocketManager!
-    var socket: SocketIOClient!
-    var preference_key: String!
-    var preference_value: String!
 
     var keyBoardOnRight: Bool = true
     var keyBoardSnapShotView: UIImageView!
+    
+    // socket
+    var socket_manager: SocketManager!
+    var socket: SocketIOClient!
     
     @IBAction func startRecord() {
         self.iflySpeechRecognizer.startListening()
@@ -114,15 +110,14 @@ class ChatPageTableViewController:
         
         initIfly()
         
-        if (Config.BAIDU_ACCESS_TOKEN == "") {
-            Utils.initBaiduAccessToken()
-        }
+//        if (Config.BAIDU_ACCESS_TOKEN == "") {
+//            Utils.initBaiduAccessToken()
+//        }
         
         addGestureToKeyBoardView()
 
-        if (self.friend.preference == nil) {
-            friendPreference()
-        }
+        print(friend)
+        initSocket()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -297,58 +292,10 @@ class ChatPageTableViewController:
             appDelegate.saveContext()
             appendMessageAndShow(message: message)
             
-            if (is_preferencing) {
-                saveToFriendPreference()
-            } else {
-                let url = "/dealMessage"
-                let parameters: [String: Any] = [
-                    "friendid": friend.id!,
-                    "mes": textField.text!
-                ]
-                waitForResponseFromServer(url: url, parameters: parameters)
-            }
+            socketSend(message: textField.text!)
         }
     }
-    
-    func waitForResponseFromServer(url: String, parameters: [String: Any]) {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        
-        let onSuccess = { (data: [String: Any]) in
-            self.appendDateIndicatorIfNeeded()
 
-            let result = data["result"] as! String
-            let response_msg = ChatMessageMO(context: appDelegate.persistentContainer.viewContext)
-            response_msg.isSent = false
-            response_msg.date = Date()
-            response_msg.contentText = result
-            response_msg.friend = self.friend
-            response_msg.isDateIdentifier = false
-            
-            // delete the old last message and add the new one
-            let context = appDelegate.persistentContainer.viewContext
-            if self.friend.lastMessage != nil {
-                context.delete(self.friend.lastMessage!)
-            }
-            
-            // 更新 lastMessage
-            let lastmessage = LastMessageMO(context: appDelegate.persistentContainer.viewContext)
-            lastmessage.content = result
-            lastmessage.date = Date()
-            self.friend.lastMessage = lastmessage
-            
-            print("== self.friend.lastMessage:")
-            print(self.friend.lastMessage ?? "")
-            
-            appDelegate.saveContext()
-            self.appendMessageAndShow(message: response_msg)
-        }
-        let onFailure = { (data: [String: Any]) in
-            // TODO: 获取服务器好友回复失败后的提示
-        }
-        // 从服务器获取好友的回复
-        HttpUtil.post(url: url, parameters: parameters, onSuccess: onSuccess, onFailure: onFailure)
-    }
-    
     func saveMessageToStoreAndShow() {
         let messgae = textField.text!
         sendMessage(messgae)
@@ -377,6 +324,53 @@ class ChatPageTableViewController:
                 let indexPath = IndexPath(row: self.chatMessages.count-1, section: 0)
                 self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: animated)
             }
+        }
+    }
+    
+    // TODO: 改成 friendSendsMessages 比较好，支持发多条信息
+    func friendSendsMessage(_ message_sent: String) {
+        if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
+            // save date indicator if last message is nil or 5 min ago
+            if let lastmessageDate = friend.lastMessage?.date {
+                if lastmessageDate.timeIntervalSinceNow < -300 {
+                    let dateIndicator = ChatMessageMO(context: appDelegate.persistentContainer.viewContext)
+                    dateIndicator.date = Date()
+                    dateIndicator.contentText = ""
+                    dateIndicator.friend = friend
+                    dateIndicator.isDateIdentifier = true
+                    appendMessageAndShow(message: dateIndicator)
+                }
+            } else {
+                let dateIndicator = ChatMessageMO(context: appDelegate.persistentContainer.viewContext)
+                dateIndicator.date = Date()
+                dateIndicator.contentText = ""
+                dateIndicator.friend = friend
+                dateIndicator.isDateIdentifier = true
+                appendMessageAndShow(message: dateIndicator)
+            }
+            
+            let message = ChatMessageMO(context: appDelegate.persistentContainer.viewContext)
+            message.isSent = false
+            message.date = Date()
+            message.contentText = message_sent
+            message.friend = friend
+            message.isDateIdentifier = false
+            
+            // delete the old last message and add the new one
+            let context = appDelegate.persistentContainer.viewContext
+            if friend.lastMessage != nil {
+                context.delete(friend.lastMessage!)
+            }
+            
+            // 更新 lastMessage
+            let lastmessage = LastMessageMO(context: appDelegate.persistentContainer.viewContext)
+            lastmessage.content = message_sent
+            lastmessage.date = Date()
+            friend.lastMessage = lastmessage
+            
+            // 保存发送的信息
+            appDelegate.saveContext()
+            appendMessageAndShow(message: message)
         }
     }
     
