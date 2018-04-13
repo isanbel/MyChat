@@ -48,9 +48,12 @@ class SocketIOUtil {
         socket.connect()
     }
     
-    static func getUrlByAttributename(attributename: String) -> String {
+    static func getUrlByAttributename(attributename: String?) -> String {
         var url: String = "http://\(Config.SERVER_IP)"
-        switch (attributename) {
+        if attributename == nil {
+            return url + ":3000"
+        }
+        switch (attributename!) {
         case "email":
             url += ":3001"
             break
@@ -75,7 +78,6 @@ class SocketIOUtil {
         default:
             url += ":3000"
         }
-        print("**********\(url)")
         return url
     }
 }

@@ -11,7 +11,7 @@ import SocketIO
 
 extension ChatPageTableViewController {
     func initSocket() {
-        let url = SocketIOUtil.getUrlByAttributename(attributename: friend.attributename!)
+        let url = SocketIOUtil.getUrlByAttributename(attributename: friend.attributename)
         print(url)
         socket_manager = SocketManager(socketURL: URL(string: url)!, config: [.log(true), .compress])
         socket = socket_manager.socket(forNamespace: "/")
