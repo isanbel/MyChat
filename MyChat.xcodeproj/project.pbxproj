@@ -46,6 +46,7 @@
 		C264446D2024B0DE004E86C5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C264446B2024B0DE004E86C5 /* Main.storyboard */; };
 		C26444722024B0DE004E86C5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C26444702024B0DE004E86C5 /* LaunchScreen.storyboard */; };
 		C27675A220804A6B00444096 /* TabbarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27675A120804A6B00444096 /* TabbarDelegate.swift */; };
+		C27675A42080AF9D00444096 /* ContactCollectionViewController+newMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27675A32080AF9D00444096 /* ContactCollectionViewController+newMessage.swift */; };
 		C284E023204887DB009FC6CA /* ChatMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C284E022204887DB009FC6CA /* ChatMessageCell.swift */; };
 		C284E02520492953009FC6CA /* ChatDateIndicatorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C284E02420492953009FC6CA /* ChatDateIndicatorCell.swift */; };
 		C289D1D5206E04090087A541 /* TodayTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C289D1D4206E04090087A541 /* TodayTableViewController.swift */; };
@@ -117,6 +118,7 @@
 		C26444712024B0DE004E86C5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C26444732024B0DE004E86C5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C27675A120804A6B00444096 /* TabbarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarDelegate.swift; sourceTree = "<group>"; };
+		C27675A32080AF9D00444096 /* ContactCollectionViewController+newMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContactCollectionViewController+newMessage.swift"; sourceTree = "<group>"; };
 		C284E022204887DB009FC6CA /* ChatMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageCell.swift; sourceTree = "<group>"; };
 		C284E02420492953009FC6CA /* ChatDateIndicatorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatDateIndicatorCell.swift; sourceTree = "<group>"; };
 		C289D1D4206E04090087A541 /* TodayTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayTableViewController.swift; sourceTree = "<group>"; };
@@ -308,6 +310,7 @@
 				A8618D1A206B7B1D00C26D47 /* ChatPageTableViewController+NewMessage.swift */,
 				C2222741206522F600EA5FE0 /* ChatPageTableViewController+SwipInputBar.swift */,
 				C2D45DB4205D3D1D004C2685 /* ContactCollectionViewController.swift */,
+				C27675A32080AF9D00444096 /* ContactCollectionViewController+newMessage.swift */,
 				C2224AC4204D1B17001A9D06 /* FriendProlileTableViewController.swift */,
 				C2224AEC204D7F75001A9D06 /* NewFriendTableViewController.swift */,
 				C2FDE8242051449D005CB808 /* AddFriendTableViewController.swift */,
@@ -527,6 +530,7 @@
 				C2FDE81D20500F78005CB808 /* DiscoveryTableViewController.swift in Sources */,
 				C2B11B0C20451A1200726A86 /* LastMessage.swift in Sources */,
 				A8D69F3C204FC1340081B18D /* SocketIOUtil.swift in Sources */,
+				C27675A42080AF9D00444096 /* ContactCollectionViewController+newMessage.swift in Sources */,
 				C2399274205E8E1400EB3D13 /* TabBarController.swift in Sources */,
 				C27675A220804A6B00444096 /* TabbarDelegate.swift in Sources */,
 				C289D1DA206E14210087A541 /* Commodity.swift in Sources */,

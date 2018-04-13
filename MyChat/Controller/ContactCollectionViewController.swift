@@ -25,6 +25,8 @@ class ContactCollectionViewController: UICollectionViewController, UIGestureReco
     // @IBOutlet weak var loading: UIActivityIndicatorView!
     var activityIndicator: UIActivityIndicatorView!
     
+    static weak var noticeDelegate: TabbarDelegate?
+    
     private lazy var dragingItem: ContactCollectionViewCell = {
         
         let cell = ContactCollectionViewCell(frame: CGRect(x: 50, y: 50, width: imageW + 20, height: imageW + 20))
