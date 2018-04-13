@@ -106,7 +106,7 @@ class ChatTableViewController: UITableViewController, NSFetchedResultsController
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return filteredLastMessages.count
+        return searchController.searchBar.text == "" ? lastMessages.count : filteredLastMessages.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -114,12 +114,13 @@ class ChatTableViewController: UITableViewController, NSFetchedResultsController
         let cellIdentifier = "ChatTableViewCell"
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! ChatTableViewCell
         
-        let friend = filteredLastMessages[indexPath.row].friend
+        let theLastMessages = searchController.searchBar.text == "" ? lastMessages : filteredLastMessages
+        let friend = theLastMessages[indexPath.row].friend
         cell.nameLabel.text = friend?.name
-        cell.chatsliceLabel.text = filteredLastMessages[indexPath.row].content
-        cell.badgeValue = Int(filteredLastMessages[indexPath.row].unreadCount)
-        cell.dateLabel.text = filteredLastMessages[indexPath.row].date?.relativeTime
-        cell.stickOnTop = filteredLastMessages[indexPath.row].stickOnTop
+        cell.chatsliceLabel.text = theLastMessages[indexPath.row].content
+        cell.badgeValue = Int(theLastMessages[indexPath.row].unreadCount)
+        cell.dateLabel.text = theLastMessages[indexPath.row].date?.relativeTime
+        cell.stickOnTop = theLastMessages[indexPath.row].stickOnTop
         if let avatar = friend?.avatar {
             cell.thumbnailImageView.image = UIImage(data: avatar as Data)
         }
