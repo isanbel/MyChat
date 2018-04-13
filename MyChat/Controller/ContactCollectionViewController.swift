@@ -123,7 +123,7 @@ class ContactCollectionViewController: UICollectionViewController, UIGestureReco
                 
                 // get avatar
                 // TODO: use friendid to get avatar
-                let avatarUrl = "http://139.199.174.146:3000/friendAvatar/" + newFriend.id! + ".jpg"
+                let avatarUrl = "http://\(Config.SERVER_IP):3000/friendAvatar/" + newFriend.id! + ".jpg"
                 let url = URL(string: avatarUrl)
                 let avatar = try? Data(contentsOf: url!)
                 newFriend.avatar = avatar
