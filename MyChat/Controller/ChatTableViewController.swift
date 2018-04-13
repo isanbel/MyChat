@@ -82,12 +82,16 @@ class ChatTableViewController: UITableViewController, NSFetchedResultsController
         filteredLastMessages = lastMessages
         tableView.reloadData()
         
-        // 没有消息的时候，没有搜索栏
-        tableView.tableHeaderView?.isHidden = lastMessages.count == 0 ? true : false
+        hideSearchbarIfTableEmpty()
         
         // 更新tabbar
         setDelegate()
         updateTabbar()
+    }
+    
+    func hideSearchbarIfTableEmpty() {
+        // 没有消息的时候，没有搜索栏
+        tableView.tableHeaderView?.isHidden = lastMessages.count == 0 ? true : false
     }
     
     override func didReceiveMemoryWarning() {
@@ -180,6 +184,8 @@ class ChatTableViewController: UITableViewController, NSFetchedResultsController
 
             self.tableView.deleteRows(at: [indexPath], with: .fade)
 
+            self.hideSearchbarIfTableEmpty()
+            
             // Call completion handler with true to indicate
             completionHandler(true)
         }
