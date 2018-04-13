@@ -671,7 +671,7 @@
 				CODE_SIGN_ENTITLEMENTS = MyChat/MyChat.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				"CODE_SIGN_STYLE[sdk=*]" = Automatic;
-				DEVELOPMENT_TEAM = E5Q42GKDH5;
+				DEVELOPMENT_TEAM = H34D54V7L7;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -699,7 +699,7 @@
 				CODE_SIGN_ENTITLEMENTS = MyChat/MyChat.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				"CODE_SIGN_STYLE[sdk=*]" = Automatic;
-				DEVELOPMENT_TEAM = E5Q42GKDH5;
+				DEVELOPMENT_TEAM = H34D54V7L7;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -776,7 +776,7 @@
 				CODE_SIGN_ENTITLEMENTS = MyChat/MyChat.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				"CODE_SIGN_STYLE[sdk=*]" = Automatic;
-				DEVELOPMENT_TEAM = E5Q42GKDH5;
+				DEVELOPMENT_TEAM = H34D54V7L7;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
