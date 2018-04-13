@@ -179,9 +179,9 @@ class EntryViewController: UIViewController, UINavigationControllerDelegate, UIT
         }
         
         // 如果是注册，先验证验证码
-        if !isToLogin && !codeIsCorrect() {
-            return
-        }
+//        if !isToLogin && !codeIsCorrect() {
+//            return
+//        }
         
         let parameters: [String: Any] = [
             "username": username,

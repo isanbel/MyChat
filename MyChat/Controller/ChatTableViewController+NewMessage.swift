@@ -8,6 +8,8 @@
 
 import Foundation
 
+var unread = 0
+
 extension ChatTableViewController: SocketIODelegate {
     
     func setDelegate() {
@@ -17,8 +19,10 @@ extension ChatTableViewController: SocketIODelegate {
     func recieveMessages(messages: [String], from: String) {
         print("在列表收到了：\(messages)")
         saveUnreadMessages(messages: messages, from: from)
+        print("更新了lastmessage，未读：\(unread)")
         // update UI
-        tableView.reloadData()
+        self.viewWillAppear(false)
+        print("更新了table")
         // update Tabbar
         ChatTableViewController.noticeDelegate?.updateUnreadMessages()
     }
@@ -43,6 +47,9 @@ extension ChatTableViewController: SocketIODelegate {
                 
                 // delete the old last message and add the new one
                 let context = appDelegate.persistentContainer.viewContext
+                if let unreadCount = friend.lastMessage?.unreadCount {
+                    unread = Int(unreadCount)
+                }
                 if friend.lastMessage != nil {
                     context.delete(friend.lastMessage!)
                 }
@@ -50,10 +57,15 @@ extension ChatTableViewController: SocketIODelegate {
                 let lastmessage = LastMessageMO(context: appDelegate.persistentContainer.viewContext)
                 lastmessage.content = msg
                 lastmessage.date = Date()
-                lastmessage.unreadCount = lastmessage.unreadCount + 1
+                lastmessage.unreadCount = Int32(1 + unread)
+                unread = Int(lastmessage.unreadCount)
                 friend.lastMessage = lastmessage
             }
             appDelegate.saveContext()
         }
+    }
+    
+    func updateTabbar() {
+        ChatTableViewController.noticeDelegate?.updateUnreadMessages()
     }
 }

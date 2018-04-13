@@ -19,18 +19,23 @@ class ChatTableViewCell: UITableViewCell {
             thumbnailImageView.clipsToBounds = true
         }
     }
+    var badgeValue: Int {
+        didSet {
+            if badgeValue == 0 {
+                badge.isHidden = true
+            } else {
+                badge.isHidden = false
+                badge.text = "  " + String(badgeValue) + "  "
+            }
+        }
+    }
     
     @IBOutlet var badge: UILabel! {
         didSet {
-            if badge.text! == "" || badge.text! == "0" {
-                badge.isHidden = true
-                return
-            }
             // a simplest way to padding, but it's bad
-            badge.text = " " + badge.text! + "  "
             badge.backgroundColor = .red
             badge.textColor = .white
-            badge.textAlignment = .center
+            badge.textAlignment = .left
             badge.layer.cornerRadius = badge.layer.bounds.height / 2
             badge.clipsToBounds = true
         }
@@ -50,6 +55,7 @@ class ChatTableViewCell: UITableViewCell {
     
     required init?(coder aDecoder: NSCoder) {
         self.stickOnTop = false
+        badgeValue = 0
         super.init(coder: aDecoder)
     }
 }

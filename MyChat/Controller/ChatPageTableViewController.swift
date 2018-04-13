@@ -82,6 +82,7 @@ class ChatPageTableViewController:
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = friend.name
+        self.navigationController?.navigationItem.backBarButtonItem?.title = friend.name
 
         getData()
         scrollToBottom(animated: false)
@@ -105,14 +106,7 @@ class ChatPageTableViewController:
         tapGestureRecognizer.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tapGestureRecognizer)
         
-        // 关闭屏幕左侧的触碰延迟
-        // self.navigationController?.interactivePopGestureRecognizer?.delaysTouchesBegan = false;
-        
         initIfly()
-        
-//        if (Config.BAIDU_ACCESS_TOKEN == "") {
-//            Utils.initBaiduAccessToken()
-//        }
         
         addGestureToKeyBoardView()
 
@@ -127,7 +121,7 @@ class ChatPageTableViewController:
         
         print("我来到了：ChatPageTableViewController")
         setDelegate()
-        // checkUnreadMessgae()
+        updateLeftTopNotification()
     }
     
     override func didReceiveMemoryWarning() {

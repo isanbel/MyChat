@@ -20,9 +20,10 @@ extension ChatPageTableViewController: SocketIODelegate {
                 self.friendSendsMessage(message)
             }
         } else {
-            // 将未读消息存到本地数据库
+            print("将未读消息存到本地数据库")
             saveUnreadMessages(messages: messages, from: from)
             // TODO: 左上角显示未读提示
+            updateLeftTopNotification()
         }
     }
     
@@ -60,9 +61,13 @@ extension ChatPageTableViewController: SocketIODelegate {
         }
     }
     
+    func updateLeftTopNotification() {
+        self.navigationItem.backBarButtonItem?.title = (navigationItem.backBarButtonItem?.title)! + "(" + String(10) + ")"
+    }
+    
     func readUnreadMessages() {
         if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
-            friend.lastMessage?.unreadCount = 0
+            self.friend.lastMessage?.unreadCount = 0
             appDelegate.saveContext()
         }
     }

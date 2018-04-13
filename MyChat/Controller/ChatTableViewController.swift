@@ -81,8 +81,9 @@ class ChatTableViewController: UITableViewController, NSFetchedResultsController
         getData()
         filteredLastMessages = lastMessages
         tableView.reloadData()
+        
         setDelegate()
-        // checkUnreadMessgae()
+        updateTabbar()
     }
     
     override func didReceiveMemoryWarning() {
@@ -116,7 +117,7 @@ class ChatTableViewController: UITableViewController, NSFetchedResultsController
         let friend = filteredLastMessages[indexPath.row].friend
         cell.nameLabel.text = friend?.name
         cell.chatsliceLabel.text = filteredLastMessages[indexPath.row].content
-        cell.badge.text = String(filteredLastMessages[indexPath.row].unreadCount)
+        cell.badgeValue = Int(filteredLastMessages[indexPath.row].unreadCount)
         cell.dateLabel.text = filteredLastMessages[indexPath.row].date?.relativeTime
         cell.stickOnTop = filteredLastMessages[indexPath.row].stickOnTop
         if let avatar = friend?.avatar {
