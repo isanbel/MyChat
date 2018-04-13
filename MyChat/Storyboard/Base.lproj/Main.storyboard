@@ -519,7 +519,7 @@
                                 <rect key="frame" x="0.0" y="617" width="375" height="50"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wpy-rr-Y7I">
-                                        <rect key="frame" x="10" y="8" width="275" height="34"/>
+                                        <rect key="frame" x="50" y="8" width="235" height="34"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="34" id="zqy-FC-w5h"/>
                                         </constraints>
@@ -536,12 +536,12 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="f5T-Ef-Hfh">
                                         <rect key="frame" x="295" y="10" width="70" height="30"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S7n-8S-j0a">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TeW-Mc-xgh">
                                                 <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
                                                 <state key="normal" image="chat-input-voice"/>
                                                 <connections>
-                                                    <action selector="startRecord" destination="N4k-Tg-JOS" eventType="touchDown" id="kc3-cX-nmR"/>
-                                                    <action selector="stopRecord" destination="N4k-Tg-JOS" eventType="touchUpInside" id="dys-DI-ip1"/>
+                                                    <action selector="startRecord" destination="N4k-Tg-JOS" eventType="touchDown" id="Xuf-xX-12A"/>
+                                                    <action selector="stopRecord" destination="N4k-Tg-JOS" eventType="touchUpInside" id="phW-Ug-wBT"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iUf-fy-ZF0">
@@ -550,14 +550,25 @@
                                             </button>
                                         </subviews>
                                     </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S7n-8S-j0a">
+                                        <rect key="frame" x="10" y="10" width="30" height="30"/>
+                                        <state key="normal" image="chat-input-emoji"/>
+                                        <connections>
+                                            <action selector="startRecord" destination="N4k-Tg-JOS" eventType="touchDown" id="kc3-cX-nmR"/>
+                                            <action selector="stopRecord" destination="N4k-Tg-JOS" eventType="touchUpInside" id="dys-DI-ip1"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstItem="S7n-8S-j0a" firstAttribute="centerY" secondItem="TEx-sf-ELg" secondAttribute="centerY" id="9JE-DT-i7b"/>
+                                    <constraint firstItem="S7n-8S-j0a" firstAttribute="leading" secondItem="TEx-sf-ELg" secondAttribute="leading" constant="10" id="I39-DH-RgS"/>
                                     <constraint firstItem="wpy-rr-Y7I" firstAttribute="centerY" secondItem="TEx-sf-ELg" secondAttribute="centerY" id="Mps-Vc-OgP"/>
                                     <constraint firstAttribute="bottom" secondItem="f5T-Ef-Hfh" secondAttribute="bottom" constant="10" id="PX1-U4-pZx"/>
                                     <constraint firstAttribute="height" constant="50" id="XXI-cG-P6u"/>
                                     <constraint firstAttribute="trailing" secondItem="f5T-Ef-Hfh" secondAttribute="trailing" constant="10" id="eVb-nU-NKp"/>
                                     <constraint firstItem="f5T-Ef-Hfh" firstAttribute="top" secondItem="TEx-sf-ELg" secondAttribute="top" constant="10" id="eto-Hr-nbR"/>
+                                    <constraint firstItem="wpy-rr-Y7I" firstAttribute="leading" secondItem="S7n-8S-j0a" secondAttribute="trailing" constant="10" id="hpn-ZU-lH2"/>
                                     <constraint firstItem="f5T-Ef-Hfh" firstAttribute="leading" secondItem="wpy-rr-Y7I" secondAttribute="trailing" constant="10" id="iiA-Zh-a8h"/>
                                     <constraint firstItem="f5T-Ef-Hfh" firstAttribute="leading" secondItem="wpy-rr-Y7I" secondAttribute="trailing" constant="10" id="npB-Ta-bB4"/>
                                     <constraint firstItem="wpy-rr-Y7I" firstAttribute="leading" secondItem="TEx-sf-ELg" secondAttribute="leading" constant="10" id="zqm-Tm-B37"/>
@@ -2197,6 +2208,7 @@
         <image name="avatar" width="128" height="128"/>
         <image name="best_attr" width="120" height="120"/>
         <image name="chat-input-add" width="30" height="30"/>
+        <image name="chat-input-emoji" width="30" height="30"/>
         <image name="chat-input-voice" width="30" height="30"/>
         <image name="contact" width="30" height="30"/>
         <image name="createfriend" width="60" height="60"/>
