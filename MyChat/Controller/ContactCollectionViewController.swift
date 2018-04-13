@@ -22,6 +22,9 @@ class ContactCollectionViewController: UICollectionViewController, UIGestureReco
     var indexPath: IndexPath?
     var targetIndexPath: IndexPath?
     
+    // @IBOutlet weak var loading: UIActivityIndicatorView!
+    var activityIndicator: UIActivityIndicatorView!
+    
     private lazy var dragingItem: ContactCollectionViewCell = {
         
         let cell = ContactCollectionViewCell(frame: CGRect(x: 50, y: 50, width: imageW + 20, height: imageW + 20))
@@ -48,6 +51,13 @@ class ContactCollectionViewController: UICollectionViewController, UIGestureReco
         tapGestureRecognizer.delegate = self as UIGestureRecognizerDelegate
         self.collectionView?.backgroundView = UIView(frame:(self.collectionView?.bounds)!)
         self.collectionView?.backgroundView!.addGestureRecognizer(tapGestureRecognizer)
+        
+        // loading
+        activityIndicator = UIActivityIndicatorView(activityIndicatorStyle:
+            UIActivityIndicatorViewStyle.gray)
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.center = self.view.center
+        self.view.addSubview(activityIndicator);
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -59,6 +69,9 @@ class ContactCollectionViewController: UICollectionViewController, UIGestureReco
         print("== count of friends \(String(describing: Global.user.friends?.count))")
         friends = Global.user.friends?.array as! [FriendMO]
         collectionView?.reloadData()
+        if (friends.count == 0) {
+            activityIndicator.startAnimating()
+        }
     }
     
     func getFriends() {
@@ -67,6 +80,9 @@ class ContactCollectionViewController: UICollectionViewController, UIGestureReco
             print("== getFriends success")
             self.storeNewFriends(data: data)
             self.loadData()
+            if (self.activityIndicator.isAnimating) {
+                self.activityIndicator.stopAnimating()
+            }
         }
         
         let onFailure = { (data: [String: Any]) in
