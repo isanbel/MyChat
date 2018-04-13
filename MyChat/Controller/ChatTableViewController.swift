@@ -82,6 +82,10 @@ class ChatTableViewController: UITableViewController, NSFetchedResultsController
         filteredLastMessages = lastMessages
         tableView.reloadData()
         
+        // 没有消息的时候，没有搜索栏
+        tableView.tableHeaderView?.isHidden = lastMessages.count == 0 ? true : false
+        
+        // 更新tabbar
         setDelegate()
         updateTabbar()
     }

@@ -25,11 +25,26 @@ class ContactCollectionViewController: UICollectionViewController, UIGestureReco
     // @IBOutlet weak var loading: UIActivityIndicatorView!
     var activityIndicator: UIActivityIndicatorView!
     
+    static weak var noticeDelegate: TabbarDelegate?
+    
     private lazy var dragingItem: ContactCollectionViewCell = {
         
         let cell = ContactCollectionViewCell(frame: CGRect(x: 50, y: 50, width: imageW + 20, height: imageW + 20))
         cell.isHidden = true
         return cell
+    }()
+    
+    private lazy var loadingView: UIView = {
+        let loadingView = UIView()
+        loadingView.frame = CGRect(x: 0, y: SCREEN_WIDTH / 2, width: SCREEN_WIDTH, height: 50)
+        let label = UILabel()
+        label.frame = CGRect(x: 0, y: 0, width: SCREEN_WIDTH, height: 50)
+        label.textAlignment = .center
+        label.textColor = UIColor(hex: "#777777")
+        label.text = "努力帮你寻找好友中...么么哒"
+        loadingView.addSubview(label)
+        loadingView.layer.zPosition = 2
+        return loadingView
     }()
 
     override func viewDidLoad() {
@@ -57,7 +72,7 @@ class ContactCollectionViewController: UICollectionViewController, UIGestureReco
             UIActivityIndicatorViewStyle.gray)
         activityIndicator.hidesWhenStopped = true
         activityIndicator.center = self.view.center
-        self.view.addSubview(activityIndicator);
+        self.view.addSubview(activityIndicator)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -70,6 +85,7 @@ class ContactCollectionViewController: UICollectionViewController, UIGestureReco
         friends = Global.user.friends?.array as! [FriendMO]
         collectionView?.reloadData()
         if (friends.count == 0) {
+            self.view.addSubview(loadingView)
             activityIndicator.startAnimating()
         }
     }
@@ -81,6 +97,7 @@ class ContactCollectionViewController: UICollectionViewController, UIGestureReco
             self.storeNewFriends(data: data)
             self.loadData()
             if (self.activityIndicator.isAnimating) {
+                self.loadingView.removeFromSuperview()
                 self.activityIndicator.stopAnimating()
             }
         }

@@ -29,7 +29,7 @@ extension TabBarController: TabbarDelegate {
     
     func setDelegate() {
         ChatTableViewController.noticeDelegate = self
-        // more
+        ContactCollectionViewController.noticeDelegate = self
     }
     
     func updateUnreadMessages() {
