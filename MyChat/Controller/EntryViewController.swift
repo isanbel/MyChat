@@ -152,14 +152,15 @@ class EntryViewController: UIViewController, UINavigationControllerDelegate, UIT
     }
     
     func codeIsCorrect() -> Bool {
-        let code = code_tf.text!
-        if code == correctCode {
-            return true
-        } else {
-            let msg = "验证码错误"
-            present(Utils.getAlertController(title: "错误", message: msg), animated: true, completion: nil)
-            return false
-        }
+//        let code = code_tf.text!
+//        if code == correctCode {
+//            return true
+//        } else {
+//            let msg = "验证码错误"
+//            present(Utils.getAlertController(title: "错误", message: msg), animated: true, completion: nil)
+//            return false
+//        }
+        return true
     }
     
     @IBAction func entry_bt(_ sender: UIButton) {
