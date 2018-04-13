@@ -571,7 +571,6 @@
                                     <constraint firstItem="wpy-rr-Y7I" firstAttribute="leading" secondItem="S7n-8S-j0a" secondAttribute="trailing" constant="10" id="hpn-ZU-lH2"/>
                                     <constraint firstItem="f5T-Ef-Hfh" firstAttribute="leading" secondItem="wpy-rr-Y7I" secondAttribute="trailing" constant="10" id="iiA-Zh-a8h"/>
                                     <constraint firstItem="f5T-Ef-Hfh" firstAttribute="leading" secondItem="wpy-rr-Y7I" secondAttribute="trailing" constant="10" id="npB-Ta-bB4"/>
-                                    <constraint firstItem="wpy-rr-Y7I" firstAttribute="leading" secondItem="TEx-sf-ELg" secondAttribute="leading" constant="10" id="zqm-Tm-B37"/>
                                 </constraints>
                             </view>
                         </subviews>
