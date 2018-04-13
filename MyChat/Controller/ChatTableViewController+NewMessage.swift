@@ -16,13 +16,44 @@ extension ChatTableViewController: SocketIODelegate {
     
     func recieveMessages(messages: [String], from: String) {
         print("在列表收到了：\(messages)")
+        saveUnreadMessages(messages: messages, from: from)
+        // update UI
+        tableView.reloadData()
+        // update Tabbar
+        ChatTableViewController.noticeDelegate?.updateUnreadMessages()
     }
     
-    func checkUnreadMessgae() {
-        for lm in lastMessages {
-            if (Global.unread_messages.keys.contains(lm.friend!.id!)) {
-                // TODO: 把未读消息 lm 显示，并加小红点
+    func saveUnreadMessages(messages: [String], from: String) {
+        var friend = FriendMO()
+        for friendTemp in Global.user.friends!.array as! [FriendMO] {
+            if friendTemp.id == from {
+                friend = friendTemp
+                break
             }
+        }
+        
+        if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
+            for msg in messages {
+                let message = ChatMessageMO(context: appDelegate.persistentContainer.viewContext)
+                message.isSent = false
+                message.date = Date()
+                message.contentText = msg
+                message.friend = friend
+                message.isDateIdentifier = false
+                
+                // delete the old last message and add the new one
+                let context = appDelegate.persistentContainer.viewContext
+                if friend.lastMessage != nil {
+                    context.delete(friend.lastMessage!)
+                }
+                // update lastMessage
+                let lastmessage = LastMessageMO(context: appDelegate.persistentContainer.viewContext)
+                lastmessage.content = msg
+                lastmessage.date = Date()
+                lastmessage.unreadCount = lastmessage.unreadCount + 1
+                friend.lastMessage = lastmessage
+            }
+            appDelegate.saveContext()
         }
     }
 }

@@ -118,6 +118,8 @@ class ChatPageTableViewController:
 
         print(friend)
         initSocket()
+        
+        readUnreadMessages()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -125,7 +127,6 @@ class ChatPageTableViewController:
         
         print("我来到了：ChatPageTableViewController")
         setDelegate()
-        checkUnreadMessgae()
     }
     
     override func didReceiveMemoryWarning() {
