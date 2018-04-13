@@ -19,7 +19,7 @@ extension Date {
     var weekDayCH: String {
         let weekday = Calendar.current.component(.weekday, from: self)
         let weekdays = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"]
-        return weekdays[weekday]
+        return weekdays[weekday-1]
     }
     var monthDayCH: String {
         let month = Calendar.current.component(.month, from: self)

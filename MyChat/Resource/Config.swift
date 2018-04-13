@@ -19,5 +19,6 @@ class Config {
     // static var SERVER_IP = "192.168.1.115"
     static var SERVER_IP = "192.168.199.115"
     // static var SERVER_IP = "172.20.10.2"
+    // static var SERVER_IP = "192.168.199.115"
     static var DEVICE_TOKEN: String!
 }
