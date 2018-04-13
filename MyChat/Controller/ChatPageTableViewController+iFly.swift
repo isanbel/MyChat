@@ -42,7 +42,9 @@ extension ChatPageTableViewController: IFlySpeechRecognizerDelegate {
         print("识别成功：\(keys)")
         
         let message = keys2Message(keys: keys)
-        self.voice_message += message
+        if (!isLast) {
+            self.voice_message += message
+        }
         if (isLast && !self.is_recording) {
             sendMessage(self.voice_message)
             self.voice_message = ""

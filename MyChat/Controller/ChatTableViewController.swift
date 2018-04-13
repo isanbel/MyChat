@@ -39,17 +39,17 @@ class ChatTableViewController: UITableViewController, NSFetchedResultsController
         tableView.backgroundColor = UIColor(displayP3Red: 237/255, green: 235/255, blue: 235/255, alpha: 1)
         
         SocketIOUtil.initialize()
-        
-        let content = UNMutableNotificationContent()
-        content.title = "title";
-        content.subtitle = "subtitle";
-        content.body = "body";
-        content.sound = UNNotificationSound.default()
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 10, repeats: false)
-        let request = UNNotificationRequest(identifier: "mychat", content: content, trigger: trigger)
-        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
-        print("**********************")
-        // Utils.showNotification(title: "新消息", subtitle: "小秘", body: "是时候去吃饭啦")
+        uploadDeviceToken()
+    }
+    
+    private func uploadDeviceToken() {
+        let url = "/users/device_token"
+        let parameters: [String: Any] = [
+            "userid": Global.user.id!,
+            "device_token": Config.DEVICE_TOKEN
+        ]
+        let doNothing = { (data: [String: Any]) in }
+        HttpUtil.post(url: url, parameters: parameters, onSuccess: doNothing, onFailure: doNothing)
     }
     
     private func setUpSearchBar() {
@@ -80,7 +80,7 @@ class ChatTableViewController: UITableViewController, NSFetchedResultsController
         filteredLastMessages = lastMessages
         tableView.reloadData()
         setDelegate()
-        checkUnreadMessgae()
+        // checkUnreadMessgae()
     }
     
     override func didReceiveMemoryWarning() {

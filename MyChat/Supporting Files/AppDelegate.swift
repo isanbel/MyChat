@@ -140,12 +140,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print("deviceToken: \(deviceToken)")
         // Forward the token to your provider, using a custom method.
         // self.enableRemoteNotificationFeatures()
-        self.forwardTokenToServer(token: deviceToken)
-    }
-    
-    func forwardTokenToServer(token: Data) {
-        let str = String(data: token, encoding: String.Encoding.utf8) as String!
-        print(str)
+        let nsdataStr = NSData.init(data: deviceToken)
+        let datastr = nsdataStr.description.replacingOccurrences(of: "<", with: "").replacingOccurrences(of: ">", with: "").replacingOccurrences(of: " ", with: "")
+        print("device token: \(datastr)")
+        Config.DEVICE_TOKEN = datastr
+        // self.forwardTokenToServer(token: datastr)
     }
     
     

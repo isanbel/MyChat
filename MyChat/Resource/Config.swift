@@ -16,6 +16,7 @@ class Config {
     static var BAIDU_CLIENT_SECRET = "5SsdxoH8Nw2oSFs2r4j6yfzrPxXQIgkr"
     // static var SERVER_IP = "127.0.0.1"
     // static var SERVER_IP = "139.199.174.146"
-    static var SERVER_IP = "192.168.1.115"
-    // static var SERVER_IP = "192.168.199.115"
+    // static var SERVER_IP = "192.168.1.115"
+    static var SERVER_IP = "192.168.199.115"
+    static var DEVICE_TOKEN: String!
 }

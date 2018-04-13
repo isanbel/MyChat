@@ -30,6 +30,7 @@ class SocketIOUtil {
             let temp = data[0] as! [String: Any]
             let friendid = temp["friendid"] as! String
             let message = temp["message"] as! String
+            print("$$$$$$$$$$: \(message)")
             delegate!.recieveMessages(messages: [message], from: friendid)
         })
         
@@ -38,6 +39,10 @@ class SocketIOUtil {
             let friendid = temp["friendid"] as! String
             let messages = temp["messages"] as! [String]
             delegate!.recieveMessages(messages: messages, from: friendid)
+        })
+        
+        socket.on("test-online", callback: { (data, ack) in
+            socket.emit("test-online", ["userid": Global.user.id!])
         })
         
         socket.connect()

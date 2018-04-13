@@ -12,6 +12,7 @@ import SwiftyJSON
 
 class HttpUtil {
     static let BASE_URL: String = "http://\(Config.SERVER_IP):3000/api"
+    
     static func post(url: String, parameters: Parameters, onSuccess: @escaping([String: Any]) -> Void, onFailure: @escaping([String: Any]) -> Void) {
         Alamofire.request(BASE_URL + url, method: .post, parameters: parameters, encoding: JSONEncoding.default).responseJSON { response in
             if (response.result.isSuccess) {

@@ -125,7 +125,7 @@ class ChatPageTableViewController:
         
         print("我来到了：ChatPageTableViewController")
         setDelegate()
-        checkUnreadMessgae()
+        // checkUnreadMessgae()
     }
     
     override func didReceiveMemoryWarning() {
