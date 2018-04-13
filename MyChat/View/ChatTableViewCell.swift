@@ -19,6 +19,23 @@ class ChatTableViewCell: UITableViewCell {
             thumbnailImageView.clipsToBounds = true
         }
     }
+    
+    @IBOutlet var badge: UILabel! {
+        didSet {
+            if badge.text! == "" || badge.text! == "0" {
+                badge.isHidden = true
+                return
+            }
+            // a simplest way to padding, but it's bad
+            badge.text = " " + badge.text! + "  "
+            badge.backgroundColor = .red
+            badge.textColor = .white
+            badge.textAlignment = .center
+            badge.layer.cornerRadius = badge.layer.bounds.height / 2
+            badge.clipsToBounds = true
+        }
+    }
+    
     @IBOutlet var stickyImageView: UIImageView! {
         didSet {
             stickyImageView.isHidden = stickOnTop ? false : true
@@ -35,16 +52,4 @@ class ChatTableViewCell: UITableViewCell {
         self.stickOnTop = false
         super.init(coder: aDecoder)
     }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-
 }

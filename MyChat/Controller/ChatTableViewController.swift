@@ -20,6 +20,8 @@ class ChatTableViewController: UITableViewController, NSFetchedResultsController
     
     var searchController = UISearchController(searchResultsController: nil)
     
+    static weak var noticeDelegate: TabbarDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -114,6 +116,7 @@ class ChatTableViewController: UITableViewController, NSFetchedResultsController
         let friend = filteredLastMessages[indexPath.row].friend
         cell.nameLabel.text = friend?.name
         cell.chatsliceLabel.text = filteredLastMessages[indexPath.row].content
+        cell.badge.text = String(filteredLastMessages[indexPath.row].unreadCount)
         cell.dateLabel.text = filteredLastMessages[indexPath.row].date?.relativeTime
         cell.stickOnTop = filteredLastMessages[indexPath.row].stickOnTop
         if let avatar = friend?.avatar {

@@ -118,6 +118,8 @@ class ChatPageTableViewController:
 
         print(friend)
         initSocket()
+        
+        readUnreadMessages()
     }
     
     override func viewWillAppear(_ animated: Bool) {
