@@ -15,7 +15,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
@@ -153,6 +152,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // The token is not currently available.
         print("Remote notification support is unavailable due to error: \(error.localizedDescription)")
         // self.disableRemoteNotificationFeatures()
+    }
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        UIApplication.shared.applicationIconBadgeNumber = 0
+        print("~~~~~~~~~~\(userInfo)")
     }
 }
 

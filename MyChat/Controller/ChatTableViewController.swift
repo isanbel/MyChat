@@ -76,8 +76,7 @@ class ChatTableViewController: UITableViewController, NSFetchedResultsController
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated);
-        
-        print("我来到了：ChatTableViewController")
+
         getData()
         filteredLastMessages = lastMessages
         tableView.reloadData()
