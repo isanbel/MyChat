@@ -41,7 +41,7 @@ class ChatTableViewController: UITableViewController, NSFetchedResultsController
         tableView.backgroundColor = UIColor(displayP3Red: 237/255, green: 235/255, blue: 235/255, alpha: 1)
         
         SocketIOUtil.initialize()
-        uploadDeviceToken()
+        if Config.DEVICE_TOKEN != nil { uploadDeviceToken() }
     }
     
     private func uploadDeviceToken() {
