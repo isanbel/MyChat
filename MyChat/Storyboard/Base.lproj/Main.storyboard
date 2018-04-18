@@ -11,7 +11,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--自信-->
+        <!--MyChat-->
         <scene sceneID="cUc-Ml-k6n">
             <objects>
                 <tableViewController id="wU4-wb-0CM" customClass="ChatTableViewController" customModule="MyChat" customModuleProvider="target" sceneMemberID="viewController">
@@ -131,7 +131,7 @@
                             <outlet property="delegate" destination="wU4-wb-0CM" id="Osr-Lc-hz7"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="自信" id="89P-At-BaS" userLabel="MyChat">
+                    <navigationItem key="navigationItem" title="MyChat" id="89P-At-BaS" userLabel="MyChat">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="h8V-Aj-yw1">
                             <color key="tintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
@@ -180,11 +180,11 @@
             </objects>
             <point key="canvasLocation" x="1112.8" y="94.902548725637189"/>
         </scene>
-        <!--自信-->
+        <!--MyChat-->
         <scene sceneID="rm8-3x-FHP">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="0hN-hT-dKh" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="自信" image="mychat" springLoaded="YES" id="IBZ-90-CSe"/>
+                    <tabBarItem key="tabBarItem" title="MyChat" image="mychat" springLoaded="YES" id="IBZ-90-CSe"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="lbb-Ep-DDC">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
