@@ -152,14 +152,14 @@ class EntryViewController: UIViewController, UINavigationControllerDelegate, UIT
     }
     
     func codeIsCorrect() -> Bool {
-//        let code = code_tf.text!
-//        if code == correctCode {
-//            return true
-//        } else {
-//            let msg = "验证码错误"
-//            present(Utils.getAlertController(title: "错误", message: msg), animated: true, completion: nil)
-//            return false
-//        }
+        let code = code_tf.text!
+        if code == correctCode {
+            return true
+        } else {
+            let msg = "验证码错误"
+            present(Utils.getAlertController(title: "错误", message: msg), animated: true, completion: nil)
+            return false
+        }
         return true
     }
     
@@ -180,9 +180,9 @@ class EntryViewController: UIViewController, UINavigationControllerDelegate, UIT
         }
         
         // 如果是注册，先验证验证码
-//        if !isToLogin && !codeIsCorrect() {
-//            return
-//        }
+        if !isToLogin && !codeIsCorrect() {
+            return
+        }
         
         let parameters: [String: Any] = [
             "username": username,
