@@ -330,10 +330,11 @@ class ContactViewLayout: UICollectionViewFlowLayout {
     
     override func prepare() {
         super.prepare()
-        itemSize = CGSize(width: imageW + 20, height: imageW + 10 + 20)
+        itemSize = CGSize(width: imageW + 10, height: imageW + 10 + 20)
         minimumLineSpacing = 0
         minimumInteritemSpacing = 0
-        let paddingLeft = (SCREEN_WIDTH - 4 * (imageW + 20) - 10 * 2) / 5 + 10
-        sectionInset = UIEdgeInsets(top: 10, left: paddingLeft, bottom: 10, right: paddingLeft)
+        let blankSpace = SCREEN_WIDTH - 4 * (imageW + 10) - 10
+        let marginBetweenCell = (blankSpace) / 5
+        sectionInset = UIEdgeInsets(top: 10, left: marginBetweenCell, bottom: 10, right: marginBetweenCell + 10)
     }
 }

@@ -144,7 +144,7 @@ class ChatMessageCell: UITableViewCell {
             self.headerImgView.clipsToBounds = true
             
             self.selectionStyle = .none
-            self.backgroundColor = UIColor(displayP3Red: 237/255, green: 235/255, blue: 235/255, alpha: 1)
+            // self.backgroundColor = UIColor(displayP3Red: 237/255, green: 235/255, blue: 235/255, alpha: 1)
         }
     }
     

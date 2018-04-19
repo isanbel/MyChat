@@ -18,9 +18,18 @@ class NewFriendTableViewController: UITableViewController, UITextFieldDelegate, 
         }
     }
     
-    @IBOutlet var genderSwitchField: UISwitch! {
+    @IBOutlet weak var selectView: UISegmentedControl! {
         didSet {
-            genderSwitchField.tag = 2
+            selectView.layer.cornerRadius = 5
+            selectView.layer.masksToBounds = true
+            // selectView.layer.borderColor = UIColor(hex: "#edf2fa").cgColor
+            selectView.layer.borderWidth = 0
+            
+            selectView.layer.backgroundColor = UIColor.white.cgColor
+            selectView.tintColor = UIColor(hex: "#edf2fa")
+            
+            selectView.setTitleTextAttributes([NSAttributedStringKey.font : UIFont(name: "PingFangSC-Medium", size: 14)!, NSAttributedStringKey.foregroundColor : UIColor(hex: "#4c72a6")], for: .selected)
+            selectView.setTitleTextAttributes([NSAttributedStringKey.font : UIFont(name: "PingFangSC-Regular", size: 14)!, NSAttributedStringKey.foregroundColor : UIColor(hex: "#9fa0a0")], for: .normal)
         }
     }
     
@@ -30,12 +39,12 @@ class NewFriendTableViewController: UITableViewController, UITextFieldDelegate, 
         super.viewDidLoad()
         
         // Configure the table view
-        tableView.separatorStyle = .none
         tableView.tableFooterView = UIView()
-        tableView.backgroundColor = UIColor(displayP3Red: 237/255, green: 235/255, blue: 235/255, alpha: 1)
         
         // default avatar
         photoImageView.image = UIImage(named: "avatar")
+        selectView.setTitle("男", forSegmentAt: 0)
+        selectView.setTitle("女", forSegmentAt: 1)
     }
 
     override func didReceiveMemoryWarning() {
@@ -105,6 +114,11 @@ class NewFriendTableViewController: UITableViewController, UITextFieldDelegate, 
         return true
     }
     
+    // Called when the user click on the view (outside the UITextField).
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
     // MARK: - Action method
     
     @IBAction func saveButtonTapped(sender: AnyObject) {
@@ -116,7 +130,7 @@ class NewFriendTableViewController: UITableViewController, UITextFieldDelegate, 
     func addFriend() {
         let userid = Global.user.id
         let friendName = nameTextField.text
-        let friendGender = genderSwitchField.isOn ? "male" : "female"
+        let friendGender = selectView.selectedSegmentIndex == 0 ? "male" : "female"
         
         let parameters: [String: Any] = [
             "userid": userid!,

@@ -14,9 +14,9 @@ class TabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tabbar.layer.borderWidth = 0.50
-        tabbar.layer.borderColor = UIColor.clear.cgColor
-        tabbar.clipsToBounds = true
+        // tabbar.layer.borderWidth = 0.50
+        // tabbar.layer.borderColor = UIColor.clear.cgColor
+        // tabbar.clipsToBounds = true
         
         // init update
         updateUnreadMessages()
