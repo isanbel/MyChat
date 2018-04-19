@@ -150,20 +150,19 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LcN-2u-JqY" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <view contentMode="scaleToFill" id="aoB-99-BQB">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="500"/>
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="654"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="no_chat_yet" translatesAutoresizingMaskIntoConstraints="NO" id="4iB-j0-aPA">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="500"/>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="no_chat_yet" translatesAutoresizingMaskIntoConstraints="NO" id="4iB-j0-aPA">
+                            <rect key="frame" x="0.0" y="-50" width="375" height="634"/>
                             <constraints>
-                                <constraint firstAttribute="width" secondItem="4iB-j0-aPA" secondAttribute="height" multiplier="3:4" id="N2q-Fk-X8t"/>
+                                <constraint firstAttribute="width" secondItem="4iB-j0-aPA" secondAttribute="height" multiplier="16:9" constant="-752.11111111111109" id="N2q-Fk-X8t"/>
                             </constraints>
                         </imageView>
                     </subviews>
-                    <color key="backgroundColor" red="0.90588235294117647" green="0.89803921568627454" blue="0.89803921568627454" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstItem="4iB-j0-aPA" firstAttribute="leading" secondItem="kbA-b1-c1K" secondAttribute="leading" id="go1-gU-p8l"/>
-                        <constraint firstItem="4iB-j0-aPA" firstAttribute="top" secondItem="aoB-99-BQB" secondAttribute="top" id="srE-ZF-tgr"/>
+                        <constraint firstItem="4iB-j0-aPA" firstAttribute="top" secondItem="aoB-99-BQB" secondAttribute="top" constant="-50" id="srE-ZF-tgr"/>
                         <constraint firstItem="4iB-j0-aPA" firstAttribute="trailing" secondItem="kbA-b1-c1K" secondAttribute="trailing" id="ub9-U5-Nkf"/>
                     </constraints>
                     <viewLayoutGuide key="safeArea" id="kbA-b1-c1K"/>
@@ -2198,7 +2197,7 @@
         <image name="mychat" width="30" height="30"/>
         <image name="myprofile" width="30" height="30"/>
         <image name="myreport" width="120" height="120"/>
-        <image name="no_chat_yet" width="1200" height="1600"/>
+        <image name="no_chat_yet" width="751" height="1334"/>
         <image name="payment" width="120" height="120"/>
         <image name="profile" width="30" height="30"/>
         <image name="purse" width="120" height="120"/>
