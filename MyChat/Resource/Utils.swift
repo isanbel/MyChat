@@ -77,4 +77,27 @@ class Utils {
         UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
         print("**********************")
     }
+    
+    static func appendDateIndicatorIfNeeded(whenChattingWith friend: FriendMO) {
+        if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
+            // save date indicator if last message is nil or 5 min ago
+            if let lastmessageDate = friend.lastMessage?.date {
+                if lastmessageDate.timeIntervalSinceNow < -300 {
+                    let dateIndicator = ChatMessageMO(context: appDelegate.persistentContainer.viewContext)
+                    dateIndicator.date = Date()
+                    dateIndicator.contentText = ""
+                    dateIndicator.friend = friend
+                    dateIndicator.isDateIdentifier = true
+                }
+            } else {
+                let dateIndicator = ChatMessageMO(context: appDelegate.persistentContainer.viewContext)
+                dateIndicator.date = Date()
+                dateIndicator.contentText = ""
+                dateIndicator.friend = friend
+                dateIndicator.isDateIdentifier = true
+            }
+            appDelegate.saveContext()
+        }
+    }
+    
 }
