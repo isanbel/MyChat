@@ -288,7 +288,9 @@ class ChatPageTableViewController:
             appDelegate.saveContext()
             appendMessageAndShow(message: message)
             
-            socketSend(message: message_sent)
+            if msgTypeIsSent {
+                socketSend(message: message_sent)
+            }
         }
     }
 

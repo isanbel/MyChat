@@ -36,11 +36,9 @@ extension ChatPageTableViewController: UIGestureRecognizerDelegate {
         if let swipGesture = gestrue as? UISwipeGestureRecognizer {
             switch swipGesture.direction {
                 case .left:
-                    print("// left")
                     if keyBoardOnRight { return }
                     addSnapShotAndRearrangeKeyBoard()
                 case .right:
-                    print("// right")
                     if !keyBoardOnRight { return }
                     addSnapShotAndRearrangeKeyBoard()
                 default:
@@ -70,7 +68,7 @@ extension ChatPageTableViewController: UIGestureRecognizerDelegate {
         UIView.animate(withDuration: TimeInterval(duration), animations: aninations)
         
         keyBoardOnRight = !keyBoardOnRight
-        keyBaordView.backgroundColor = keyBoardOnRight ? .white : UIColor(hex: "#c4ddff")
+        textField.backgroundColor = keyBoardOnRight ? .white : UIColor(hex: "#c4ddff")
     }
 }
 
