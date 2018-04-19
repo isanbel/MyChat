@@ -13,12 +13,14 @@ class SocketIOUtil {
     static var manager: SocketManager = SocketManager(socketURL: URL(string: BASE_URL)!, config: [.log(false), .compress])
     static var socket: SocketIOClient = manager.socket(forNamespace: "/")
     static weak var delegate: SocketIODelegate?
+    static var initialized = false
     
     static func initialize() {
         socket.on("connect", callback: { (data, ack) in
             print(data)
             print(ack)
             socket.emit("hello", ["userid": Global.user.id!])
+            initialized = true
         })
         
         socket.on("error", callback: { (data, ack) in
@@ -30,7 +32,6 @@ class SocketIOUtil {
             let temp = data[0] as! [String: Any]
             let friendid = temp["friendid"] as! String
             let message = temp["message"] as! String
-            print("$$$$$$$$$$: \(message)")
             delegate!.recieveMessages(messages: [message], from: friendid)
         })
         
@@ -44,8 +45,18 @@ class SocketIOUtil {
         socket.on("test-online", callback: { (data, ack) in
             socket.emit("test-online", ["userid": Global.user.id!])
         })
-        
+
         socket.connect()
+    }
+    
+    static func reportOnline() {
+        if (!initialized) { return }
+        socket.emit("online", ["userid": Global.user.id!])
+    }
+    
+    static func reportOffline() {
+        if (!initialized) { return }
+        socket.emit("offline", ["userid": Global.user.id!])
     }
     
     static func getUrlByAttributename(attributename: String?) -> String {
@@ -54,26 +65,38 @@ class SocketIOUtil {
             return url + ":3000"
         }
         switch (attributename!) {
-        case "email":
+        case "postman":
             url += ":3001"
             break
-        case "compute":
+        case "calculator":
             url += ":3002"
             break
-        case "translate":
+        case "translator":
             url += ":3003"
             break
-        case "Weather":
+        case "weather":
             url += ":3004"
             break
-        case "Mary":
+        case "mary":
             url += ":3005"
             break
         case "secretary":
             url += ":3006"
             break
-        case "SanXing":
+        case "sanxing":
             url += ":3007"
+            break
+        case "accountant":
+            url += ":3008"
+            break
+        case "express":
+            url += ":3009"
+            break
+        case "mychat":
+            url += ":3010"
+            break
+        case "gakki":
+            url += ":3011"
             break
         default:
             url += ":3000"

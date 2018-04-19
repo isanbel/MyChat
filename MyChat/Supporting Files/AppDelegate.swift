@@ -26,37 +26,41 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // 注册消息推送
         registerForPushNotifications()
-        // UIApplication.shared.registerForRemoteNotifications()
-        
-        // TODO: 到时改在判断登录成功之后再连接
-//        if (Global.user.id != nil) {
-//            SocketIOUtil.initialize()
-//        }
         
         return true
     }
 
-    func applicationWillResignActive(_ application: UIApplication) {
-        // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-        // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
-    }
-
-    func applicationDidEnterBackground(_ application: UIApplication) {
-        // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-        // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-    }
-
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+        // print("##########applicationWillEnterForeground")
+        // SocketIOUtil.reportOnline()
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         UIApplication.shared.applicationIconBadgeNumber = 0
+        print("##########applicationDidBecomeActive")
+        SocketIOUtil.reportOnline()
+    }
+    
+    func applicationWillResignActive(_ application: UIApplication) {
+        // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
+        // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
+        print("##########applicationWillResignActive")
+        SocketIOUtil.reportOffline()
     }
 
+    func applicationDidEnterBackground(_ application: UIApplication) {
+        // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
+        // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        // print("##########applicationDidEnterBackground")
+        // SocketIOUtil.reportOffline()
+    }
+    
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        print("##########applicationDidEnterBackground")
+        SocketIOUtil.reportOffline()
     }
 
     // MARK: - Core Data stack
@@ -112,27 +116,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // self.getNotificationSettings()
         }
     }
-    
-//    func getNotificationSettings() {
-//        UNUserNotificationCenter.current().getNotificationSettings { (settings) in
-//            print("Notification settings: \(settings)")
-//            guard settings.authorizationStatus == .authorized else { return }
-//            // UIApplication.shared.registerForRemoteNotifications()
-//        }
-//    }
-    
-//    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-//        let tokenParts = deviceToken.map { data -> String in
-//            return String(format: "%02.2hhx", data)
-//        }
-//
-//        let token = tokenParts.joined()
-//        print("Device Token: \(token)")
-//    }
-//
-//    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
-//        print("Failed to register: \(error)")
-//    }
     
     // Handle remote notification registration.
     func application(_ application: UIApplication,

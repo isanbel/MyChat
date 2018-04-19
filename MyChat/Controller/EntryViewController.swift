@@ -16,7 +16,7 @@ class EntryViewController: UIViewController, UINavigationControllerDelegate, UIT
     var correctCode: String?
     
     var codeTimer: Timer?
-    var remainingSec: Int = 60
+    var remainingSec: Int = 30
 
     @IBOutlet weak var username_tf: UITextField! {
         didSet {
@@ -51,7 +51,7 @@ class EntryViewController: UIViewController, UINavigationControllerDelegate, UIT
         let url: String = "/users/auth"
         let that = self
         let onSuccess = { (data: [String: Any]) in
-            self.remainingSec = 120
+            self.remainingSec = 30
             self.codeTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.startCodeTimer), userInfo: nil, repeats: true)
             self.correctCode = data["authcode"] as? String
         }
