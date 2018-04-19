@@ -42,6 +42,9 @@
 		C2399274205E8E1400EB3D13 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2399273205E8E1400EB3D13 /* TabBarController.swift */; };
 		C247D3402047956000456567 /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C247D33F2047956000456567 /* ChatMessage.swift */; };
 		C24EBD27204B9F8500C49569 /* Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24EBD26204B9F8500C49569 /* Tools.swift */; };
+		C25CD42120890F60007C25AC /* RolesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25CD42020890F60007C25AC /* RolesViewController.swift */; };
+		C25CD42320891A4D007C25AC /* AttributesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25CD42220891A4D007C25AC /* AttributesViewController.swift */; };
+		C25CD42520891BBD007C25AC /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25CD42420891BBD007C25AC /* SearchViewController.swift */; };
 		C26444682024B0DE004E86C5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26444672024B0DE004E86C5 /* AppDelegate.swift */; };
 		C264446D2024B0DE004E86C5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C264446B2024B0DE004E86C5 /* Main.storyboard */; };
 		C26444722024B0DE004E86C5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C26444702024B0DE004E86C5 /* LaunchScreen.storyboard */; };
@@ -112,6 +115,9 @@
 		C2399273205E8E1400EB3D13 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		C247D33F2047956000456567 /* ChatMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
 		C24EBD26204B9F8500C49569 /* Tools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tools.swift; sourceTree = "<group>"; };
+		C25CD42020890F60007C25AC /* RolesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RolesViewController.swift; sourceTree = "<group>"; };
+		C25CD42220891A4D007C25AC /* AttributesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributesViewController.swift; sourceTree = "<group>"; };
+		C25CD42420891BBD007C25AC /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		C26444642024B0DE004E86C5 /* MyChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C26444672024B0DE004E86C5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C264446C2024B0DE004E86C5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -237,6 +243,9 @@
 			isa = PBXGroup;
 			children = (
 				C289D1D4206E04090087A541 /* TodayTableViewController.swift */,
+				C25CD42020890F60007C25AC /* RolesViewController.swift */,
+				C25CD42220891A4D007C25AC /* AttributesViewController.swift */,
+				C25CD42420891BBD007C25AC /* SearchViewController.swift */,
 			);
 			path = FriendStore;
 			sourceTree = "<group>";
@@ -498,14 +507,17 @@
 				C229EBD7206E726900D7128B /* TodayHeaderTableViewCell.swift in Sources */,
 				A8D69F36204EF4820081B18D /* EntryViewController.swift in Sources */,
 				C2FDE8232050B204005CB808 /* FriendManagementTableViewController.swift in Sources */,
+				C25CD42520891BBD007C25AC /* SearchViewController.swift in Sources */,
 				C289D1DC206E16350087A541 /* TodayCommodity.swift in Sources */,
 				C2224AED204D7F75001A9D06 /* NewFriendTableViewController.swift in Sources */,
+				C25CD42120890F60007C25AC /* RolesViewController.swift in Sources */,
 				C2FCE119206C82E100151883 /* FriendStoreTabbarViewController.swift in Sources */,
 				C2224AEB204D4A8B001A9D06 /* MyChat.xcdatamodeld in Sources */,
 				A8618D1D206B7F0600C26D47 /* ChatTableViewController+NewMessage.swift in Sources */,
 				C2224AC3204CF8B5001A9D06 /* Friend.swift in Sources */,
 				A8618D19206B797D00C26D47 /* SocketIODelegate.swift in Sources */,
 				C247D3402047956000456567 /* ChatMessage.swift in Sources */,
+				C25CD42320891A4D007C25AC /* AttributesViewController.swift in Sources */,
 				A8D69F3A204FA4A00081B18D /* Utils.swift in Sources */,
 				A8618D1B206B7B1D00C26D47 /* ChatPageTableViewController+NewMessage.swift in Sources */,
 				A8D69F3E205015940081B18D /* Global.swift in Sources */,

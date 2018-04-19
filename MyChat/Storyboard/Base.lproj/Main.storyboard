@@ -1351,7 +1351,7 @@
         <!--角色-->
         <scene sceneID="Svp-BO-heS">
             <objects>
-                <viewController id="zay-yS-Gvi" sceneMemberID="viewController">
+                <viewController id="zay-yS-Gvi" customClass="RolesViewController" customModule="MyChat" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="SEP-4y-2wc">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1362,12 +1362,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="amc-6Q-uOm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2634" y="1836"/>
+            <point key="canvasLocation" x="2632.8000000000002" y="1835.5322338830586"/>
         </scene>
         <!--属性-->
         <scene sceneID="Y3p-tf-5eM">
             <objects>
-                <viewController id="9rT-iH-jXD" sceneMemberID="viewController">
+                <viewController id="9rT-iH-jXD" customClass="AttributesViewController" customModule="MyChat" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ETW-nH-FCc">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1383,18 +1383,88 @@
         <!--搜索-->
         <scene sceneID="baw-2B-sX2">
             <objects>
-                <viewController id="qs2-yL-7ea" sceneMemberID="viewController">
+                <viewController id="qs2-yL-7ea" customClass="SearchViewController" customModule="MyChat" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ZEw-jc-zZS">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="6BD-S1-Xfl">
+                                <rect key="frame" x="0.0" y="64" width="375" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="热门搜索" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dWu-do-Bp4">
+                                <rect key="frame" x="15" y="130" width="74" height="22"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="纳兰模版" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4CV-e1-vOJ">
+                                <rect key="frame" x="15" y="172" width="74" height="22"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="苏菲的信箱" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A2y-EB-TTG">
+                                <rect key="frame" x="15" y="209" width="92" height="22"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="灵感词汇家" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e3H-fn-z9j">
+                                <rect key="frame" x="15" y="246" width="92" height="22"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="狂躁翻译官" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GLC-Ht-mb1">
+                                <rect key="frame" x="15" y="283" width="92" height="22"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="温和" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cjc-Nw-kcb">
+                                <rect key="frame" x="15" y="320" width="37" height="22"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="饱读诗书" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w1m-FO-yhP">
+                                <rect key="frame" x="16" y="357" width="74" height="22"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="6BD-S1-Xfl" firstAttribute="trailing" secondItem="vm2-rJ-xwa" secondAttribute="trailing" id="KVo-7y-ukF"/>
+                            <constraint firstItem="w1m-FO-yhP" firstAttribute="leading" secondItem="vm2-rJ-xwa" secondAttribute="leading" constant="16" id="PB2-cS-eMJ"/>
+                            <constraint firstItem="cjc-Nw-kcb" firstAttribute="leading" secondItem="vm2-rJ-xwa" secondAttribute="leading" constant="15" id="Q9L-2Q-iZC"/>
+                            <constraint firstItem="GLC-Ht-mb1" firstAttribute="top" secondItem="e3H-fn-z9j" secondAttribute="bottom" constant="15" id="QX2-33-flM"/>
+                            <constraint firstItem="dWu-do-Bp4" firstAttribute="top" secondItem="6BD-S1-Xfl" secondAttribute="bottom" constant="10" id="Rmz-52-ItI"/>
+                            <constraint firstItem="A2y-EB-TTG" firstAttribute="top" secondItem="4CV-e1-vOJ" secondAttribute="bottom" constant="15" id="TXg-ue-jHE"/>
+                            <constraint firstItem="4CV-e1-vOJ" firstAttribute="top" secondItem="dWu-do-Bp4" secondAttribute="bottom" constant="20" id="UFG-F1-qBY"/>
+                            <constraint firstItem="cjc-Nw-kcb" firstAttribute="top" secondItem="GLC-Ht-mb1" secondAttribute="bottom" constant="15" id="ZU6-gb-6ZL"/>
+                            <constraint firstItem="e3H-fn-z9j" firstAttribute="leading" secondItem="vm2-rJ-xwa" secondAttribute="leading" constant="15" id="bFz-qJ-GmF"/>
+                            <constraint firstItem="dWu-do-Bp4" firstAttribute="leading" secondItem="vm2-rJ-xwa" secondAttribute="leading" constant="15" id="fAM-kC-eGT"/>
+                            <constraint firstItem="6BD-S1-Xfl" firstAttribute="top" secondItem="vm2-rJ-xwa" secondAttribute="top" id="hJR-E3-rKt"/>
+                            <constraint firstItem="6BD-S1-Xfl" firstAttribute="leading" secondItem="vm2-rJ-xwa" secondAttribute="leading" id="jSa-Z9-gK6"/>
+                            <constraint firstItem="w1m-FO-yhP" firstAttribute="top" secondItem="cjc-Nw-kcb" secondAttribute="bottom" constant="15" id="jxC-ZJ-M0j"/>
+                            <constraint firstItem="GLC-Ht-mb1" firstAttribute="leading" secondItem="vm2-rJ-xwa" secondAttribute="leading" constant="15" id="rVE-NN-wF8"/>
+                            <constraint firstItem="A2y-EB-TTG" firstAttribute="leading" secondItem="vm2-rJ-xwa" secondAttribute="leading" constant="15" id="sU1-6z-J3p"/>
+                            <constraint firstItem="4CV-e1-vOJ" firstAttribute="leading" secondItem="vm2-rJ-xwa" secondAttribute="leading" constant="15" id="tB7-Zs-9C0"/>
+                            <constraint firstItem="e3H-fn-z9j" firstAttribute="top" secondItem="A2y-EB-TTG" secondAttribute="bottom" constant="15" id="y77-Xj-nOV"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="vm2-rJ-xwa"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="搜索" image="store_seqrch" id="NWs-OW-Si5"/>
+                    <connections>
+                        <outlet property="searchBar" destination="6BD-S1-Xfl" id="gho-9J-Srh"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g1i-Uy-Prj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3342" y="1164"/>
+            <point key="canvasLocation" x="3341.5999999999999" y="1163.568215892054"/>
         </scene>
         <!--好友商店-->
         <scene sceneID="19Q-ur-PzY">
