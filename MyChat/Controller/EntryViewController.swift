@@ -37,6 +37,11 @@ class EntryViewController: UIViewController, UINavigationControllerDelegate, UIT
     }
     
     @IBAction func getCode(_ sender: UIButton) {
+        
+        // 立即开始倒计时
+        self.remainingSec = 30
+        self.codeTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.startCodeTimer), userInfo: nil, repeats: true)
+        
         let username = username_tf.text!
         
         if !isValidEmail(testStr: username) {
@@ -51,8 +56,6 @@ class EntryViewController: UIViewController, UINavigationControllerDelegate, UIT
         let url: String = "/users/auth"
         let that = self
         let onSuccess = { (data: [String: Any]) in
-            self.remainingSec = 30
-            self.codeTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.startCodeTimer), userInfo: nil, repeats: true)
             self.correctCode = data["authcode"] as? String
         }
         let onFailure = { (data: [String: Any]) in
@@ -76,7 +79,8 @@ class EntryViewController: UIViewController, UINavigationControllerDelegate, UIT
     func stopCodeTimer() {
         getCodeBtn.setTitle("发送验证码", for: .normal)
         getCodeBtn.isEnabled = true
-        correctCode = nil
+        // correctCode 仍然有效
+        // correctCode = nil
         if codeTimer != nil {
             codeTimer?.invalidate()
             codeTimer = nil
@@ -181,7 +185,8 @@ class EntryViewController: UIViewController, UINavigationControllerDelegate, UIT
         
         // 如果是注册，先验证验证码
         if !isToLogin && !codeIsCorrect() {
-            return
+            // 在测试、演示阶段为求方便，不进行验证失败后的返回
+            // return
         }
         
         let parameters: [String: Any] = [
