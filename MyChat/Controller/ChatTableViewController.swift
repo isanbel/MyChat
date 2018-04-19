@@ -57,6 +57,9 @@ class ChatTableViewController: UITableViewController, NSFetchedResultsController
     
     private func setUpSearchBar() {
         searchController.searchBar.setValue("取消", forKey: "cancelButtonText")
+        searchController.searchBar.placeholder = "搜索"
+        searchController.searchBar.barTintColor = .white
+        searchController.searchBar.tintColor = UIColor(hex: "#777777")
         searchController.searchBar.backgroundImage = UIImage()
         searchController.searchBar.backgroundColor = .white
         let searchField = searchController.searchBar.value(forKey: "searchField") as? UITextField
