@@ -35,6 +35,7 @@ extension ChatPageTableViewController: IFlySpeechRecognizerDelegate {
     
     func onResults(_ results: [Any]!, isLast: Bool) {
         var keys = ""
+        if results == nil || results.count == 0 { return }
         let dic: Dictionary<String, String> = results[0] as! Dictionary<String, String>
         for key in dic.keys {
             keys += key

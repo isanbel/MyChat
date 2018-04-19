@@ -47,6 +47,7 @@ class ChatPageTableViewController:
     
     var inputTool: InputTool = InputTool.keyboard
     var inputTextBeforeUsingMicrophone: String?
+    let recordingBtn = UIButton()
     
     // socket
     var socket_manager: SocketManager!
@@ -81,6 +82,8 @@ class ChatPageTableViewController:
             
             // 收起键盘
             textField.resignFirstResponder()
+            
+            addRecordingBtn()
         }
         // 使用键盘
         else {
@@ -92,6 +95,8 @@ class ChatPageTableViewController:
             
             // 打开键盘
             textField.becomeFirstResponder()
+            
+            removeRecordingBtn()
         }
         
         // 更新图标
@@ -99,13 +104,16 @@ class ChatPageTableViewController:
         inputToolBtn.setImage(UIImage(named: btnIconName), for: .normal)
     }
     
-    // MARK: - textfield delegate
-    // 当用户用麦克风输入的时候，无法编辑文字，但是可以touch
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        if inputTool == InputTool.microphone {
-            return false
-        }
-        return true
+    func addRecordingBtn() {
+        recordingBtn.frame = textField.frame
+        recordingBtn.frame.origin.y = recordingBtn.frame.origin.y + keyBaordView.frame.origin.y
+        recordingBtn.addTarget(self, action: #selector(startRecord), for: .touchDown)
+        recordingBtn.addTarget(self, action: #selector(stopRecord), for: .touchUpInside)
+        self.view.addSubview(recordingBtn)
+    }
+    
+    func removeRecordingBtn() {
+        recordingBtn.removeFromSuperview()
     }
     
     func getData() {
@@ -333,7 +341,7 @@ class ChatPageTableViewController:
             
             // 更新 lastMessage
             let lastmessage = LastMessageMO(context: appDelegate.persistentContainer.viewContext)
-            lastmessage.content = textField.text!
+            lastmessage.content = message_sent
             lastmessage.date = Date()
             friend.lastMessage = lastmessage
             
@@ -344,6 +352,10 @@ class ChatPageTableViewController:
             if msgTypeIsSent {
                 socketSend(message: message_sent)
             }
+        }
+        // 解决tableview自己往上跑的问题
+        if inputTool == InputTool.microphone {
+            self.tableView.transform = CGAffineTransform(translationX: 0,y: 0)
         }
     }
 
