@@ -13,9 +13,9 @@ class SettingsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.separatorStyle = .none
+        // tableView.separatorStyle = .none
         tableView.tableFooterView = UIView()
-        tableView.backgroundColor = UIColor(displayP3Red: 237/255, green: 235/255, blue: 235/255, alpha: 1)
+        // tableView.backgroundColor = UIColor(displayP3Red: 237/255, green: 235/255, blue: 235/255, alpha: 1)
     }
 
     override func didReceiveMemoryWarning() {

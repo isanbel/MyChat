@@ -60,7 +60,7 @@ class ChatTableViewController: UITableViewController, NSFetchedResultsController
         searchController.searchBar.backgroundImage = UIImage()
         searchController.searchBar.backgroundColor = .white
         let searchField = searchController.searchBar.value(forKey: "searchField") as? UITextField
-        searchField?.backgroundColor = UIColor(hex: "#EDEBEB")
+        searchField?.backgroundColor = UIColor(hex: "#f1f1f1")
         searchField?.layer.cornerRadius = (searchField?.layer.bounds.height)! / 2
     }
     
