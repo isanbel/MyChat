@@ -218,7 +218,7 @@ class EntryViewController: UIViewController, UINavigationControllerDelegate, UIT
             user.id = data["userid"] as? String
             user.birthday = Date()
             
-            let avatarUrl = "http://139.199.174.146:3000/avatar/" + user.id! + ".jpg"
+            let avatarUrl = "http://\(Config.SERVER_IP):3000/avatar/" + user.id! + ".jpg"
             let url = URL(string: avatarUrl)
             let avatar = try? Data(contentsOf: url!)
             user.avatar = avatar
