@@ -68,7 +68,7 @@ extension ChatPageTableViewController: UIGestureRecognizerDelegate {
         UIView.animate(withDuration: TimeInterval(duration), animations: aninations)
         
         keyBoardOnRight = !keyBoardOnRight
-        textField.backgroundColor = keyBoardOnRight ? .white : UIColor(hex: "#d1e0f1")
+        textField.backgroundColor = keyBoardOnRight ? .white : UIColor(hex: "#f1f1f1")
     }
 }
 

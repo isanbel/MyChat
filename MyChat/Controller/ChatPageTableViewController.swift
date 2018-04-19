@@ -12,6 +12,11 @@ import AVFoundation
 import SwiftyJSON
 import SocketIO
 
+enum InputTool {
+    case keyboard
+    case microphone
+}
+
 class ChatPageTableViewController:
     UIViewController,
     UITableViewDataSource,
@@ -22,6 +27,7 @@ class ChatPageTableViewController:
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var keyBaordView: UIView!
     @IBOutlet weak var textField: UITextField!
+    @IBOutlet weak var inputToolBtn: UIButton!
     
     // iFly
     var iflySpeechRecognizer: IFlySpeechRecognizer = IFlySpeechRecognizer.sharedInstance() as IFlySpeechRecognizer
@@ -39,20 +45,67 @@ class ChatPageTableViewController:
     var keyBoardOnRight: Bool = true
     var keyBoardSnapShotView: UIImageView!
     
+    var inputTool: InputTool = InputTool.keyboard
+    var inputTextBeforeUsingMicrophone: String?
+    
     // socket
     var socket_manager: SocketManager!
     var socket: SocketIOClient!
     
     @IBAction func startRecord() {
-        self.iflySpeechRecognizer.startListening()
-        self.is_recording = true
-        print("startRecord")
+        if inputTool == InputTool.microphone {
+            self.iflySpeechRecognizer.startListening()
+            self.is_recording = true
+            print("startRecord")
+        }
     }
     
     @IBAction func stopRecord() {
-        self.iflySpeechRecognizer.stopListening()
-        self.is_recording = false
-        print("stopRecord")
+        if inputTool == InputTool.microphone {
+            self.iflySpeechRecognizer.stopListening()
+            self.is_recording = false
+            print("stopRecord")
+        }
+    }
+    
+    @IBAction func switchInputTool() {
+        inputTool = inputTool == InputTool.keyboard ? InputTool.microphone : InputTool.keyboard
+        
+        // 使用麦克风
+        if inputTool == InputTool.microphone {
+            // 更新输入框
+            inputTextBeforeUsingMicrophone = textField.text
+            textField.text = "按住 说话"
+            textField.font = UIFont(name: (textField.font?.fontName)!, size: 18)
+            textField.textAlignment = .center
+            
+            // 收起键盘
+            textField.resignFirstResponder()
+        }
+        // 使用键盘
+        else {
+            // 更新输入框
+            textField.text = inputTextBeforeUsingMicrophone
+            inputTextBeforeUsingMicrophone = nil
+            textField.font = UIFont(name: (textField.font?.fontName)!, size: 14)
+            textField.textAlignment = .left
+            
+            // 打开键盘
+            textField.becomeFirstResponder()
+        }
+        
+        // 更新图标
+        let btnIconName = inputTool == InputTool.keyboard ? "chat-input-voice" : "chat-input-emoji"
+        inputToolBtn.setImage(UIImage(named: btnIconName), for: .normal)
+    }
+    
+    // MARK: - textfield delegate
+    // 当用户用麦克风输入的时候，无法编辑文字，但是可以touch
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        if inputTool == InputTool.microphone {
+            return false
+        }
+        return true
     }
     
     func getData() {

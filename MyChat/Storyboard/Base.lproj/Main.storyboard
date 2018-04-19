@@ -516,13 +516,17 @@
                                 <rect key="frame" x="0.0" y="617" width="375" height="50"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wpy-rr-Y7I">
-                                        <rect key="frame" x="50" y="8" width="235" height="34"/>
+                                        <rect key="frame" x="50" y="8" width="242" height="34"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="34" id="zqy-FC-w5h"/>
                                         </constraints>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <action selector="startRecord" destination="N4k-Tg-JOS" eventType="touchDown" id="YdT-dC-J1X"/>
+                                            <action selector="stopRecord" destination="N4k-Tg-JOS" eventType="touchUpInside" id="LFf-g7-uh8"/>
+                                        </connections>
                                     </textField>
                                     <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="PS1-7I-DGK">
                                         <rect key="frame" x="305" y="-15" width="65" height="30"/>
@@ -531,28 +535,27 @@
                                         </constraints>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="f5T-Ef-Hfh">
-                                        <rect key="frame" x="295" y="10" width="70" height="30"/>
+                                        <rect key="frame" x="302" y="10" width="63" height="30"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TeW-Mc-xgh">
                                                 <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
-                                                <state key="normal" image="chat-input-voice"/>
+                                                <state key="normal" image="chat-input-emoji"/>
                                                 <connections>
                                                     <action selector="startRecord" destination="N4k-Tg-JOS" eventType="touchDown" id="Xuf-xX-12A"/>
                                                     <action selector="stopRecord" destination="N4k-Tg-JOS" eventType="touchUpInside" id="phW-Ug-wBT"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iUf-fy-ZF0">
-                                                <rect key="frame" x="40" y="0.0" width="30" height="30"/>
+                                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iUf-fy-ZF0">
+                                                <rect key="frame" x="40" y="0.0" width="23" height="30"/>
                                                 <state key="normal" image="chat-input-add"/>
                                             </button>
                                         </subviews>
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S7n-8S-j0a">
                                         <rect key="frame" x="10" y="10" width="30" height="30"/>
-                                        <state key="normal" image="chat-input-emoji"/>
+                                        <state key="normal" image="chat-input-voice"/>
                                         <connections>
-                                            <action selector="startRecord" destination="N4k-Tg-JOS" eventType="touchDown" id="kc3-cX-nmR"/>
-                                            <action selector="stopRecord" destination="N4k-Tg-JOS" eventType="touchUpInside" id="dys-DI-ip1"/>
+                                            <action selector="switchInputTool" destination="N4k-Tg-JOS" eventType="touchDown" id="fhT-1E-wPH"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -595,6 +598,7 @@
                     </navigationItem>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="inputToolBtn" destination="S7n-8S-j0a" id="6oq-La-2XH"/>
                         <outlet property="keyBaordView" destination="TEx-sf-ELg" id="jBT-qu-qP6"/>
                         <outlet property="tableView" destination="Of7-Y5-z5j" id="GcP-ju-oYt"/>
                         <outlet property="textField" destination="wpy-rr-Y7I" id="WD8-wg-3Dh"/>
@@ -2181,7 +2185,7 @@
         <image name="addfriend" width="30" height="30"/>
         <image name="avatar" width="128" height="128"/>
         <image name="best_attr" width="120" height="120"/>
-        <image name="chat-input-add" width="30" height="30"/>
+        <image name="chat-input-add" width="23" height="24"/>
         <image name="chat-input-emoji" width="30" height="30"/>
         <image name="chat-input-voice" width="30" height="30"/>
         <image name="contact" width="30" height="30"/>
