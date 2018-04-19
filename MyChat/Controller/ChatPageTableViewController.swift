@@ -92,7 +92,7 @@ class ChatPageTableViewController:
         tableView.dataSource = self
         tableView.separatorStyle = .none
         tableView.tableFooterView = UIView()
-        tableView.backgroundColor = UIColor(displayP3Red: 237/255, green: 235/255, blue: 235/255, alpha: 1)
+        tableView.backgroundColor = .white
 
         // the keyboard view
         textField.delegate = self as UITextFieldDelegate
@@ -301,7 +301,7 @@ class ChatPageTableViewController:
         chatMessages.append(message)
 
         tableView.beginUpdates()
-        tableView.insertRows(at: [IndexPath(row: chatMessages.count - 1, section: 0)], with: .automatic)
+        tableView.insertRows(at: [IndexPath(row: chatMessages.count - 1, section: 0)], with: .bottom)
         tableView.endUpdates()
 
         // deal with the hidden cell by the keyboard

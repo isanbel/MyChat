@@ -38,7 +38,8 @@ class ChatTableViewController: UITableViewController, NSFetchedResultsController
         tableView.backgroundView = emptyChatTableView
         tableView.backgroundView?.isHidden = true
         tableView.tableFooterView = UIView()
-        tableView.backgroundColor = UIColor(displayP3Red: 237/255, green: 235/255, blue: 235/255, alpha: 1)
+        tableView.backgroundColor = .white
+        tableView.separatorStyle = .none
         
         SocketIOUtil.initialize()
         if Config.DEVICE_TOKEN != nil { uploadDeviceToken() }
@@ -103,7 +104,6 @@ class ChatTableViewController: UITableViewController, NSFetchedResultsController
     override func numberOfSections(in tableView: UITableView) -> Int {
         if lastMessages.count > 0 {
             tableView.backgroundView?.isHidden = true
-            tableView.separatorStyle = .singleLine
         } else {
             tableView.backgroundView?.isHidden = false
             tableView.separatorStyle = .none
