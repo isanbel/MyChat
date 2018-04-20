@@ -17,6 +17,26 @@ class EntryViewController: UIViewController, UINavigationControllerDelegate, UIT
     
     var codeTimer: Timer?
     var remainingSec: Int = 30
+    
+    private lazy var enteringView: UIView = {
+        let enteringView = UIView()
+        enteringView.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+        enteringView.center = self.view.center
+        enteringView.frame.origin.y  = enteringView.frame.origin.y
+        enteringView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        enteringView.layer.cornerRadius = 10
+        enteringView.layer.masksToBounds = true
+        
+        let label = UILabel()
+        label.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+        label.textAlignment = .center
+        label.textColor = .white
+        label.text = "登录中..."
+        enteringView.addSubview(label)
+        enteringView.layer.zPosition = 2
+        
+        return enteringView
+    }()
 
     @IBOutlet weak var username_tf: UITextField! {
         didSet {
@@ -164,10 +184,12 @@ class EntryViewController: UIViewController, UINavigationControllerDelegate, UIT
             present(Utils.getAlertController(title: "错误", message: msg), animated: true, completion: nil)
             return false
         }
-        return true
     }
     
     @IBAction func entry_bt(_ sender: UIButton) {
+        
+        self.view.addSubview(enteringView)
+        
         let username = username_tf.text!
         let password = password_tf.text!
         
@@ -197,6 +219,7 @@ class EntryViewController: UIViewController, UINavigationControllerDelegate, UIT
         let that = self
         let onSuccess = { (data: [String: Any]) in
             self.self.saveUserData(data: data)
+            self.enteringView.removeFromSuperview()
             that.performSegue(withIdentifier: "Enter", sender: nil)
         }
         
