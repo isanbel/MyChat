@@ -11,6 +11,8 @@ import UIKit
 import UserNotifications
 
 class Utils {
+    static weak var delegate: UnreadMessageDelegate?
+    
     static func getAlertController(title: String, message: String) -> UIAlertController {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
         alertController.addAction(UIAlertAction(title: "哦", style: UIAlertActionStyle.default, handler: nil))
@@ -105,6 +107,7 @@ class Utils {
         let url = "/unread_messages/all?userid=\(userid)"
         let onSuccess = { (data: [String: Any]) in
             let unread_messages = data["unread_messages"] as! [[String: Any]]
+            if unread_messages.count == 0 { return }
             for um in unread_messages {
                 let friendid = um["friendid"] as! String
                 let messages = um["messages"] as! [String]
@@ -115,6 +118,7 @@ class Utils {
                     Global.unread_messages[friendid]!.append(m)
                 }
             }
+            delegate!.fetchUnreadMessages()
         }
         let onFailure = { (data: [String: Any]) in }
         HttpUtil.get(url: url, onSuccess: onSuccess, onFailure: onFailure)
@@ -125,16 +129,17 @@ class Utils {
         let url = "/unread_messages/one?userid=\(userid)&friendid=\(friendid)"
         let onSuccess = { (data: [String: Any]) in
             let unread_messages = data["unread_messages"] as! [[String: Any]]
+            if unread_messages.count == 0 { return }
+            if (!Global.unread_messages.keys.contains(friendid)) {
+                Global.unread_messages[friendid] = [String]()
+            }
             for um in unread_messages {
-                let friendid = um["friendid"] as! String
                 let messages = um["messages"] as! [String]
-                if (!Global.unread_messages.keys.contains(friendid) && messages.count > 0) {
-                    Global.unread_messages[friendid] = [String]()
-                }
                 for m in messages {
                     Global.unread_messages[friendid]!.append(m)
                 }
             }
+            delegate!.fetchUnreadMessages()
         }
         let onFailure = { (data: [String: Any]) in }
         HttpUtil.get(url: url, onSuccess: onSuccess, onFailure: onFailure)

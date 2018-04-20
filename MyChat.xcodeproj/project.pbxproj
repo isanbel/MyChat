@@ -31,6 +31,7 @@
 		A8D69F3A204FA4A00081B18D /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D69F39204FA4A00081B18D /* Utils.swift */; };
 		A8D69F3C204FC1340081B18D /* SocketIOUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D69F3B204FC1340081B18D /* SocketIOUtil.swift */; };
 		A8D69F3E205015940081B18D /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D69F3D205015940081B18D /* Global.swift */; };
+		A8DDDD142089D335007DE136 /* UnreadMessageDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8DDDD132089D335007DE136 /* UnreadMessageDelegate.swift */; };
 		A8F97CD3205D364C001167C7 /* iflyMSC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8F97CD2205D364B001167C7 /* iflyMSC.framework */; };
 		C2222742206522F600EA5FE0 /* ChatPageTableViewController+SwipInputBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2222741206522F600EA5FE0 /* ChatPageTableViewController+SwipInputBar.swift */; };
 		C2224AC3204CF8B5001A9D06 /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2224AC2204CF8B5001A9D06 /* Friend.swift */; };
@@ -102,6 +103,7 @@
 		A8D69F3B204FC1340081B18D /* SocketIOUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketIOUtil.swift; sourceTree = "<group>"; };
 		A8D69F3D205015940081B18D /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		A8D98DD42060B09F0062BD2C /* MyChat.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyChat.entitlements; sourceTree = "<group>"; };
+		A8DDDD132089D335007DE136 /* UnreadMessageDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnreadMessageDelegate.swift; sourceTree = "<group>"; };
 		A8F97CCD205CF886001167C7 /* iflyMSC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iflyMSC.framework; path = MyChat/iflyMSC.framework; sourceTree = "<group>"; };
 		A8F97CD2205D364B001167C7 /* iflyMSC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iflyMSC.framework; path = lib/iflyMSC.framework; sourceTree = "<group>"; };
 		C049B3444924D59407AF0FA7 /* Pods_MyChat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyChat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -270,6 +272,7 @@
 				A8079A83205FF07500189150 /* Config.swift */,
 				A8618D18206B797D00C26D47 /* SocketIODelegate.swift */,
 				C27675A120804A6B00444096 /* TabbarDelegate.swift */,
+				A8DDDD132089D335007DE136 /* UnreadMessageDelegate.swift */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -528,6 +531,7 @@
 				C26444682024B0DE004E86C5 /* AppDelegate.swift in Sources */,
 				A8309B702068856200CB98FC /* ChatPageTableViewController+iFly.swift in Sources */,
 				C2224AC5204D1B17001A9D06 /* FriendProlileTableViewController.swift in Sources */,
+				A8DDDD142089D335007DE136 /* UnreadMessageDelegate.swift in Sources */,
 				C2FDE821205094CD005CB808 /* SettingsTableViewController.swift in Sources */,
 				C2B11B042044F4EA00726A86 /* User.swift in Sources */,
 				C2FDE81F20509193005CB808 /* LaunchViewController.swift in Sources */,

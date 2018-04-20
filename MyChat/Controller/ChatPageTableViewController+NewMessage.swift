@@ -12,6 +12,7 @@ extension ChatPageTableViewController: SocketIODelegate {
     
     func setDelegate() {
         SocketIOUtil.delegate = self
+        Utils.delegate = self
     }
     
     func recieveMessages(messages: [String], from: String) {
