@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "friendstore_attributes.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "right-2.png",
       "scale" : "2x"
     },
     {

@@ -12,6 +12,11 @@ import AVFoundation
 import SwiftyJSON
 import SocketIO
 
+enum InputTool {
+    case keyboard
+    case microphone
+}
+
 class ChatPageTableViewController:
     UIViewController,
     UITableViewDataSource,
@@ -22,6 +27,7 @@ class ChatPageTableViewController:
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var keyBaordView: UIView!
     @IBOutlet weak var textField: UITextField!
+    @IBOutlet weak var inputToolBtn: UIButton!
     
     // iFly
     var iflySpeechRecognizer: IFlySpeechRecognizer = IFlySpeechRecognizer.sharedInstance() as IFlySpeechRecognizer
@@ -39,20 +45,75 @@ class ChatPageTableViewController:
     var keyBoardOnRight: Bool = true
     var keyBoardSnapShotView: UIImageView!
     
+    var inputTool: InputTool = InputTool.keyboard
+    var inputTextBeforeUsingMicrophone: String?
+    let recordingBtn = UIButton()
+    
     // socket
     var socket_manager: SocketManager!
     var socket: SocketIOClient!
     
     @IBAction func startRecord() {
-        self.iflySpeechRecognizer.startListening()
-        self.is_recording = true
-        print("startRecord")
+        if inputTool == InputTool.microphone {
+            self.iflySpeechRecognizer.startListening()
+            self.is_recording = true
+            print("startRecord")
+        }
     }
     
     @IBAction func stopRecord() {
-        self.iflySpeechRecognizer.stopListening()
-        self.is_recording = false
-        print("stopRecord")
+        if inputTool == InputTool.microphone {
+            self.iflySpeechRecognizer.stopListening()
+            self.is_recording = false
+            print("stopRecord")
+        }
+    }
+    
+    @IBAction func switchInputTool() {
+        inputTool = inputTool == InputTool.keyboard ? InputTool.microphone : InputTool.keyboard
+        
+        // 使用麦克风
+        if inputTool == InputTool.microphone {
+            // 更新输入框
+            inputTextBeforeUsingMicrophone = textField.text
+            textField.text = "按住 说话"
+            textField.font = UIFont(name: (textField.font?.fontName)!, size: 18)
+            textField.textAlignment = .center
+            
+            // 收起键盘
+            textField.resignFirstResponder()
+            
+            addRecordingBtn()
+        }
+        // 使用键盘
+        else {
+            // 更新输入框
+            textField.text = inputTextBeforeUsingMicrophone
+            inputTextBeforeUsingMicrophone = nil
+            textField.font = UIFont(name: (textField.font?.fontName)!, size: 14)
+            textField.textAlignment = .left
+            
+            // 打开键盘
+            textField.becomeFirstResponder()
+            
+            removeRecordingBtn()
+        }
+        
+        // 更新图标
+        let btnIconName = inputTool == InputTool.keyboard ? "chat-input-voice" : "chat-input-emoji"
+        inputToolBtn.setImage(UIImage(named: btnIconName), for: .normal)
+    }
+    
+    func addRecordingBtn() {
+        recordingBtn.frame = textField.frame
+        recordingBtn.frame.origin.y = recordingBtn.frame.origin.y + keyBaordView.frame.origin.y
+        recordingBtn.addTarget(self, action: #selector(startRecord), for: .touchDown)
+        recordingBtn.addTarget(self, action: #selector(stopRecord), for: .touchUpInside)
+        self.view.addSubview(recordingBtn)
+    }
+    
+    func removeRecordingBtn() {
+        recordingBtn.removeFromSuperview()
     }
     
     func getData() {
@@ -92,7 +153,7 @@ class ChatPageTableViewController:
         tableView.dataSource = self
         tableView.separatorStyle = .none
         tableView.tableFooterView = UIView()
-        tableView.backgroundColor = UIColor(displayP3Red: 237/255, green: 235/255, blue: 235/255, alpha: 1)
+        tableView.backgroundColor = .white
 
         // the keyboard view
         textField.delegate = self as UITextFieldDelegate
@@ -280,7 +341,7 @@ class ChatPageTableViewController:
             
             // 更新 lastMessage
             let lastmessage = LastMessageMO(context: appDelegate.persistentContainer.viewContext)
-            lastmessage.content = textField.text!
+            lastmessage.content = message_sent
             lastmessage.date = Date()
             friend.lastMessage = lastmessage
             
@@ -288,7 +349,13 @@ class ChatPageTableViewController:
             appDelegate.saveContext()
             appendMessageAndShow(message: message)
             
-            socketSend(message: message_sent)
+            if msgTypeIsSent {
+                socketSend(message: message_sent)
+            }
+        }
+        // 解决tableview自己往上跑的问题
+        if inputTool == InputTool.microphone {
+            self.tableView.transform = CGAffineTransform(translationX: 0,y: 0)
         }
     }
 
@@ -301,7 +368,7 @@ class ChatPageTableViewController:
         chatMessages.append(message)
 
         tableView.beginUpdates()
-        tableView.insertRows(at: [IndexPath(row: chatMessages.count - 1, section: 0)], with: .automatic)
+        tableView.insertRows(at: [IndexPath(row: chatMessages.count - 1, section: 0)], with: .bottom)
         tableView.endUpdates()
 
         // deal with the hidden cell by the keyboard

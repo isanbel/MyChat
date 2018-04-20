@@ -38,6 +38,8 @@ extension ChatPageTableViewController: SocketIODelegate {
         
         if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
             for msg in messages {
+                Utils.appendDateIndicatorIfNeeded(whenChattingWith: friend)
+                
                 let message = ChatMessageMO(context: appDelegate.persistentContainer.viewContext)
                 message.isSent = false
                 message.date = Date()

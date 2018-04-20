@@ -61,7 +61,8 @@ class ContactCollectionViewCell: UICollectionViewCell {
     
     private lazy var nameLabel: UILabel = {
         
-        let label = UILabel(frame: CGRect(x: 0, y: imageW + 10 + 5, width: self.bounds.width, height: 14))
+        // 因为左边多出来了10px，右边也加上去
+        let label = UILabel(frame: CGRect(x: 0, y: imageW + 10 + 5, width: self.bounds.width + 10, height: 14))
         label.textAlignment = NSTextAlignment.center
         label.font = UIFont.systemFont(ofSize: 12)
         return label

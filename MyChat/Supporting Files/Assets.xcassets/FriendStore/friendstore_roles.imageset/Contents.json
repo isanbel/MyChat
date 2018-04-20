@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "friendstore_roles.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "more_nml.png",
       "scale" : "2x"
     },
     {
