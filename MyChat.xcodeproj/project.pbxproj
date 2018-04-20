@@ -66,6 +66,8 @@
 		C2D45DB5205D3D1D004C2685 /* ContactCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D45DB4205D3D1D004C2685 /* ContactCollectionViewController.swift */; };
 		C2D45DB7205D3D2B004C2685 /* ContactCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D45DB6205D3D2B004C2685 /* ContactCollectionViewCell.swift */; };
 		C2FB19692089D38100FC881F /* ChatTableViewController+UnreadMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2FB19682089D38100FC881F /* ChatTableViewController+UnreadMessages.swift */; };
+		C2FB196B2089DBE800FC881F /* ChatPageTableViewController+UnreadMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2FB196A2089DBE800FC881F /* ChatPageTableViewController+UnreadMessages.swift */; };
+		C2FB196D2089DD9D00FC881F /* ContactCollectionViewController+UnreadMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2FB196C2089DD9D00FC881F /* ContactCollectionViewController+UnreadMessages.swift */; };
 		C2FCE119206C82E100151883 /* FriendStoreTabbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2FCE118206C82E100151883 /* FriendStoreTabbarViewController.swift */; };
 		C2FDE81B204FE503005CB808 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2FDE81A204FE503005CB808 /* Assets.xcassets */; };
 		C2FDE81D20500F78005CB808 /* DiscoveryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2FDE81C20500F78005CB808 /* DiscoveryTableViewController.swift */; };
@@ -143,6 +145,8 @@
 		C2D45DB4205D3D1D004C2685 /* ContactCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactCollectionViewController.swift; sourceTree = "<group>"; };
 		C2D45DB6205D3D2B004C2685 /* ContactCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactCollectionViewCell.swift; sourceTree = "<group>"; };
 		C2FB19682089D38100FC881F /* ChatTableViewController+UnreadMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatTableViewController+UnreadMessages.swift"; sourceTree = "<group>"; };
+		C2FB196A2089DBE800FC881F /* ChatPageTableViewController+UnreadMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatPageTableViewController+UnreadMessages.swift"; sourceTree = "<group>"; };
+		C2FB196C2089DD9D00FC881F /* ContactCollectionViewController+UnreadMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContactCollectionViewController+UnreadMessages.swift"; sourceTree = "<group>"; };
 		C2FCE118206C82E100151883 /* FriendStoreTabbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendStoreTabbarViewController.swift; sourceTree = "<group>"; };
 		C2FDE81A204FE503005CB808 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C2FDE81C20500F78005CB808 /* DiscoveryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryTableViewController.swift; sourceTree = "<group>"; };
@@ -323,9 +327,11 @@
 				A866B1C02074D03D00F41025 /* ChatPageTableViewController+Socket.swift */,
 				A8309B6F2068856200CB98FC /* ChatPageTableViewController+iFly.swift */,
 				A8618D1A206B7B1D00C26D47 /* ChatPageTableViewController+NewMessage.swift */,
+				C2FB196A2089DBE800FC881F /* ChatPageTableViewController+UnreadMessages.swift */,
 				C2222741206522F600EA5FE0 /* ChatPageTableViewController+SwipInputBar.swift */,
 				C2D45DB4205D3D1D004C2685 /* ContactCollectionViewController.swift */,
 				C27675A32080AF9D00444096 /* ContactCollectionViewController+newMessage.swift */,
+				C2FB196C2089DD9D00FC881F /* ContactCollectionViewController+UnreadMessages.swift */,
 				C2224AC4204D1B17001A9D06 /* FriendProlileTableViewController.swift */,
 				C2224AEC204D7F75001A9D06 /* NewFriendTableViewController.swift */,
 				C2FDE8242051449D005CB808 /* AddFriendTableViewController.swift */,
@@ -514,11 +520,13 @@
 				A8D69F36204EF4820081B18D /* EntryViewController.swift in Sources */,
 				C2FDE8232050B204005CB808 /* FriendManagementTableViewController.swift in Sources */,
 				C25CD42520891BBD007C25AC /* SearchViewController.swift in Sources */,
+				C2FB196B2089DBE800FC881F /* ChatPageTableViewController+UnreadMessages.swift in Sources */,
 				C289D1DC206E16350087A541 /* TodayCommodity.swift in Sources */,
 				C2224AED204D7F75001A9D06 /* NewFriendTableViewController.swift in Sources */,
 				C25CD42120890F60007C25AC /* RolesViewController.swift in Sources */,
 				C2FCE119206C82E100151883 /* FriendStoreTabbarViewController.swift in Sources */,
 				C2224AEB204D4A8B001A9D06 /* MyChat.xcdatamodeld in Sources */,
+				C2FB196D2089DD9D00FC881F /* ContactCollectionViewController+UnreadMessages.swift in Sources */,
 				A8618D1D206B7F0600C26D47 /* ChatTableViewController+NewMessage.swift in Sources */,
 				C2224AC3204CF8B5001A9D06 /* Friend.swift in Sources */,
 				C2FB19692089D38100FC881F /* ChatTableViewController+UnreadMessages.swift in Sources */,

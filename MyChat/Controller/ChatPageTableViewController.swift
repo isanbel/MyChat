@@ -218,6 +218,7 @@ class ChatPageTableViewController:
         
         print("&&&&&&&&&&&&&&&&&&&ChatPageTableViewController")
         setDelegate()
+        setUnreadMessagesDelegate()
         updateLeftTopNotification()
         Utils.fetchFriendNewMessages(friendid: friend.id!)
     }

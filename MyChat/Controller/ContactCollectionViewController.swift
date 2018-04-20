@@ -77,6 +77,8 @@ class ContactCollectionViewController: UICollectionViewController, UIGestureReco
     
     override func viewWillAppear(_ animated: Bool) {
         loadData()
+        setDelegate()
+        setUnreadMessagesDelegate()
     }
     
     // Mark: get Data
