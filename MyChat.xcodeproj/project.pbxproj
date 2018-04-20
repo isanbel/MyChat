@@ -65,6 +65,7 @@
 		C2BE1C20204E6F37008B8E01 /* MyProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BE1C1F204E6F37008B8E01 /* MyProfileTableViewController.swift */; };
 		C2D45DB5205D3D1D004C2685 /* ContactCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D45DB4205D3D1D004C2685 /* ContactCollectionViewController.swift */; };
 		C2D45DB7205D3D2B004C2685 /* ContactCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D45DB6205D3D2B004C2685 /* ContactCollectionViewCell.swift */; };
+		C2FB19692089D38100FC881F /* ChatTableViewController+UnreadMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2FB19682089D38100FC881F /* ChatTableViewController+UnreadMessages.swift */; };
 		C2FCE119206C82E100151883 /* FriendStoreTabbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2FCE118206C82E100151883 /* FriendStoreTabbarViewController.swift */; };
 		C2FDE81B204FE503005CB808 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2FDE81A204FE503005CB808 /* Assets.xcassets */; };
 		C2FDE81D20500F78005CB808 /* DiscoveryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2FDE81C20500F78005CB808 /* DiscoveryTableViewController.swift */; };
@@ -141,6 +142,7 @@
 		C2BE1C1F204E6F37008B8E01 /* MyProfileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileTableViewController.swift; sourceTree = "<group>"; };
 		C2D45DB4205D3D1D004C2685 /* ContactCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactCollectionViewController.swift; sourceTree = "<group>"; };
 		C2D45DB6205D3D2B004C2685 /* ContactCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactCollectionViewCell.swift; sourceTree = "<group>"; };
+		C2FB19682089D38100FC881F /* ChatTableViewController+UnreadMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatTableViewController+UnreadMessages.swift"; sourceTree = "<group>"; };
 		C2FCE118206C82E100151883 /* FriendStoreTabbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendStoreTabbarViewController.swift; sourceTree = "<group>"; };
 		C2FDE81A204FE503005CB808 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C2FDE81C20500F78005CB808 /* DiscoveryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryTableViewController.swift; sourceTree = "<group>"; };
@@ -316,6 +318,7 @@
 			children = (
 				C2B11B092045005400726A86 /* ChatTableViewController.swift */,
 				A8618D1C206B7F0600C26D47 /* ChatTableViewController+NewMessage.swift */,
+				C2FB19682089D38100FC881F /* ChatTableViewController+UnreadMessages.swift */,
 				C2B11B0D20453BB300726A86 /* ChatPageTableViewController.swift */,
 				A866B1C02074D03D00F41025 /* ChatPageTableViewController+Socket.swift */,
 				A8309B6F2068856200CB98FC /* ChatPageTableViewController+iFly.swift */,
@@ -518,6 +521,7 @@
 				C2224AEB204D4A8B001A9D06 /* MyChat.xcdatamodeld in Sources */,
 				A8618D1D206B7F0600C26D47 /* ChatTableViewController+NewMessage.swift in Sources */,
 				C2224AC3204CF8B5001A9D06 /* Friend.swift in Sources */,
+				C2FB19692089D38100FC881F /* ChatTableViewController+UnreadMessages.swift in Sources */,
 				A8618D19206B797D00C26D47 /* SocketIODelegate.swift in Sources */,
 				C247D3402047956000456567 /* ChatMessage.swift in Sources */,
 				C25CD42320891A4D007C25AC /* AttributesViewController.swift in Sources */,
