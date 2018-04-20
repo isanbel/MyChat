@@ -227,13 +227,13 @@ class EntryViewController: UIViewController, UINavigationControllerDelegate, UIT
             let url = URL(string: avatarUrl)
             let avatar = try? Data(contentsOf: url!)
             user.avatar = avatar
-            
             user.loggedin = true
             
             appDelegate.saveContext()
             
             // Save to Global also
             Global.user = user
+            Global.userid = Global.user.id
         }
     }
     
@@ -266,6 +266,7 @@ class EntryViewController: UIViewController, UINavigationControllerDelegate, UIT
                                 
                                 // Save to Global also
                                 Global.user = fetchedObjects[i]
+                                Global.userid = Global.user.id
                             }
                             return true
                         }

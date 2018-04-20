@@ -100,4 +100,43 @@ class Utils {
         }
     }
     
+    static func fetchAllNewMessages() {
+        let userid = Global.user.id!
+        let url = "/unread_messages/all?userid=\(userid)"
+        let onSuccess = { (data: [String: Any]) in
+            let unread_messages = data["unread_messages"] as! [[String: Any]]
+            for um in unread_messages {
+                let friendid = um["friendid"] as! String
+                let messages = um["messages"] as! [String]
+                if (!Global.unread_messages.keys.contains(friendid) && messages.count > 0) {
+                    Global.unread_messages[friendid] = [String]()
+                }
+                for m in messages {
+                    Global.unread_messages[friendid]!.append(m)
+                }
+            }
+        }
+        let onFailure = { (data: [String: Any]) in }
+        HttpUtil.get(url: url, onSuccess: onSuccess, onFailure: onFailure)
+    }
+    
+    static func fetchFriendNewMessages(friendid: String) {
+        let userid = Global.user.id!
+        let url = "/unread_messages/one?userid=\(userid)&friendid=\(friendid)"
+        let onSuccess = { (data: [String: Any]) in
+            let unread_messages = data["unread_messages"] as! [[String: Any]]
+            for um in unread_messages {
+                let friendid = um["friendid"] as! String
+                let messages = um["messages"] as! [String]
+                if (!Global.unread_messages.keys.contains(friendid) && messages.count > 0) {
+                    Global.unread_messages[friendid] = [String]()
+                }
+                for m in messages {
+                    Global.unread_messages[friendid]!.append(m)
+                }
+            }
+        }
+        let onFailure = { (data: [String: Any]) in }
+        HttpUtil.get(url: url, onSuccess: onSuccess, onFailure: onFailure)
+    }
 }

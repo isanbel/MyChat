@@ -43,6 +43,7 @@ class ChatTableViewController: UITableViewController, NSFetchedResultsController
         
         SocketIOUtil.initialize()
         if Config.DEVICE_TOKEN != nil { uploadDeviceToken() }
+        Utils.fetchAllNewMessages()
     }
     
     private func uploadDeviceToken() {
