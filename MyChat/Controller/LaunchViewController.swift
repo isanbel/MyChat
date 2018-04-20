@@ -54,6 +54,7 @@ class LaunchViewController: UIViewController, UINavigationControllerDelegate {
                     
                     if indexOfLoggedinUser >= 0 {
                         Global.user = fetchedObjects[indexOfLoggedinUser]
+                        Global.userid = Global.user.id
                         self.performSegue(withIdentifier: "showMyChat", sender: self)
                     } else {
                         self.performSegue(withIdentifier: "showEntry", sender: self)
@@ -79,6 +80,7 @@ class LaunchViewController: UIViewController, UINavigationControllerDelegate {
         // logout
         if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
             Global.user.loggedin = false
+            Global.userid = nil
             appDelegate.saveContext()
         }
     }

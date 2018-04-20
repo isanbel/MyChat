@@ -38,9 +38,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-        UIApplication.shared.applicationIconBadgeNumber = 0
+        // UIApplication.shared.applicationIconBadgeNumber = 0
         print("##########applicationDidBecomeActive")
-        SocketIOUtil.reportOnline()
+        if Global.userid != nil {
+            SocketIOUtil.reportOnline()
+            Utils.fetchAllNewMessages()
+        }
     }
     
     func applicationWillResignActive(_ application: UIApplication) {
@@ -130,7 +133,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // self.forwardTokenToServer(token: datastr)
     }
     
-    
     func application(_ application: UIApplication,
                      didFailToRegisterForRemoteNotificationsWithError error: Error) {
         // The token is not currently available.
@@ -139,8 +141,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        UIApplication.shared.applicationIconBadgeNumber = 0
-        print("~~~~~~~~~~\(userInfo)")
+        // UIApplication.shared.applicationIconBadgeNumber = 0
     }
 }
 

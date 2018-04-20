@@ -180,9 +180,10 @@ class ChatPageTableViewController:
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        print("我来到了：ChatPageTableViewController")
+        print("&&&&&&&&&&&&&&&&&&&ChatPageTableViewController")
         setDelegate()
         updateLeftTopNotification()
+        Utils.fetchFriendNewMessages(friendid: friend.id!)
     }
     
     override func didReceiveMemoryWarning() {
