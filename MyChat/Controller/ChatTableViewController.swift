@@ -87,8 +87,9 @@ class ChatTableViewController: UITableViewController, NSFetchedResultsController
         
         hideSearchbarIfTableEmpty()
         
-        // 更新tabbar
         setDelegate()
+        setUnreadMessagesDelegate()
+        // 更新tabbar
         updateTabbar()
     }
     
