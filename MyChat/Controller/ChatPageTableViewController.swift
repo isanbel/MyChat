@@ -57,6 +57,7 @@ class ChatPageTableViewController:
         if inputTool == InputTool.microphone {
             self.iflySpeechRecognizer.startListening()
             self.is_recording = true
+            activeRecordingBtn()
             print("startRecord")
         }
     }
@@ -65,8 +66,19 @@ class ChatPageTableViewController:
         if inputTool == InputTool.microphone {
             self.iflySpeechRecognizer.stopListening()
             self.is_recording = false
+            releaseRecordingBtn()
             print("stopRecord")
         }
+    }
+    
+    func activeRecordingBtn() {
+        textField.text = "松开 结束"
+        textField.backgroundColor = keyBoardOnRight ? UIColor(hex: "#dddddd") : UIColor(hex: "#bbbbbb")
+    }
+    
+    func releaseRecordingBtn() {
+        textField.text = "按住 说话"
+        textField.backgroundColor = keyBoardOnRight ? .white : UIColor(hex: "#f1f1f1")
     }
     
     @IBAction func switchInputTool() {
@@ -100,7 +112,7 @@ class ChatPageTableViewController:
         }
         
         // 更新图标
-        let btnIconName = inputTool == InputTool.keyboard ? "chat-input-voice" : "chat-input-emoji"
+        let btnIconName = inputTool == InputTool.keyboard ? "chat-input-voice" : "chat-input-keyboard"
         inputToolBtn.setImage(UIImage(named: btnIconName), for: .normal)
     }
     
@@ -353,10 +365,6 @@ class ChatPageTableViewController:
                 socketSend(message: message_sent)
             }
         }
-        // 解决tableview自己往上跑的问题
-        if inputTool == InputTool.microphone {
-            self.tableView.transform = CGAffineTransform(translationX: 0,y: 0)
-        }
     }
 
     func saveMessageToStoreAndShow() {
@@ -379,6 +387,11 @@ class ChatPageTableViewController:
         pushTableViewIfHidden()
 
         scrollToBottom(animated: true)
+        
+        // 解决tableview自己往上跑的问题
+        if inputTool == InputTool.microphone {
+            self.tableView.transform = CGAffineTransform(translationX: 0,y: 0)
+        }
     }
     
     func scrollToBottom(animated: Bool) {
