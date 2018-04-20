@@ -292,9 +292,12 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cHa-uq-dU7" customClass="RoundedTextField" customModule="MyChat" customModuleProvider="target">
-                                                    <rect key="frame" x="77" y="8" width="283" height="30"/>
+                                                    <rect key="frame" x="77" y="3" width="283" height="40"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="40" id="6FN-nM-eRh"/>
+                                                    </constraints>
                                                     <nil key="textColor"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="姓名：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kMW-Qh-6fM">
@@ -313,22 +316,24 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="40" id="geM-bX-Bcy">
-                                        <rect key="frame" x="0.0" y="126" width="375" height="40"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="49" id="geM-bX-Bcy">
+                                        <rect key="frame" x="0.0" y="126" width="375" height="49"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="geM-bX-Bcy" id="Cph-D3-qnS">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="39.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="48.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="性别：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ASm-W1-LwP">
-                                                    <rect key="frame" x="15" y="9.5" width="52" height="21"/>
+                                                    <rect key="frame" x="15" y="14" width="52" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="8DV-D9-f13">
-                                                    <rect key="frame" x="238" y="6" width="121" height="28"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="8DV-D9-f13">
+                                                    <rect key="frame" x="239" y="10.5" width="121" height="29"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="121" id="LUH-1J-cH4"/>
+                                                    </constraints>
                                                     <segments>
                                                         <segment title="First"/>
                                                         <segment title="Second"/>
@@ -336,8 +341,10 @@
                                                 </segmentedControl>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="8DV-D9-f13" firstAttribute="centerY" secondItem="Cph-D3-qnS" secondAttribute="centerY" id="3o6-HC-kHb"/>
                                                 <constraint firstItem="ASm-W1-LwP" firstAttribute="centerY" secondItem="Cph-D3-qnS" secondAttribute="centerY" id="LJF-KZ-9Kp"/>
                                                 <constraint firstItem="ASm-W1-LwP" firstAttribute="leading" secondItem="Cph-D3-qnS" secondAttribute="leading" constant="15" id="t9I-Rb-bLX"/>
+                                                <constraint firstAttribute="trailing" secondItem="8DV-D9-f13" secondAttribute="trailing" constant="15" id="vp5-ze-UaN"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>

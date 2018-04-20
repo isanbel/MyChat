@@ -72,7 +72,7 @@ class NewFriendTableViewController: UITableViewController, UITextFieldDelegate, 
                 if UIImagePickerController.isSourceTypeAvailable(.camera) {
                     let imagePicker = UIImagePickerController()
                     imagePicker.delegate = self
-                    imagePicker.allowsEditing = false
+                    imagePicker.allowsEditing = true
                     imagePicker.sourceType = .camera
                     
                     self.present(imagePicker, animated: true, completion: nil)
@@ -83,7 +83,7 @@ class NewFriendTableViewController: UITableViewController, UITextFieldDelegate, 
                 if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
                     let imagePicker = UIImagePickerController()
                     imagePicker.delegate = self
-                    imagePicker.allowsEditing = false
+                    imagePicker.allowsEditing = true
                     imagePicker.sourceType = .photoLibrary
                     
                     self.present(imagePicker, animated: true, completion: nil)
@@ -217,8 +217,13 @@ class NewFriendTableViewController: UITableViewController, UITextFieldDelegate, 
     // MARK: - UIImagePickerControllerDelegate method
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        if let selectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            photoImageView.image = selectedImage
+        if let img = info[UIImagePickerControllerEditedImage] as? UIImage
+        {
+            photoImageView.image = img
+        }
+        else if let img = info[UIImagePickerControllerOriginalImage] as? UIImage
+        {
+            photoImageView.image = img
             photoImageView.contentMode = .scaleAspectFill
             photoImageView.clipsToBounds = true
         }
