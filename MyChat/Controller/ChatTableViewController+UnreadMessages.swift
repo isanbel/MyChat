@@ -11,7 +11,7 @@ import UIKit
 extension ChatTableViewController: UnreadMessageDelegate {
     
     func setUnreadMessagesDelegate() {
-        UnreadMessageDelegate.delegate = self
+        Utils.delegate = self
     }
     
     func fetchUnreadMessages() {

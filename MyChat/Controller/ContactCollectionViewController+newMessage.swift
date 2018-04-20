@@ -17,7 +17,6 @@ extension ContactCollectionViewController: SocketIODelegate {
     func recieveMessages(messages: [String], from: String) {
         print("在列表收到了：\(messages)")
         saveUnreadMessages(messages: messages, from: from)
-        print("更新了lastmessage，未读：\(unread)")
         // update UI
         self.viewWillAppear(false)
         print("更新了table")
@@ -46,6 +45,7 @@ extension ContactCollectionViewController: SocketIODelegate {
                 message.isDateIdentifier = false
                 
                 // delete the old last message and add the new one
+                var unread = 0
                 let context = appDelegate.persistentContainer.viewContext
                 if let unreadCount = friend.lastMessage?.unreadCount {
                     unread = Int(unreadCount)
