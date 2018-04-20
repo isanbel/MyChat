@@ -53,22 +53,47 @@ class ChatPageTableViewController:
     var socket_manager: SocketManager!
     var socket: SocketIOClient!
     
-    @IBAction func startRecord() {
-        if inputTool == InputTool.microphone {
-            self.iflySpeechRecognizer.startListening()
-            self.is_recording = true
-            activeRecordingBtn()
-            print("startRecord")
-        }
+    private lazy var recordingView: UIView = {
+        let recordingView = UIView()
+        recordingView.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+        recordingView.center = self.view.center
+        recordingView.frame.origin.y  = recordingView.frame.origin.y - 100
+        recordingView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        recordingView.layer.cornerRadius = 10
+        recordingView.layer.masksToBounds = true
+        
+        let label = UILabel()
+        label.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+        label.textAlignment = .center
+        label.textColor = .white
+        label.text = "录音中"
+        recordingView.addSubview(label)
+        recordingView.layer.zPosition = 2
+        
+        return recordingView
+    }()
+    
+    func initRecordingBtn() {
+        recordingBtn.addTarget(self, action: #selector(startRecord), for: .touchDown)
+        recordingBtn.addTarget(self, action: #selector(stopRecord), for: .touchUpInside)
     }
     
-    @IBAction func stopRecord() {
-        if inputTool == InputTool.microphone {
-            self.iflySpeechRecognizer.stopListening()
-            self.is_recording = false
-            releaseRecordingBtn()
-            print("stopRecord")
-        }
+    @objc func startRecord() {
+        activeRecordingBtn()
+        self.view.addSubview(recordingView)
+        
+        self.iflySpeechRecognizer.startListening()
+        self.is_recording = true
+        print("startRecord")
+    }
+    
+    @objc func stopRecord() {
+        releaseRecordingBtn()
+        recordingView.removeFromSuperview()
+        
+        self.iflySpeechRecognizer.stopListening()
+        self.is_recording = false
+        print("stopRecord")
     }
     
     func activeRecordingBtn() {
@@ -119,8 +144,6 @@ class ChatPageTableViewController:
     func addRecordingBtn() {
         recordingBtn.frame = textField.frame
         recordingBtn.frame.origin.y = recordingBtn.frame.origin.y + keyBaordView.frame.origin.y
-        recordingBtn.addTarget(self, action: #selector(startRecord), for: .touchDown)
-        recordingBtn.addTarget(self, action: #selector(stopRecord), for: .touchUpInside)
         self.view.addSubview(recordingBtn)
     }
     
@@ -171,6 +194,7 @@ class ChatPageTableViewController:
         textField.delegate = self as UITextFieldDelegate
         textField.returnKeyType = UIReturnKeyType.send
         textField.enablesReturnKeyAutomatically  = true
+        initRecordingBtn()
 
          NotificationCenter.default.addObserver(self, selector: #selector(self.keyBoardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
          NotificationCenter.default.addObserver(self, selector: #selector(self.keyBoardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
