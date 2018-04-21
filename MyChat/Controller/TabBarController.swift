@@ -40,6 +40,6 @@ extension TabBarController: TabbarDelegate {
         }
         print("开始更新tab了，总数是\(unreadCount)")
         tabbar.items![0].badgeValue = unreadCount == 0 ? nil : String(unreadCount)
-        Global.badgeValue = Int32(unreadCount)
+        // Global.badgeValue = Int32(unreadCount)
     }
 }

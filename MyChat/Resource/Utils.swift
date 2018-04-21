@@ -119,7 +119,7 @@ class Utils {
                 }
             }
             delegate!.fetchUnreadMessages()
-            UIApplication.shared.applicationIconBadgeNumber = Int(Global.badgeValue)
+            // UIApplication.shared.applicationIconBadgeNumber = Int(Global.badgeValue)
         }
         let onFailure = { (data: [String: Any]) in }
         HttpUtil.get(url: url, onSuccess: onSuccess, onFailure: onFailure)
@@ -141,7 +141,7 @@ class Utils {
                 }
             }
             delegate!.fetchUnreadMessages()
-            UIApplication.shared.applicationIconBadgeNumber = Int(Global.badgeValue)
+            // UIApplication.shared.applicationIconBadgeNumber = Int(Global.badgeValue)
         }
         let onFailure = { (data: [String: Any]) in }
         HttpUtil.get(url: url, onSuccess: onSuccess, onFailure: onFailure)

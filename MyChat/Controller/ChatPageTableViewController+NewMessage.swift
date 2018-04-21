@@ -70,8 +70,8 @@ extension ChatPageTableViewController: SocketIODelegate {
     func readUnreadMessages() {
         if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
             self.friend.lastMessage?.unreadCount = 0
-            Global.badgeValue -= (self.friend.lastMessage?.unreadCount)!
-            UIApplication.shared.applicationIconBadgeNumber = Int(Global.badgeValue)
+            // Global.badgeValue -= (self.friend.lastMessage?.unreadCount)!
+            // UIApplication.shared.applicationIconBadgeNumber = Int(Global.badgeValue)
             appDelegate.saveContext()
         }
     }
