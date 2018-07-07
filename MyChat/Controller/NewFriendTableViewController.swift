@@ -14,16 +14,22 @@ class NewFriendTableViewController: UITableViewController, UITextFieldDelegate, 
     @IBOutlet var nameTextField: RoundedTextField! {
         didSet {
             nameTextField.tag = 1
-            nameTextField.becomeFirstResponder()
             nameTextField.delegate = self
         }
     }
     
-    @IBOutlet var genderSwitchField: UISwitch! {
+    @IBOutlet weak var selectView: UISegmentedControl! {
         didSet {
-            genderSwitchField.tag = 2
-            genderSwitchField.becomeFirstResponder()
-//            genderSwitchField.delegate = self
+            selectView.layer.cornerRadius = 5
+            selectView.layer.masksToBounds = true
+            // selectView.layer.borderColor = UIColor(hex: "#edf2fa").cgColor
+            selectView.layer.borderWidth = 0
+            
+            selectView.layer.backgroundColor = UIColor.white.cgColor
+            selectView.tintColor = UIColor(hex: "#edf2fa")
+            
+            selectView.setTitleTextAttributes([NSAttributedStringKey.font : UIFont(name: "PingFangSC-Medium", size: 14)!, NSAttributedStringKey.foregroundColor : UIColor(hex: "#4c72a6")], for: .selected)
+            selectView.setTitleTextAttributes([NSAttributedStringKey.font : UIFont(name: "PingFangSC-Regular", size: 14)!, NSAttributedStringKey.foregroundColor : UIColor(hex: "#9fa0a0")], for: .normal)
         }
     }
     
@@ -33,9 +39,12 @@ class NewFriendTableViewController: UITableViewController, UITextFieldDelegate, 
         super.viewDidLoad()
         
         // Configure the table view
-        tableView.separatorStyle = .none
         tableView.tableFooterView = UIView()
-        tableView.backgroundColor = UIColor(displayP3Red: 237/255, green: 235/255, blue: 235/255, alpha: 1)
+        
+        // default avatar
+        photoImageView.image = UIImage(named: "avatar")
+        selectView.setTitle("男", forSegmentAt: 0)
+        selectView.setTitle("女", forSegmentAt: 1)
     }
 
     override func didReceiveMemoryWarning() {
@@ -51,51 +60,6 @@ class NewFriendTableViewController: UITableViewController, UITextFieldDelegate, 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 3
     }
-
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
-    }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
     
     // MARK: - UITableViewDelegate methods
     
@@ -108,7 +72,7 @@ class NewFriendTableViewController: UITableViewController, UITextFieldDelegate, 
                 if UIImagePickerController.isSourceTypeAvailable(.camera) {
                     let imagePicker = UIImagePickerController()
                     imagePicker.delegate = self
-                    imagePicker.allowsEditing = false
+                    imagePicker.allowsEditing = true
                     imagePicker.sourceType = .camera
                     
                     self.present(imagePicker, animated: true, completion: nil)
@@ -119,7 +83,7 @@ class NewFriendTableViewController: UITableViewController, UITextFieldDelegate, 
                 if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
                     let imagePicker = UIImagePickerController()
                     imagePicker.delegate = self
-                    imagePicker.allowsEditing = false
+                    imagePicker.allowsEditing = true
                     imagePicker.sourceType = .photoLibrary
                     
                     self.present(imagePicker, animated: true, completion: nil)
@@ -150,28 +114,72 @@ class NewFriendTableViewController: UITableViewController, UITextFieldDelegate, 
         return true
     }
     
+    // Called when the user click on the view (outside the UITextField).
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
     // MARK: - Action method
     
     @IBAction func saveButtonTapped(sender: AnyObject) {
+        if !validateInputs() { return }
         
-        if nameTextField.text == "" {
-            let alertController = UIAlertController(title: "添加失败", message: "请确定所有输入框皆非空白", preferredStyle: .alert)
-            let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-            alertController.addAction(alertAction)
-            present(alertController, animated: true, completion: nil)
-            
-            return
+        addFriend() // -> updateAvatar() -> saveFriendData() -> popView
+    }
+    
+    func addFriend() {
+        let userid = Global.user.id
+        let friendName = nameTextField.text
+        let friendGender = selectView.selectedSegmentIndex == 0 ? "male" : "female"
+        
+        let parameters: [String: Any] = [
+            "userid": userid!,
+            "friendname": friendName!,
+            "gender": friendGender,
+            "birth": Date().description
+        ]
+        
+        let url = "/friends"
+        let onSuccess = { (data: [String: Any]) in
+            self.updateAvatar(data: data)
+        }
+        let onFailure = { (data: [String: Any]) in
+            let msg = data["message"] as! String
+            self.present(Utils.getAlertController(title: "错误", message: msg), animated: true, completion: nil)
         }
         
-        print("Name: \(nameTextField.text ?? "")")
-        print("isMale: \(genderSwitchField.isOn)")
+        HttpUtil.post(url: url, parameters: parameters, onSuccess: onSuccess, onFailure: onFailure);
+    }
+    
+    func updateAvatar(data: [String: Any]) {
+        let friendId = data["friendid"]
         
-        // Save data
+        let parameters: [String: Any] = [
+            "friendid": friendId!
+        ]
+        
+        let url = "/friends/upload"
+        let thatData = data
+        let onSuccess = { (data: [String: Any]) in
+            self.saveFriendData(data: thatData)
+        }
+        let onFailure = { (data: [String: Any]) in
+            let msg = data["message"] as! String
+            self.present(Utils.getAlertController(title: "错误", message: msg), animated: true, completion: nil)
+            
+            // still save since the friend was really created
+            self.saveFriendData(data: thatData)
+        }
+        
+        HttpUtil.postWithImage_(url: url, imageName: "friendAvatar", image: photoImageView.image!, parameters: parameters, onSuccess: onSuccess, onFailure: onFailure)
+    }
+    
+    func saveFriendData(data: [String: Any]) {
         if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
             let friend = FriendMO(context: appDelegate.persistentContainer.viewContext)
-            friend.name = nameTextField.text
-            friend.isMale = genderSwitchField.isOn
-            friend.id = "123"
+            friend.name = data["friendname"] as? String
+            friend.isMale = (data["gender"] as? String == "male") ? true : false
+            friend.id = data["friendid"] as? String
             friend.birthday = Date()
             if let friendAvatar = photoImageView.image {
                 friend.avatar = UIImagePNGRepresentation(friendAvatar)
@@ -180,32 +188,46 @@ class NewFriendTableViewController: UITableViewController, UITextFieldDelegate, 
             
             appDelegate.saveContext()
         }
-        
-        // dismiss(animated: true, completion: nil)
+        // pop to last page view
         navigationController?.popViewController(animated: true)
+    }
+    
+    func validateInputs() -> Bool {
+        if let friendAvatar = photoImageView.image {
+            if friendAvatar == UIImage(named: "avatar") {
+                alertMessage(controllerTitle: "添加失败", message: "请为好友设置头像", actionTitle: "好的")
+                return false
+            }
+        }
+        if nameTextField.text == "" {
+            alertMessage(controllerTitle: "添加失败", message: "请为好友想个名字", actionTitle: "好的")
+            return false
+        }
+        
+        return true
+    }
+    
+    func alertMessage(controllerTitle: String, message: String, actionTitle: String) {
+        let alertController = UIAlertController(title: controllerTitle, message: message, preferredStyle: .alert)
+        let alertAction = UIAlertAction(title: actionTitle, style: .default, handler: nil)
+        alertController.addAction(alertAction)
+        present(alertController, animated: true, completion: nil)
     }
     
     // MARK: - UIImagePickerControllerDelegate method
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        if let selectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            photoImageView.image = selectedImage
+        if let img = info[UIImagePickerControllerEditedImage] as? UIImage
+        {
+            photoImageView.image = img
+        }
+        else if let img = info[UIImagePickerControllerOriginalImage] as? UIImage
+        {
+            photoImageView.image = img
             photoImageView.contentMode = .scaleAspectFill
             photoImageView.clipsToBounds = true
         }
         
         dismiss(animated: true, completion: nil)
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

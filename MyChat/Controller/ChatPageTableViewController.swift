@@ -8,26 +8,150 @@
 
 import UIKit
 import CoreData
+import AVFoundation
+import SwiftyJSON
+import SocketIO
 
-class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, NSFetchedResultsControllerDelegate {
+enum InputTool {
+    case keyboard
+    case microphone
+}
 
-    var fetchResultController: NSFetchedResultsController<UserMO>!
-
+class ChatPageTableViewController:
+    UIViewController,
+    UITableViewDataSource,
+    UITableViewDelegate,
+    UITextFieldDelegate,
+    NSFetchedResultsControllerDelegate
+{
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var keyBaordView: UIView!
     @IBOutlet weak var textField: UITextField!
-
+    @IBOutlet weak var inputToolBtn: UIButton!
+    
+    // iFly
+    var iflySpeechRecognizer: IFlySpeechRecognizer = IFlySpeechRecognizer.sharedInstance() as IFlySpeechRecognizer
+    var is_recording: Bool = false
+    var voice_message: String = ""
+    
+    var fetchResultController: NSFetchedResultsController<UserMO>!
     var friend = FriendMO()
     var me = UserMO()
-
     var chatMessages: [ChatMessageMO] = []
-
     var hiddenTableCellHeight: CGFloat = 0
     var keyBoardHeight: CGFloat = 0
     var translationY: CGFloat = 0
 
+    var keyBoardOnRight: Bool = true
+    var keyBoardSnapShotView: UIImageView!
+    
+    var inputTool: InputTool = InputTool.keyboard
+    var inputTextBeforeUsingMicrophone: String?
+    let recordingBtn = UIButton()
+    
+    // socket
+    var socket_manager: SocketManager!
+    var socket: SocketIOClient!
+    
+    private lazy var recordingView: UIView = {
+        let recordingView = UIView()
+        recordingView.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+        recordingView.center = self.view.center
+        recordingView.frame.origin.y  = recordingView.frame.origin.y - 100
+        recordingView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        recordingView.layer.cornerRadius = 10
+        recordingView.layer.masksToBounds = true
+        
+        let label = UILabel()
+        label.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+        label.textAlignment = .center
+        label.textColor = .white
+        label.text = "录音中"
+        recordingView.addSubview(label)
+        recordingView.layer.zPosition = 2
+        
+        return recordingView
+    }()
+    
+    func initRecordingBtn() {
+        recordingBtn.addTarget(self, action: #selector(startRecord), for: .touchDown)
+        recordingBtn.addTarget(self, action: #selector(stopRecord), for: .touchUpInside)
+    }
+    
+    @objc func startRecord() {
+        activeRecordingBtn()
+        self.view.addSubview(recordingView)
+        
+        self.iflySpeechRecognizer.startListening()
+        self.is_recording = true
+        print("startRecord")
+    }
+    
+    @objc func stopRecord() {
+        releaseRecordingBtn()
+        recordingView.removeFromSuperview()
+        
+        self.iflySpeechRecognizer.stopListening()
+        self.is_recording = false
+        print("stopRecord")
+    }
+    
+    func activeRecordingBtn() {
+        textField.text = "松开 结束"
+        textField.backgroundColor = keyBoardOnRight ? UIColor(hex: "#dddddd") : UIColor(hex: "#bbbbbb")
+    }
+    
+    func releaseRecordingBtn() {
+        textField.text = "按住 说话"
+        textField.backgroundColor = keyBoardOnRight ? .white : UIColor(hex: "#f1f1f1")
+    }
+    
+    @IBAction func switchInputTool() {
+        inputTool = inputTool == InputTool.keyboard ? InputTool.microphone : InputTool.keyboard
+        
+        // 使用麦克风
+        if inputTool == InputTool.microphone {
+            // 更新输入框
+            inputTextBeforeUsingMicrophone = textField.text
+            textField.text = "按住 说话"
+            textField.font = UIFont(name: (textField.font?.fontName)!, size: 18)
+            textField.textAlignment = .center
+            
+            // 收起键盘
+            textField.resignFirstResponder()
+            
+            addRecordingBtn()
+        }
+        // 使用键盘
+        else {
+            // 更新输入框
+            textField.text = inputTextBeforeUsingMicrophone
+            inputTextBeforeUsingMicrophone = nil
+            textField.font = UIFont(name: (textField.font?.fontName)!, size: 14)
+            textField.textAlignment = .left
+            
+            // 打开键盘
+            textField.becomeFirstResponder()
+            
+            removeRecordingBtn()
+        }
+        
+        // 更新图标
+        let btnIconName = inputTool == InputTool.keyboard ? "chat-input-voice" : "chat-input-keyboard"
+        inputToolBtn.setImage(UIImage(named: btnIconName), for: .normal)
+    }
+    
+    func addRecordingBtn() {
+        recordingBtn.frame = textField.frame
+        recordingBtn.frame.origin.y = recordingBtn.frame.origin.y + keyBaordView.frame.origin.y
+        self.view.addSubview(recordingBtn)
+    }
+    
+    func removeRecordingBtn() {
+        recordingBtn.removeFromSuperview()
+    }
+    
     func getData() {
-
         // Fetch data from data store
         let fetchRequest: NSFetchRequest<UserMO> = UserMO.fetchRequest()
         let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
@@ -54,6 +178,7 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = friend.name
+        self.navigationController?.navigationItem.backBarButtonItem?.title = friend.name
 
         getData()
         scrollToBottom(animated: false)
@@ -63,12 +188,13 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
         tableView.dataSource = self
         tableView.separatorStyle = .none
         tableView.tableFooterView = UIView()
-        tableView.backgroundColor = UIColor(displayP3Red: 237/255, green: 235/255, blue: 235/255, alpha: 1)
+        tableView.backgroundColor = .white
 
         // the keyboard view
         textField.delegate = self as UITextFieldDelegate
         textField.returnKeyType = UIReturnKeyType.send
         textField.enablesReturnKeyAutomatically  = true
+        initRecordingBtn()
 
          NotificationCenter.default.addObserver(self, selector: #selector(self.keyBoardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
          NotificationCenter.default.addObserver(self, selector: #selector(self.keyBoardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
@@ -76,16 +202,31 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.handleTouches))
         tapGestureRecognizer.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tapGestureRecognizer)
+        
+        initIfly()
+        
+        addGestureToKeyBoardView()
 
+        print(friend)
+        initSocket()
+        
+        readUnreadMessages()
     }
-
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        print("&&&&&&&&&&&&&&&&&&&ChatPageTableViewController")
+        setDelegate()
+        setUnreadMessagesDelegate()
+        updateLeftTopNotification()
+        Utils.fetchFriendNewMessages(friendid: friend.id!)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
-
-    // MARK: - Table view data source
-
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -103,12 +244,16 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
             cell.me = me
             cell.lastMessage = indexPath.row > 1 ? chatMessages[indexPath.row - 1] : nil
             cell.message = chatMessages[indexPath.row]
+            cell.showProfile = { () in
+                self.performSegue(withIdentifier: "ShowFriendProfile", sender: self)
+            }
+            
             return cell
         } else {
             let cellIdentifier = "ChatDateIndicatorCell"
             let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! ChatDateIndicatorCell
 
-            cell.dateLabel.text = chatMessages[indexPath.row].date?.relativeTime
+            cell.dateLabel.text = chatMessages[indexPath.row].date?.relativeDetailedTime
 
             return cell
         }
@@ -116,7 +261,6 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
 
 
     @objc func keyBoardWillShow(note:NSNotification) {
-
         let userInfo  = note.userInfo! as NSDictionary
         let keyBoardBounds = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
         let duration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
@@ -139,7 +283,6 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
 
         if duration > 0 {
             let options = UIViewAnimationOptions(rawValue: UInt((userInfo[UIKeyboardAnimationCurveUserInfoKey] as! NSNumber).intValue << 16))
-
             UIView.animate(withDuration: duration, delay: 0, options:options, animations: animations, completion: nil)
         } else {
             animations()
@@ -191,8 +334,8 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
         scrollToBottom(animated: true)
         return false
     }
-
-    func saveMessageToStoreAndShow() {
+    
+    func appendDateIndicatorIfNeeded() {
         if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
             // save date indicator if last message is nil or 5 min ago
             if let lastmessageDate = friend.lastMessage?.date {
@@ -202,7 +345,6 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
                     dateIndicator.contentText = ""
                     dateIndicator.friend = friend
                     dateIndicator.isDateIdentifier = true
-
                     appendMessageAndShow(message: dateIndicator)
                 }
             } else {
@@ -211,77 +353,56 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
                 dateIndicator.contentText = ""
                 dateIndicator.friend = friend
                 dateIndicator.isDateIdentifier = true
-
                 appendMessageAndShow(message: dateIndicator)
             }
-
+            appDelegate.saveContext()
+        }
+    }
+    
+    func sendMessage(_ message_sent: String) {
+        let msgTypeIsSent = keyBoardOnRight
+        if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
+            appendDateIndicatorIfNeeded()
+            
             let message = ChatMessageMO(context: appDelegate.persistentContainer.viewContext)
-            message.isSent = true
+            message.isSent = msgTypeIsSent
             message.date = Date()
-            message.contentText = textField.text!
+            message.contentText = message_sent
             message.friend = friend
             message.isDateIdentifier = false
-
+            
             // delete the old last message and add the new one
             let context = appDelegate.persistentContainer.viewContext
             if friend.lastMessage != nil {
                 context.delete(friend.lastMessage!)
             }
-
+            
             // 更新 lastMessage
             let lastmessage = LastMessageMO(context: appDelegate.persistentContainer.viewContext)
-            lastmessage.content = textField.text!
+            lastmessage.content = message_sent
             lastmessage.date = Date()
             friend.lastMessage = lastmessage
-
+            
             // 保存发送的信息
             appDelegate.saveContext()
             appendMessageAndShow(message: message)
-
-            let parameters: [String: Any] = [
-                "friendid": friend.id!,
-                "mes": message.contentText!
-            ]
-            let onSuccess = { (data: [String: Any]) in
-                let result = data["result"] as! String
-                let response_msg = ChatMessageMO(context: appDelegate.persistentContainer.viewContext)
-                response_msg.isSent = false
-                response_msg.date = Date()
-                response_msg.contentText = result
-                response_msg.friend = self.friend
-                response_msg.isDateIdentifier = false
-
-                // delete the old last message and add the new one
-                let context = appDelegate.persistentContainer.viewContext
-                if self.friend.lastMessage != nil {
-                    context.delete(self.friend.lastMessage!)
-                }
-
-                // 更新 lastMessage
-                let lastmessage = LastMessageMO(context: appDelegate.persistentContainer.viewContext)
-                lastmessage.content = result
-                lastmessage.date = Date()
-                self.friend.lastMessage = lastmessage
-
-                print("== self.friend.lastMessage:")
-                print(self.friend.lastMessage ?? "")
-
-                appDelegate.saveContext()
-                self.appendMessageAndShow(message: response_msg)
+            
+            if msgTypeIsSent {
+                socketSend(message: message_sent)
             }
-            let onFailure = { (data: [String: Any]) in
-                // TODO: 获取服务器好友回复失败后的提示
-            }
-            // 从服务器获取好友的回复
-            HttpUtil.post(url: "/dealMessage", parameters: parameters, onSuccess: onSuccess, onFailure: onFailure)
         }
     }
 
+    func saveMessageToStoreAndShow() {
+        let messgae = textField.text!
+        sendMessage(messgae)
+    }
+    
     func appendMessageAndShow(message: ChatMessageMO) {
         chatMessages.append(message)
 
         tableView.beginUpdates()
-        tableView.insertRows(at: [IndexPath(row: chatMessages.count - 1, section: 0)], with: .automatic)
+        tableView.insertRows(at: [IndexPath(row: chatMessages.count - 1, section: 0)], with: .bottom)
         tableView.endUpdates()
 
         // deal with the hidden cell by the keyboard
@@ -292,9 +413,14 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
         pushTableViewIfHidden()
 
         scrollToBottom(animated: true)
+        
+        // 解决tableview自己往上跑的问题
+        if inputTool == InputTool.microphone {
+            self.tableView.transform = CGAffineTransform(translationX: 0,y: 0)
+        }
     }
-
-    func scrollToBottom(animated: Bool){
+    
+    func scrollToBottom(animated: Bool) {
         if self.chatMessages.count > 0 {
             DispatchQueue.main.async {
                 let indexPath = IndexPath(row: self.chatMessages.count-1, section: 0)
@@ -302,13 +428,65 @@ class ChatPageTableViewController: UIViewController, UITableViewDataSource, UITa
             }
         }
     }
-
+    
+    // TODO: 改成 friendSendsMessages 比较好，支持发多条信息
+    func friendSendsMessage(_ message_sent: String) {
+        if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
+            // save date indicator if last message is nil or 5 min ago
+            if let lastmessageDate = friend.lastMessage?.date {
+                if lastmessageDate.timeIntervalSinceNow < -300 {
+                    let dateIndicator = ChatMessageMO(context: appDelegate.persistentContainer.viewContext)
+                    dateIndicator.date = Date()
+                    dateIndicator.contentText = ""
+                    dateIndicator.friend = friend
+                    dateIndicator.isDateIdentifier = true
+                    appendMessageAndShow(message: dateIndicator)
+                }
+            } else {
+                let dateIndicator = ChatMessageMO(context: appDelegate.persistentContainer.viewContext)
+                dateIndicator.date = Date()
+                dateIndicator.contentText = ""
+                dateIndicator.friend = friend
+                dateIndicator.isDateIdentifier = true
+                appendMessageAndShow(message: dateIndicator)
+            }
+            
+            let message = ChatMessageMO(context: appDelegate.persistentContainer.viewContext)
+            message.isSent = false
+            message.date = Date()
+            message.contentText = message_sent
+            message.friend = friend
+            message.isDateIdentifier = false
+            
+            // delete the old last message and add the new one
+            let context = appDelegate.persistentContainer.viewContext
+            if friend.lastMessage != nil {
+                context.delete(friend.lastMessage!)
+            }
+            
+            // 更新 lastMessage
+            let lastmessage = LastMessageMO(context: appDelegate.persistentContainer.viewContext)
+            lastmessage.content = message_sent
+            lastmessage.date = Date()
+            friend.lastMessage = lastmessage
+            
+            // 保存发送的信息
+            appDelegate.saveContext()
+            appendMessageAndShow(message: message)
+        }
+    }
+    
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowFriendManagement" {
             let destinationViewController = segue.destination as! FriendManagementTableViewController
             destinationViewController.friend = friend
+        }
+        
+        if segue.identifier == "ShowFriendProfile" {
+            let destinationViewController = segue.destination as! FriendProlileTableViewController
+            destinationViewController.friend = self.friend
         }
     }
 

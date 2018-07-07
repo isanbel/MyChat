@@ -11,6 +11,8 @@ import UIKit
 
 class ChatMessageCell: UITableViewCell {
 
+    var showProfile: (()->())?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -23,7 +25,12 @@ class ChatMessageCell: UITableViewCell {
     }
 
     //头像
-    let headerImgView:UIImageView = UIImageView()
+    lazy var headerImgView: UIImageView = {
+        let headerImgView = UIImageView()
+        headerImgView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(avatarTapped)))
+        headerImgView.isUserInteractionEnabled = true
+        return headerImgView
+    }()
     //内容
     var contentLbl:UITextView = UITextView()
     //气泡
@@ -91,7 +98,7 @@ class ChatMessageCell: UITableViewCell {
                 header_constraint_V_Format =  "V:|-6-[header(0)]"
                 bubble_constraint_H_Format  =  "|-(>=57)-[bubble(>=40)]-5-[header]"
                 bubble_constraint_V_Format  =  "V:|-6-[bubble(>=40)]-6-|"
-                content_constraint_H_Format  =  "|-(>=6)-[content]-6-|"
+                content_constraint_H_Format  =  "|-(>=10)-[content]-10-|"
                 content_constraint_V_Format  =  "V:|-3-[content]-3-|"
                 
                 if sameMsgType {
@@ -102,7 +109,7 @@ class ChatMessageCell: UITableViewCell {
                 header_constraint_V_Format =  "V:|-6-[header(40)]"
                 bubble_constraint_H_Format  =  "[header]-5-[bubble(>=40)]-(>=57)-|"
                 bubble_constraint_V_Format  =  "V:|-6-[bubble(>=40)]-6-|"
-                content_constraint_H_Format  =  "|-6-[content]-(>=6)-|"
+                content_constraint_H_Format  =  "|-10-[content]-(>=10)-|"
                 content_constraint_V_Format  =  "V:|-3-[content]-3-|"
                 
                 if sameMsgType {
@@ -137,9 +144,12 @@ class ChatMessageCell: UITableViewCell {
             self.headerImgView.clipsToBounds = true
             
             self.selectionStyle = .none
-            self.backgroundColor = UIColor(displayP3Red: 237/255, green: 235/255, blue: 235/255, alpha: 1)
+            // self.backgroundColor = UIColor(displayP3Red: 237/255, green: 235/255, blue: 235/255, alpha: 1)
         }
     }
     
+    @objc func avatarTapped() {
+        showProfile!()
+    }
 }
 

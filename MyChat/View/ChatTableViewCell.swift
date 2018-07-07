@@ -15,20 +15,47 @@ class ChatTableViewCell: UITableViewCell {
     @IBOutlet var dateLabel: UILabel!
     @IBOutlet var thumbnailImageView: UIImageView! {
         didSet {
-            thumbnailImageView.layer.cornerRadius = 5
+            thumbnailImageView.layer.cornerRadius = thumbnailImageView.layer.bounds.height / 2
             thumbnailImageView.clipsToBounds = true
         }
     }
+    var badgeValue: Int {
+        didSet {
+            if badgeValue == 0 {
+                badge.isHidden = true
+            } else {
+                badge.isHidden = false
+                badge.text = "  " + String(badgeValue) + "  "
+            }
+        }
+    }
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+    @IBOutlet var badge: UILabel! {
+        didSet {
+            // a simplest way to padding, but it's bad
+            badge.backgroundColor = .red
+            badge.textColor = .white
+            badge.textAlignment = .left
+            badge.layer.cornerRadius = badge.layer.bounds.height / 2
+            badge.clipsToBounds = true
+        }
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    
+    @IBOutlet var stickyImageView: UIImageView! {
+        didSet {
+            stickyImageView.isHidden = stickOnTop ? false : true
+        }
     }
-
+    
+    var stickOnTop: Bool {
+        didSet {
+            stickyImageView.isHidden = stickOnTop ? false : true
+        }
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        self.stickOnTop = false
+        badgeValue = 0
+        super.init(coder: aDecoder)
+    }
 }

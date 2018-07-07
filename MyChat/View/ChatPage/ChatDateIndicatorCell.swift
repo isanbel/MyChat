@@ -13,19 +13,6 @@ class ChatDateIndicatorCell: UITableViewCell {
     @IBOutlet var dateLabel: UILabel! {
         didSet {
             self.selectionStyle = .none
-            // TODO: height
         }
     }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-
 }

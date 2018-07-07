@@ -112,9 +112,11 @@ class ContactTableViewController: UITableViewController {
             // else store this new friend
             print("== store new friend")
             if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
+                print("*********")
                 let newFriend = FriendMO(context: appDelegate.persistentContainer.viewContext)
                 newFriend.name = friend["friendname"] as? String
                 newFriend.id = friend["friendid"] as? String
+                newFriend.attributename = friend["attributename"] as? String
                 
                 // TODO: parse Date
                 // newFriend.birthday
@@ -129,6 +131,8 @@ class ContactTableViewController: UITableViewController {
                 newFriend.isMale = friend["friendid"] as? String == "male" ? true : false
                 
                 newFriend.user = Global.user
+                
+                print(newFriend)
                 
                 appDelegate.saveContext()
             }
